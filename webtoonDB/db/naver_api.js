@@ -1,20 +1,6 @@
 const mongoose = require('mongoose');
 const axios = require('axios');
 
-const webtoonSchema = new mongoose.Schema({
-  webtoonId: Number, // webtoonId 필드 추가
-  title: String,
-  author: String,
-  url: String,
-  img: String,
-  service: String,
-  updateDays: [String],
-  // 기타 필요한 필드 추가
-},{strict : false});
-
-
-const Webtoon = mongoose.model('Webtoon', webtoonSchema);
-
 const days = {
   0: 'mon',
   1: 'tue',
@@ -39,15 +25,16 @@ db.once('open', () => {
     const collectionName = days[i];
     
     const DayModel = mongoose.model(collectionName, new mongoose.Schema({
-      webtoonId: Number, // webtoonId 필드 추가
-      page: Number, // 페이지 번호
-      service: String, // 웹툰 공급자 (naver, kakao, kakaoPage)
-      title: String,
-      url: String,
-      updateDay: String, // 웹툰 업데이트 구분
-      img: String,
-      author: String,
-      service: String,
+      lastUpdate: String,   // 웹툰 업데이트 날짜
+      webtoonId: Number,    // webtoonId 필드 추가
+      page: Number,         // 페이지 번호
+      service: String,      // 웹툰 공급자 (naver, kakao, kakaoPage)
+      title: String,        // 제목
+      url: String,          // url 정보
+      updateDay: String,    // 웹툰 업데이트 구분
+      img: String,          // 웹툰 썸네일
+      author: String,       // 작가
+      service: String,      // platform
     }));
     
     // API 요청
@@ -62,29 +49,28 @@ db.once('open', () => {
     axios.get(baseURL, { params })
     .then(response => {
       const webtoonData = response.data;
-
       // 웹툰 정보를 MongoDB에 저장
       const savePromises = webtoonData.webtoons.map(webtoonInfo => {
         // 중복 데이터 확인 및 업데이트
         const query = { webtoonId: webtoonInfo.webtoonId };
-          const update = { $set: webtoonInfo };
-          
-          return DayModel.findOneAndUpdate(query, update, { upsert: true, new: true }).exec();
-        });
+        const update = { $set: webtoonInfo };
+        const update2 = { $set: webtoonInfo.lastUpdate };
+        console.log(update2);
+        // Update each collection with the "lastUpdate" value
+        return DayModel.findOneAndUpdate(query, update, update2, { upsert: true, new: true }).exec();
+      });
         
-        Promise.all(savePromises)
-        .then(savedWebtoons => {
-          console.log('데이터가 MongoDB에 저장되었습니다:', savedWebtoons);
-        })
-        .catch(err => {
-            console.error('데이터 저장 중 에러 발생:', err);
-          });
-        })
-        .catch(error => {
-          console.error('API 요청 중 에러 발생:', error);
+      Promise.all(savePromises)
+      .then(savedWebtoons => {
+        console.log('데이터가 MongoDB에 저장되었습니다:', savedWebtoons);
+      })
+      .catch(err => {
+          console.error('데이터 저장 중 에러 발생:', err);
         });
-      }
+      })
+      .catch(error => {
+        console.error('API 요청 중 에러 발생:', error);
+      });
+    }
   }
 );
-
-module.exports = Webtoon;

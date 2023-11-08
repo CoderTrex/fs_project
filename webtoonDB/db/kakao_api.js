@@ -1,17 +1,6 @@
 const mongoose = require('mongoose');
 const axios = require('axios');
 
-const webtoonSchema = new mongoose.Schema({
-  webtoonId: Number, // webtoonId 필드 추가
-  title: String,
-  author: String,
-  url: String,
-  img: String,
-  service: String,
-  updateDays: [String],
-  // 기타 필요한 필드 추가
-},{strict : false});
-
 const days = {
   0: 'mon',
   1: 'tue',
