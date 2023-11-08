@@ -27,6 +27,7 @@ if response.status_code == 200:
             print(f"작가: {webtoon['author']}")
             print(f"서비스: {webtoon['service']}")
             print(f"URL: {webtoon['url']}")
+            url_webtoon =  webtoon['url']
             print()
 
     else:
@@ -34,3 +35,24 @@ if response.status_code == 200:
 
 else:
     print("API 요청에 실패했습니다. 상태 코드:", response.status_code)
+
+from bs4 import BeautifulSoup as bs
+import requests
+
+url = url_webtoon
+
+# requests 패키지를 이용해 'url'의 HTML 문서 가져오기
+response = requests.get(url)
+html_text = response.text
+
+# BeautifulSoup 패키지로 HTML 문서를 파싱
+soup = bs(html_text, 'html.parser')
+
+# "span.bullet.up" 선택자를 사용하여 원하는 요소를 찾습니다.
+element = soup.select_one('span.bullet.up')
+
+if element:
+    # 원하는 요소를 찾았을 경우, 해당 요소의 텍스트를 출력합니다.
+    print("원하는 값:", element.text)
+else:
+    print("해당 위치의 요소를 찾을 수 없습니다.")
