@@ -36,15 +36,15 @@ db.once('open', () => {
     const collectionName = days[i];
     
     const DayModel = mongoose.model(collectionName, new mongoose.Schema({
-      webtoonId: Number, // webtoonId 필드 추가
-      page: Number, // 페이지 번호
-      service: String, // 웹툰 공급자 (naver, kakao, kakaoPage)
-      title: String,
-      url: String,
-      updateDay: String, // 웹툰 업데이트 구분
-      img: String,
-      author: String,
-      service: String,
+      webtoonId: Number,  // webtoonId 필드 추가
+      page: Number,       // 페이지 번호
+      service: String,    // 웹툰 공급자 (naver, kakao, kakaoPage)
+      title: String,      // 웹툰 제목
+      url: String,        // 웹툰 접속 url
+      updateDay: String,  // 웹툰 업데이트 구분
+      img: String,        // 이미지
+      author: String,     // 작가
+      service: String,    // 서비스
     }));
     
     // API 요청
