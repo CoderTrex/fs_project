@@ -9,17 +9,22 @@ import time
 options = Options()
 options.headless = True  # 브라우저를 띄우지 않고 실행할 경우
 
-Genre_list = ['로멘스', '판타지', '액션', '일상', '스릴러', '개그', '무협/사극', '드라마',
-        '감성', '스포츠', '연도별웹툰', '브랜드웹툰', '드라마&영화 원작웹툰', '먼치킨',
-        '학원로멘스', '로판', '게임판타지', '오피스로맨스', '하이퍼리얼리즘', '캠퍼스로맨스',
-        'sf', '야구', '까칠남', '걸크러쉬', '재벌', '머니게임', '의학드라마']
+'''
+로멘스=PURE, 판타지=FANTASY, 액션=ACTION, 일상=DAILY, 스릴러=THRILL, 코믹=COMIC, 
+무협/사극=HISTORICAL, 드라마=DRAMA, 감성=SENSIBILITY, 스포츠=SPORTS, 
+'''
 
+# 액션, 스릴러, 일상, 코믹, 무협/사극, 드라마, 스포츠
 
+# Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
+#         'SENSIBILITY', 'SPORTS'] 
+Genre_list = ['ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
+        'SENSIBILITY', 'SPORTS'] 
 
 # 브라우저 열기
 driver = webdriver.Chrome(options=options)
-for i in range(0, len(Genre_list)):
-    driver.get('https://comic.naver.com/webtoon?tab=genre&genre={0}'.format(Genre_list[i]))
+for genre_index in range(0, len(Genre_list)):
+    driver.get('https://comic.naver.com/webtoon?tab=genre&genre={0}'.format(Genre_list[genre_index]))
 
     # 페이지가 로딩될 때까지 기다리기 (예: 5초)
     driver.implicitly_wait(5)
@@ -60,7 +65,7 @@ for i in range(0, len(Genre_list)):
     # MongoDB 연결
     client = MongoClient('localhost', 27017)
     db = client['fsdb_naver']  # 여기에는 사용할 데이터베이스의 이름을 입력하세요
-    collection = db['Genre_{0}'.format(Genre_list[i])]  # 여기에는 사용할 컬렉션의 이름을 입력하세요
+    collection = db['Genre_{0}'.format(Genre_list[genre_index])]  # 여기에는 사용할 컬렉션의 이름을 입력하세요
 
     # 위에서 사용한 코드를 그대로 가져와서 MongoDB에 데이터 넣기
     for index in range(1, 1000):
@@ -71,8 +76,19 @@ for i in range(0, len(Genre_list)):
             break
         if title_span:
             genre_data = {'index': index, 'title': title_span.text}
-            collection.insert_one(genre_data)
+
+            # 기존 문서가 있는지 확인
+            existing_document = collection.find_one({'index': index})
+
+            if existing_document:
+                # 이미 존재하는 문서가 있다면 업데이트
+                collection.update_one({'index': index}, {'$set': {'title': title_span.text}})
+                print(f"문서 {index}가 이미 존재하며 업데이트되었습니다.")
+            else:
+                # 존재하지 않는 경우에는 새로운 문서 삽입
+                collection.insert_one(genre_data)
+                print(f"새로운 문서 {index}가 삽입되었습니다.")
+
 
 client.close()  # MongoDB 연결 종료
-
 driver.quit()

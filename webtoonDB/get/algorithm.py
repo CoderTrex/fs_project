@@ -1,5 +1,5 @@
 import pymongo
-
+import time
 # MongoDB 연결
 client = pymongo.MongoClient("mongodb://localhost:27017")  # MongoDB의 주소와 포트에 맞게 수정
 
@@ -7,7 +7,9 @@ client = pymongo.MongoClient("mongodb://localhost:27017")  # MongoDB의 주소�
 db = client["fsdb_naver"]  
 
 days = ['mons', 'tues', 'weds', 'thus', 'fris', 'sats', 'suns']
-Genre = ['판타지', '먼치킨', '로멘스', '무협', '시대물', '일상물', '스릴러/호러', '개그', '스포츠', 'BL/GL']
+
+Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
+        'SENSIBILITY', 'SPORTS']
 
 # 각 컬렉션의 문서에 대해 작업
 for day in days:
@@ -25,49 +27,35 @@ for day in days:
         img_url = document["img"]
         genre = document["genre"]
 
-        
-        # if ()  // 만약 장르값이 있다면 넘어감
+        # 만약 장르값이 있다면 넘어감
         if "genre" in document and document["genre"]:
-            # print(f"장르가 이미 결정된 문서 {_id}입니다. 넘어갑니다.")
-            print(f"Title: {title} Genre : {genre}")
+            print(f"장르가 이미 결정된 문서 {title}입니다. 넘어갑니다.")
+            # print(f"Title: {title} Genre : {genre}")
             continue
-            
-        print("\n")
-        # 사용자로부터 값을 입력 받기
-        genre_value = input(
-f"""Enter the genre for Webtoon name {title}:
-0. 판타지​
-1. 먼치킨
-2. 로맨스
-3. 무협
-4. 시대물
-5. 학원물
-6. 스릴러/호러
-7. 개그/일상물
-8. 스포츠
-9. BL/GL
-: """)
+        else:
+            print(f"장르가 입력되지 않은 문서 {title}입니다. 넘어갑니다.")
+        
+        append_genre_list = []
+        
+        for genre_element in Genre_list:
+            genre_collection = db["Genre_{0}".format(genre_element)]
+            genre_documents = genre_collection.find()
+            for genre_document in genre_documents:
+                genre_title = genre_document['title']
+                if (title == genre_title):
+                    append_genre_list.append(genre_element)
+                    break
 
+        # print(title, append_genre_list)
         # 변경된 값 업데이트
         collection.update_one(
             {"_id": _id},  # 업데이트할 문서의 조건
-            {"$set": {"genre": Genre[int(genre_value)]}}  # 업데이트할 필드와 값
+            {"$set": {"genre": append_genre_list}}  # 업데이트할 필드와 값
         )
+        
+        # time.sleep(5)
 
-        print(f"장르가 비어있는 문서 {_id}에 대해 '{Genre[int(genre_value)]}'로 장르를 설정했습니다.")
+        # print(f"장르가 비어있는 문서 {_id}에 대해 '{append_genre_list}'로 장르를 설정했습니다.") 
 
 # 연결 닫기
 client.close()
-
-
-
-# □ 먼치킨 
-# □ 로맨스 
-# □ 판타지​ 
-# □ 스릴러/호러 
-# □ 개그
-# □ 일상물 
-# □ 무협 
-# □ 스포츠 
-# □ 시대물 
-# □ BL/GL
