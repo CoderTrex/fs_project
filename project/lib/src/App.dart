@@ -14,6 +14,7 @@ class App extends GetView<BottomNavcontroller> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+      onWillPop: controller.willPopAction,
       child: Obx(
         () => Scaffold(
           body: IndexedStack(
@@ -49,17 +50,17 @@ class App extends GetView<BottomNavcontroller> {
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.searchOff),
                 activeIcon: ImageData(IconsPath.searchOn),
-                label: 'home',
+                label: 'search',
               ),
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.uploadIcon),
                 activeIcon: ImageData(IconsPath.uploadIcon),
-                label: 'home',
+                label: 'upload',
               ),
               BottomNavigationBarItem(
                 icon: ImageData(IconsPath.activeOff),
                 activeIcon: ImageData(IconsPath.activeOn),
-                label: 'home',
+                label: 'active',
               ),
               BottomNavigationBarItem(
                 icon: Container(
@@ -71,13 +72,12 @@ class App extends GetView<BottomNavcontroller> {
                   ),
                 ),
                 // activeIcon: ImageData(IconsPath.homeOn),
-                label: 'home',
+                label: 'mypage',
               ),
             ],
           ),
         ),
       ),
-      onWillPop: controller.willPopAction,
     );
   }
 }

@@ -21,7 +21,13 @@ class ImageData extends StatelessWidget {
 }
 
 class IconsPath {
+  static String get naverWebtoon => 'assets/images/naver_webtoon.jpg';
+  static String get kakaoPage => 'assets/images/kakao_page.jpg';
+  static String get kakaoWebtoon => 'assets/images/kakao_webtoon.jpg';
+  static String get lezhinComics => 'assets/images/lezhin_comics.jpg';
+
   static String get homeOff => 'assets/images/bottom_nav_home_off_icon.jpg';
+  static String get advertiseMain => 'assets/images/advertise_wave.jpg';
   static String get homeOn => 'assets/images/bottom_nav_home_on_icon.jpg';
   static String get searchOff => 'assets/images/bottom_nav_search_off_icon.jpg';
   static String get searchOn => 'assets/images/bottom_nav_search_on_icon.jpg';
