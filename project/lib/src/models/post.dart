@@ -1,15 +1,39 @@
 import 'package:project/src/models/project_user_.dart';
 
+class Puser {
+  String? uid; // user uid
+  String? nickname; // nickname in application
+  String? thumbnail; // User profile image
+  String? description; // One-line user introduction
+
+  final Post? userPost;
+  final SubscribleContent? userSub;
+}
+class SubscribleContent {
+ // basic element
+ final String? id;
+ final String? userId;
+ final String? allSubCount;
+ final String? allTodCount;
+ final String? allMisCount;
+ // format : platform, content list
+ Map<String, dynamic> allSubscribleList;
+ Map<String, dynamic> todaySubscribleList;
+ Map<String, dynamic> missedSubscribleList;
+}
+
+
+
 class Post {
-  final String? id;
-  final String? thumbnail;
-  final String? description;
-  final int? likecount;
-  final Puser? userInfo;
-  final String? uid;
-  final DateTime? createdAt;
-  final DateTime? deletedAt;
-  final DateTime? updatedAt;
+  final String? id; // Post Id
+  final String? thumbnail; // Post's thumbnail image
+  final String? description; // post description
+  final int? likecount; // like count
+  final Puser? userInfo; // user's info
+  final String? uid; // user ID
+  final DateTime? createdAt; // the time the post was created
+  final DateTime? deletedAt; // the time the post was deleted
+  final DateTime? updatedAt; // the time the post was updeated
 
   Post({
     this.id,
