@@ -1,29 +1,5 @@
 import 'package:project/src/models/project_user_.dart';
 
-class Puser {
-  String? uid; // user uid
-  String? nickname; // nickname in application
-  String? thumbnail; // User profile image
-  String? description; // One-line user introduction
-
-  final Post? userPost;
-  final SubscribleContent? userSub;
-}
-class SubscribleContent {
- // basic element
- final String? id;
- final String? userId;
- final String? allSubCount;
- final String? allTodCount;
- final String? allMisCount;
- // format : platform, content list
- Map<String, dynamic> allSubscribleList;
- Map<String, dynamic> todaySubscribleList;
- Map<String, dynamic> missedSubscribleList;
-}
-
-
-
 class Post {
   final String? id; // Post Id
   final String? thumbnail; // Post's thumbnail image

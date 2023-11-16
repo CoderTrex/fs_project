@@ -3,6 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
+import pymongo
+from pymongo import MongoClient
 import time
 
 # Selenium 설정
@@ -49,8 +51,6 @@ for genre_index in range(0, len(Genre_list)):
 
     driver.execute_script('window.scrollTo(0, 0)')
 
-    import pymongo
-    from pymongo import MongoClient
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     db_genre = []
