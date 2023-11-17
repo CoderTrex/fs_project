@@ -1,12 +1,30 @@
 import 'package:carousel_slider/carousel_slider.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/src/components/avatar_widget.dart';
 import 'package:project/src/components/image_dart.dart';
 import 'package:project/src/components/post_widget.dart';
 import 'package:project/src/controller/home_controller.dart';
-// import 'package:project/src/models/post.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
+// import 'package:project/src/models/post.dart';
+
+// // ignore: no_leading_underscores_for_local_identifiers
+void _launchURL(String url) async {
+  // String url = "https://comic.naver.com/index";
+
+  var httpsUri = Uri(
+      scheme: 'https',
+      host: 'dart.dev',
+      path: '/guides/libraries/library-tour',
+      fragment: 'numbers');
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $httpsUri';
+  }
+}
 
 class Home extends GetView<HomeController> {
   const Home({super.key});
@@ -58,10 +76,18 @@ class Home extends GetView<HomeController> {
   Widget _postList() {
     return Obx(
       () => Column(
-        children: List.generate(
-          controller.postList.length,
-          (index) => PostWidget(post: controller.postList[index]),
-        ).toList(),
+        children: controller.postList.isNotEmpty
+            ? [
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: PostWidget(post: controller.postList.first),
+                ),
+                ...List.generate(
+                  controller.postList.length - 1,
+                  (index) => PostWidget(post: controller.postList[index + 1]),
+                ).toList(),
+              ]
+            : [], // postList가 비어 있는 경우 빈 리스트 반환
       ),
     );
   }
@@ -97,39 +123,45 @@ class Home extends GetView<HomeController> {
                       color: Color.fromARGB(255, 4, 153, 176),
                     ),
                   ),
-                  const Positioned(
-                    bottom: 150.0,
-                    left: 230.0,
+                  Positioned(
+                    bottom: 200,
+                    left: 240.0,
                     child: Text(
                       'Everything',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.normal,
+                      style: GoogleFonts.amethysta(
+                        textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                  const Positioned(
-                    bottom: 120.0,
-                    left: 230.0,
+                  Positioned(
+                    bottom: 170,
+                    left: 290.0,
                     child: Text(
                       'in CEE',
-                      style: TextStyle(
-                        color: Colors.blueGrey,
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.normal,
+                      style: GoogleFonts.amethysta(
+                        textStyle: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ),
                   ),
-                  const Positioned(
-                    bottom: 90.0,
-                    left: 230.0,
+                  Positioned(
+                    bottom: 130,
+                    left: 220.0,
                     child: Text(
                       'infinity content',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 16, 123, 176),
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+                      style: GoogleFonts.amethysta(
+                        textStyle: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -150,47 +182,60 @@ class Home extends GetView<HomeController> {
       IconsPath.lezhinComics,
     ];
 
-    double imageMargin = 10.0; // 이미지 간의 간격 조절
+    List<String> platformNames = [
+      'NaverWebtoon',
+      'KakaoWebtoon',
+      'KakaoPage',
+      'LezhinComics',
+    ];
 
-    // ignore: no_leading_underscores_for_local_identifiers
-    void _launchURL() async {
-      // String url = "https://comic.naver.com/index";
-
-      Uri url = Uri(
-        scheme: 'https',
-        host: 'dart.dev',
-        path: '/guides/libraries/library-tour',
-        fragment: 'numbers',
-      );
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
+    double imageMargin = 0.0; // 이미지 간의 간격 조절
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: SizedBox(
-        height: 100.0,
+        height: 130.0,
         child: PageView.builder(
           itemCount: imagePath.length,
           itemBuilder: (context, index) {
             return Container(
               margin: EdgeInsets.symmetric(horizontal: imageMargin),
               child: GestureDetector(
-                onTap: _launchURL,
-                child: CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  child: Container(
-                    width: 90.0,
-                    height: 90.0,
-                    color: Colors.white,
-                    child: Image.asset(
-                      imagePath[index],
-                      fit: BoxFit.contain,
+                // onTap: () => _launchURL('https://comic.naver.com/index'),
+                child: Stack(
+                  children: [
+                    ClipOval(
+                      child: Container(
+                        width: 90.0,
+                        height: 90.0,
+                        color: Colors.white,
+                        child: Image.asset(
+                          imagePath[index],
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      bottom: 10,
+                      left: 0,
+                      right: 30,
+                      child: Container(
+                        padding: EdgeInsets.all(0.0),
+                        color: Colors.transparent,
+                        child: Text(
+                          platformNames[index],
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                          textAlign: TextAlign.center,
+                          maxLines: 1, // 텍스트를 한 줄로 표시
+                          overflow: TextOverflow.visible, // 길면 생략 부호(...) 표시
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             );
@@ -202,56 +247,106 @@ class Home extends GetView<HomeController> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          ListView(children: [
-            _profile(),
-            SizedBox(height: 30),
-            _advertiseList(),
-            _platformList(),
-            _postList(),
-          ]),
-          Container(
-            color: Color.fromARGB(255, 126, 185, 233)
-                .withOpacity(0.2), // 검은색 필터 및 투명도 조절
-          ),
-        ],
+  //////////////////////////////////////////////////////////
+  Widget _Content_you_Missing() {
+    return const Text(
+      'Content you missing',
+      style: TextStyle(
+        fontSize: 20.0, // 글자 크기 조절
+        fontWeight: FontWeight.bold, // 글자 굵기 조절
       ),
+      textAlign: TextAlign.center, // 텍스트 가운데 정렬
     );
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     // appBar: AppBar(
-  //     //   elevation: 0,
-  //     //   title: ImageData(
-  //     //     IconsPath.logo,
-  //     //     width: 270,
-  //     //   ),
-  //     //   actions: [
-  //     //     GestureDetector(
-  //     //       onTap: () {},
-  //     //       child: Padding(
-  //     //         padding: const EdgeInsets.all(15.0),
-  //     //         child: ImageData(
-  //     //           IconsPath.directMessage,
-  //     //           width: 50,
-  //     //         ),
-  //     //       ),
-  //     //     )
-  //     //   ],
-  //     // ),
-  //     body: ListView(children: [
-  //       _profile(),
-  //       SizedBox(height: 30),
-  //       _advertiseList(),
-  //       _platformList(),
-  //       _postList(),
-  //     ]),
-  //   );
-  // }
+  ////////////////////////////////////////////////////////
+  static const List<String> imagePath = [
+    'assets/naver_webtoon.png',
+    'assets/kakao_webtoon.png',
+    'assets/kakao_page.png',
+    'assets/lezhin_comics.png',
+  ];
+  static const List<String> platformNames = [
+    'Naver Webtoon',
+    'Kakao Webtoon',
+    'Kakao Page',
+    'Lezhin Comics',
+  ];
+
+  Widget _buildPlatformGrid() {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, // 2열로 설정
+        crossAxisSpacing: 0.0, // 열 간의 간격
+        mainAxisSpacing: 0.0, // 행 간의 간격
+      ),
+      itemCount: imagePath.length,
+      itemBuilder: (context, index) {
+        return Container(
+          child: Column(
+            children: [
+              Container(
+                width: 180.0,
+                height: 150.0,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0), // 원하는 네모의 모양을 정의
+                ),
+                // child: Image.asset(
+                //   imagePath[index],
+                //   fit: BoxFit.contain,
+                // ),
+              ),
+              SizedBox(height: 8.0),
+              Text(
+                platformNames[index],
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.white.withAlpha(10),
+              const Color.fromARGB(255, 105, 198, 242).withOpacity(0.8)
+            ],
+          ),
+        ),
+        child: Stack(
+          children: [
+            ListView(
+              children: [
+                _profile(),
+                const SizedBox(height: 30),
+                _advertiseList(),
+                const SizedBox(height: 30),
+                _platformList(),
+                _postList(),
+                _Content_you_Missing(),
+                const SizedBox(height: 30),
+                _buildPlatformGrid(),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

@@ -17,6 +17,6 @@ class InitBinding extends Bindings {
   static AdditionalBinding() {
     Get.put(MyPageController(), permanent: true);
     Get.put(HomeController(), permanent: true);
-    // Get.put(UploadController(), permanent: true);
+    Get.put(UploadController(), permanent: true);
   }
 }

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project/src/components/image_dart.dart';
 import 'package:quiver/iterables.dart';
 import './search/search_focus.dart';
 
@@ -106,18 +107,59 @@ class _SearchState extends State<Search> {
     );
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: Column(
-        children: [
-          _appbar(),
-          Expanded(
-            child: _body(),
-          )
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            _appbar(),
+            Expanded(
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(IconsPath.communityBackground),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  _buildMovingWidget(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
+  }
+
+  double widgetHeight = 0.0;
+  Widget _buildMovingWidget() {
+    return AnimatedPositioned(
+      duration: Duration(milliseconds: 300),
+      bottom: widgetHeight,
+      left: 0,
+      right: 0,
+      child: GestureDetector(
+        onVerticalDragUpdate: (details) {
+          setState(() {
+            // 현재 위치에서 세부 정보(primaryDelta)를 더하고, 그 값을 특정 범위로 제한합니다.
+            widgetHeight = (widgetHeight + details.primaryDelta!)
+                .clamp(-1 * (MediaQuery.of(context).size.height * 2 / 5), 0.0);
+          });
+        },
+        child: Container(
+          height: MediaQuery.of(context).size.height * 4 / 5,
+          color: Colors.white,
+          child: Center(
+            child: Text(
+              'Your Custom Widget',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

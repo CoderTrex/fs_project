@@ -55,6 +55,7 @@ class IconsPath {
   static String get imageSelectIcon => 'assets/images/image_select_icon.jpg';
   static String get cameraIcon => 'assets/images/camera_icon.jpg';
   static String get uploadComplete => 'assets/images/upload_complete_icon.jpg';
+  static String get communityBackground => 'assets/images/community_Icon.jpg';
   static String get mypageBottomSheet01 =>
       'assets/images/mypage_bottom_sheet_01.jpg';
   static String get mypageBottomSheet02 =>
