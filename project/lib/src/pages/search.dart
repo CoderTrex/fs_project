@@ -107,6 +107,103 @@ class _SearchState extends State<Search> {
     );
   }
 
+  // double widgetHeight = 0.0;
+  // Widget _buildStackedWidgets() {
+  //   return Column(
+  //     children: [
+  //       Expanded(
+  //         child: _buildPlatformGrid(),
+  //       ),
+  //       _buildMovingWidget(),
+  //     ],
+  //   );
+  // }
+
+  // Widget _buildMovingWidget() {
+  //   return AnimatedPositioned(
+  //     duration: Duration(milliseconds: 300),
+  //     bottom: widgetHeight,
+  //     left: 0,
+  //     right: 0,
+  //     child: GestureDetector(
+  //       onVerticalDragUpdate: (details) {
+  //         setState(() {
+  //           widgetHeight = (widgetHeight + details.primaryDelta!)
+  //               .clamp(-1 * (MediaQuery.of(context).size.height * 2 / 5), 0.0);
+  //         });
+  //       },
+  //       child: Container(
+  //         height: MediaQuery.of(context).size.height * 4 / 5,
+  //         color: Colors.white.withOpacity(0.5),
+  //         child: Center(
+  //           child: Text(
+  //             'Your Custom Widget',
+  //             style: TextStyle(fontSize: 20),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget _buildPlatformGrid() {
+  //   return GridView.builder(
+  //     shrinkWrap: true,
+  //     physics: NeverScrollableScrollPhysics(),
+  //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+  //       crossAxisCount: 2,
+  //       crossAxisSpacing: 0.0,
+  //       mainAxisSpacing: 0.0,
+  //     ),
+  //     itemCount: imagePath.length,
+  //     itemBuilder: (context, index) {
+  //       return Container(
+  //         width: 180.0,
+  //         height: 150.0,
+  //         decoration: BoxDecoration(
+  //           color: Colors.white,
+  //           borderRadius: BorderRadius.circular(10.0),
+  //         ),
+  //         child: Center(
+  //           child: Text(
+  //             'Grid Item $index',
+  //             style: TextStyle(fontSize: 18),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  double widgetHeight = 0.0;
+  Widget _buildMovingWidget() {
+    return AnimatedPositioned(
+      duration: Duration(milliseconds: 300),
+      bottom: widgetHeight,
+      left: 0,
+      right: 0,
+      child: GestureDetector(
+        onVerticalDragUpdate: (details) {
+          setState(() {
+            // 현재 위치에서 세부 정보(primaryDelta)를 더하고, 그 값을 특정 범위로 제한합니다.
+            widgetHeight = (widgetHeight + details.primaryDelta!)
+                .clamp(-1 * (MediaQuery.of(context).size.height * 2 / 5), 0.0);
+          });
+        },
+        child: Container(
+          height: MediaQuery.of(context).size.height * 4 / 5,
+          color: Colors.white.withOpacity(0.5),
+          child: const Center(
+            child: Text(
+              'Your Custom Widget',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -129,35 +226,6 @@ class _SearchState extends State<Search> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  double widgetHeight = 0.0;
-  Widget _buildMovingWidget() {
-    return AnimatedPositioned(
-      duration: Duration(milliseconds: 300),
-      bottom: widgetHeight,
-      left: 0,
-      right: 0,
-      child: GestureDetector(
-        onVerticalDragUpdate: (details) {
-          setState(() {
-            // 현재 위치에서 세부 정보(primaryDelta)를 더하고, 그 값을 특정 범위로 제한합니다.
-            widgetHeight = (widgetHeight + details.primaryDelta!)
-                .clamp(-1 * (MediaQuery.of(context).size.height * 2 / 5), 0.0);
-          });
-        },
-        child: Container(
-          height: MediaQuery.of(context).size.height * 4 / 5,
-          color: Colors.white,
-          child: Center(
-            child: Text(
-              'Your Custom Widget',
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
         ),
       ),
     );
