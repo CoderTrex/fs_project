@@ -67,11 +67,11 @@ for genre_index in range(0, len(Genre_list)):
         if title_span is None:
             break
         if title_span:
-            genre_data = {'index': index, 'title': title_span.text}
+            genre_data = {'index': index, 'title': title_span.text, 'genre' : Genre_list[genre_index]}
 
             # 기존 문서가 있는지 확인
             existing_document = collection.find_one({'index': index})
-
+    
             if existing_document:
                 # 이미 존재하는 문서가 있다면 업데이트
                 collection.update_one({'index': index}, {'$set': {'title': title_span.text}})

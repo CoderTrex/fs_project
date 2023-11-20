@@ -27,6 +27,7 @@ if response.status_code == 200:
             print(f"작가: {webtoon['author']}")
             print(f"서비스: {webtoon['service']}")
             print(f"URL: {webtoon['url']}")
+            print(f"이미지 URL: {webtoon['img']}")
             url_webtoon =  webtoon['url']
             print()
 

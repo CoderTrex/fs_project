@@ -1,59 +1,121 @@
 
 
-# 데이터 베이스 접근 방식 #
-
-# # Firebase 서비스 계정 키 로드
-# cred = credentials.Certificate("C:\\Code\\fs_project\\algorithm_serv\\fsserv_acoount_key.json")
-# firebase_admin.initialize_app(cred, {'storageBucket': 'fsserv.appspot.com'})
-
-# # Firebase Storage의 루트 참조 가져오기
-# bucket = storage.bucket()
-
-# # Firebase Storage의 파일 리스트 가져오기
-# blobs = bucket.list_blobs()
-
-# # 파일 리스트 출력
-# for blob in blobs:
-#     print(f"File: {blob.name}")
-
-
 # firebase 라이브러리 import
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+
 # mongoDB 라이브러리 import
 from pymongo import MongoClient
 
+# api request
+import requests
+
+# API 엔드포인트 URL
+api_Search_url = "https://korea-webtoon-api.herokuapp.com/search"
+
 
 Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
-        'SENSIBILITY', 'SPORTS'] 
+                'SENSIBILITY', 'SPORTS']
 
-cred = credentials.Certificate("C:\\Code\\fs_project\\algorithm_serv\\fsserv_acoount_key.json")
-firebase_admin.initialize_app(cred)
+class FirebaseSubTs:
+    def __init__(self, collection_name):
+        # Firebase 초기화
+        cred = credentials.Certificate("C:\\Code\\fs_project\\algorithm_serv\\fsserv_acoount_key.json")
+        firebase_admin.initialize_app(cred)
+        self.db = firestore.client()
 
-db = firestore.client()
-print(db)   
+        # 컬렉션 이름 설정
+        self.collection_name = collection_name
 
-docs = db.collection('sub_ts').get()
-userdict = {}  # 빈 딕셔너리 생성
+    def create_user_recommendations(self):
+        docs = self.db.collection(self.collection_name).get()
+        userdict = {}
+        user_list_imgae = {}
 
-for doc in docs:
-    doc_data = doc.to_dict()
-    sublist = doc_data.get('sublist', {})
-    
-    # sublist에서 필요한 정보 추출
-    title = sublist.get('title', '')
-    platform = sublist.get('platform', '')
-    sub_id = doc_data.get('id', '')
 
-    # userdict에 title이 이미 있는지 확인하고 없으면 빈 리스트로 초기화
-    if title not in userdict:
-        userdict[title] = []
+        for doc in docs:
+            doc_data = doc.to_dict()
+            sublist = doc_data.get('sublist', {})
+            
+            # sublist에서 필요한 정보 추출
+            title = sublist.get('title', '')
+            platform = sublist.get('platform', '')
 
-    # 값을 추가
-    userdict[title].append(platform)
+            # userdict에 title이 이미 있는지 확인하고 없으면 빈 리스트로 초기화
+            if title not in userdict:
+                userdict[title] = []
 
-print(userdict)
+        user_list = list(userdict.keys())
+
+        for keyword in user_list:
+            # API 호출을 위한 파라미터 설정
+            params = {
+                "keyword": keyword
+            }
+            response = requests.get(api_Search_url, params=params)
+            # 응답 확인
+            if response.status_code == 200:
+                data = response.json()
+                totalWebtoonCount = data.get("totalWebtoonCount")
+                webtoons = data.get("webtoons")
+                if totalWebtoonCount > 0:
+                    print(f"검색 결과 (총 {totalWebtoonCount} 개의 웹툰)")
+                    for webtoon in webtoons:
+                        print(f"제목: {webtoon['title']}")
+                        print(f"작가: {webtoon['author']}")
+                        print(f"서비스: {webtoon['service']}")
+                        print(f"URL: {webtoon['url']}")
+                        print(f"이미지 URL: {webtoon['img']}")
+                        url_webtoon =  webtoon['url']
+                        print()
+                else:
+                    print("검색 결과가 없습니다.")
+            else:
+                print("API 요청에 실패했습니다. 상태 코드:", response.status_code)
+
+        user_Recom_list = {genre: 0 for genre in Genre_list}
+        # MongoDB 연결
+        client = MongoClient('localhost', 27017)
+        db = client['fsdb_naver']
+
+        for user in user_list:
+            for genre_index in range(len(Genre_list)):
+                collections = db['Genre_{0}'.format(Genre_list[genre_index])]
+                for collection in collections.find():
+                    if (collection.get('title', '') == user):
+                        user_Recom_list[collection.get('genre', '')] += 1
+                        
+
+        client.close()
+        return user_Recom_list, userdict
+
+
+# 제공해야하는 것, 이미지, 플랫폼, 컨텐츠 확인 여부
+
+
+
+# 예제 사용
+firebase_sub_ts = FirebaseSubTs('sub_ts')
+user_recommendations, user_sub = firebase_sub_ts.create_user_recommendations()
+print(user_recommendations, user_sub)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # 1. 접속한 유저 확인
@@ -63,13 +125,6 @@ print(userdict)
 
 
 
-
-# client = MongoClient('localhost', 27017)
-# db = client['fsdb_naver']  # 사용할 데이터베이스의 이름 입력
-# for genre_index in range(len(Genre_list)):
-#     collections = db['Genre_{0}'.format(Genre_list[genre_index])]  # 사용할 컬렉션 이름 입력
-#     for collection in collections.find():
-#         print("Genre: {} title : {}".format(Genre_list[genre_index], collection))
 
 
 
@@ -100,3 +155,21 @@ print(userdict)
 #         genre_collection = db_mongo['Genre_{0}'.format(genre)]
 #         for document in genre_collection.find():
 #             print("Genre: {} Title: {}".format(genre, document.get('title')))
+
+
+
+# 데이터 베이스 접근 방식 #
+
+# # Firebase 서비스 계정 키 로드
+# cred = credentials.Certificate("C:\\Code\\fs_project\\algorithm_serv\\fsserv_acoount_key.json")
+# firebase_admin.initialize_app(cred, {'storageBucket': 'fsserv.appspot.com'})
+
+# # Firebase Storage의 루트 참조 가져오기
+# bucket = storage.bucket()
+
+# # Firebase Storage의 파일 리스트 가져오기
+# blobs = bucket.list_blobs()
+
+# # 파일 리스트 출력
+# for blob in blobs:
+#     print(f"File: {blob.name}")
