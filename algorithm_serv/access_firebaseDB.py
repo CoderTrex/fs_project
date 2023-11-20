@@ -16,7 +16,11 @@ api_Search_url = "https://korea-webtoon-api.herokuapp.com/search"
 
 
 Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
-                'SENSIBILITY', 'SPORTS']
+        'SENSIBILITY', 'SPORTS', "먼치킨", "학원로맨스", "로판", "재회", "현실로맨스", "슈퍼스트링", 
+        "육아물", "역사물", "게임판타지", "직업드라마", "괴담", "범죄", "러블리", "해외작품", "음악",
+        "느와르", "직진남", "아포칼립스", "퓨전사극", "격투기", "범죄", "전남친", "소년왕도물", 
+        "다크히어로", "감염", "이세계", "4차원", "서스펜스", "집착물", "짝사랑", "차원이동", "궁중로맨스", 
+        "레트로"]
 
 class Firebase_User_Base_INFO:
     def __init__(self, collection_name):
@@ -87,12 +91,16 @@ class Firebase_User_Base_INFO:
 
 
 # 제공해야하는 것:  썸네일 이미지, 웹툰 플랫폼, 웹툰 제공 위치, 작가, 컨텐츠 사용자 구독 여부
-
 user = Firebase_User_Base_INFO('sub_ts')
 user_recommendations_weight, user_sub_info = user.create_user_base_recommendations()
 print("user interesting table               : ", user_recommendations_weight)
 print("\n\n\n")
 print("user subscrible content basic INFO   : ",user_sub_info)
+
+
+
+
+# 알고리즘을 구현하기 위해서는 해당 작품의 특징을 추출해야함.
 
 
 

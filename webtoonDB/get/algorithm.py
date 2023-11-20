@@ -7,9 +7,13 @@ client = pymongo.MongoClient("mongodb://localhost:27017")  # MongoDB의 주소�
 db = client["fsdb_naver"]  
 
 days = ['mons', 'tues', 'weds', 'thus', 'fris', 'sats', 'suns']
-
 Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
-        'SENSIBILITY', 'SPORTS']
+        'SENSIBILITY', 'SPORTS', "먼치킨", "학원로맨스", "로판", "재회", "현실로맨스", "슈퍼스트링", 
+        "육아물", "역사물", "게임판타지", "직업드라마", "괴담", "범죄", "러블리", "해외작품", "음악",
+        "느와르", "직진남", "아포칼립스", "퓨전사극", "격투기", "범죄", "전남친", "소년왕도물", 
+        "다크히어로", "감염", "이세계", "4차원", "서스펜스", "집착물", "짝사랑", "차원이동", "궁중로맨스", 
+        "레트로"]
+
 
 # 각 컬렉션의 문서에 대해 작업
 for day in days:
@@ -27,13 +31,13 @@ for day in days:
         img_url = document["img"]
         genre = document["genre"]
 
-        # 만약 장르값이 있다면 넘어감
-        if "genre" in document and document["genre"]:
-            print(f"장르가 이미 결정된 문서 {title}입니다. 넘어갑니다.")
-            # print(f"Title: {title} Genre : {genre}")
-            continue
-        else:
-            print(f"장르가 입력되지 않은 문서 {title}입니다. 넘어갑니다.")
+        # # 만약 장르값이 있다면 넘어감
+        # if "genre" in document and document["genre"]:
+        #     print(f"장르가 이미 결정된 문서 {title}입니다. 넘어갑니다.")
+        #     # print(f"Title: {title} Genre : {genre}")
+        #     continue
+        # else:
+        #     print(f"장르가 입력되지 않은 문서 {title}입니다. 넘어갑니다.")
         
         append_genre_list = []
         
