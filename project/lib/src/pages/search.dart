@@ -107,76 +107,14 @@ class _SearchState extends State<Search> {
     );
   }
 
-  // double widgetHeight = 0.0;
-  // Widget _buildStackedWidgets() {
-  //   return Column(
-  //     children: [
-  //       Expanded(
-  //         child: _buildPlatformGrid(),
-  //       ),
-  //       _buildMovingWidget(),
-  //     ],
-  //   );
-  // }
-
-  // Widget _buildMovingWidget() {
-  //   return AnimatedPositioned(
-  //     duration: Duration(milliseconds: 300),
-  //     bottom: widgetHeight,
-  //     left: 0,
-  //     right: 0,
-  //     child: GestureDetector(
-  //       onVerticalDragUpdate: (details) {
-  //         setState(() {
-  //           widgetHeight = (widgetHeight + details.primaryDelta!)
-  //               .clamp(-1 * (MediaQuery.of(context).size.height * 2 / 5), 0.0);
-  //         });
-  //       },
-  //       child: Container(
-  //         height: MediaQuery.of(context).size.height * 4 / 5,
-  //         color: Colors.white.withOpacity(0.5),
-  //         child: Center(
-  //           child: Text(
-  //             'Your Custom Widget',
-  //             style: TextStyle(fontSize: 20),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget _buildPlatformGrid() {
-  //   return GridView.builder(
-  //     shrinkWrap: true,
-  //     physics: NeverScrollableScrollPhysics(),
-  //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //       crossAxisCount: 2,
-  //       crossAxisSpacing: 0.0,
-  //       mainAxisSpacing: 0.0,
-  //     ),
-  //     itemCount: imagePath.length,
-  //     itemBuilder: (context, index) {
-  //       return Container(
-  //         width: 180.0,
-  //         height: 150.0,
-  //         decoration: BoxDecoration(
-  //           color: Colors.white,
-  //           borderRadius: BorderRadius.circular(10.0),
-  //         ),
-  //         child: Center(
-  //           child: Text(
-  //             'Grid Item $index',
-  //             style: TextStyle(fontSize: 18),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
   double widgetHeight = 0.0;
+
   Widget _buildMovingWidget() {
+    String imageUrl1 =
+        // "https://www.urbanbrush.net/web/wp-content/uploads/edd/2019/09/urbanbrush-20190904080511711323.png";
+        "https://i.namu.wiki/i/U5dn88xRShxCjIpIg7aYPXgN4_-Idr2BMIU2HohOFAQ9oNgKBSlsRUCrsX1YfXjTkkJnLKkP8jrRIrmWsDfeWw.webp";
+    // String imageUrl2 = "path/to/your/image2.png"; // 이미지2의 경로 또는 URL
+
     return AnimatedPositioned(
       duration: Duration(milliseconds: 300),
       bottom: widgetHeight,
@@ -185,7 +123,6 @@ class _SearchState extends State<Search> {
       child: GestureDetector(
         onVerticalDragUpdate: (details) {
           setState(() {
-            // 현재 위치에서 세부 정보(primaryDelta)를 더하고, 그 값을 특정 범위로 제한합니다.
             widgetHeight = (widgetHeight + details.primaryDelta!)
                 .clamp(-1 * (MediaQuery.of(context).size.height * 2 / 5), 0.0);
           });
@@ -193,13 +130,40 @@ class _SearchState extends State<Search> {
         child: Container(
           height: MediaQuery.of(context).size.height * 4 / 5,
           color: Colors.white.withOpacity(0.5),
-          child: const Center(
-            child: Text(
-              'Your Custom Widget',
-              style: TextStyle(fontSize: 20),
-            ),
+          // color: Color.fromARGB(255, 218, 144, 232).withOpacity(0.8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildImageContainer(imageUrl1), // 첫 번째 이미지를 띄우는 Container
+              // _buildImageContainer(imageUrl2), // 두 번째 이미지를 띄우는 Container
+              // 추가적인 이미지를 띄우는 Container를 필요에 따라 계속 추가할 수 있습니다.
+            ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildImageContainer(String imageUrl) {
+    return Container(
+      height: 200,
+      width: 400,
+      color: Colors.blue, // 구역의 배경색
+      margin: EdgeInsets.symmetric(vertical: 10), // 간격을 조절하는 margin 속성 추가
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start, // 이미지를 왼쪽에 정렬
+        children: [
+          Image.network(
+            imageUrl, // 이미지 경로 또는 URL
+            height: 150, // 이미지 높이 조절
+            width: 150, // 이미지 너비 조절
+          ),
+          SizedBox(width: 10), // 이미지와 텍스트 간의 간격 조절
+          Text(
+            'Your Custom Widget', // 이미지에 대한 텍스트
+            style: TextStyle(fontSize: 20),
+          ),
+        ],
       ),
     );
   }
