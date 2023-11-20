@@ -18,7 +18,7 @@ api_Search_url = "https://korea-webtoon-api.herokuapp.com/search"
 Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
                 'SENSIBILITY', 'SPORTS']
 
-class FirebaseSubTs:
+class Firebase_User_Base_INFO:
     def __init__(self, collection_name):
         # Firebase 초기화
         cred = credentials.Certificate("C:\\Code\\fs_project\\algorithm_serv\\fsserv_acoount_key.json")
@@ -28,11 +28,9 @@ class FirebaseSubTs:
         # 컬렉션 이름 설정
         self.collection_name = collection_name
 
-    def create_user_recommendations(self):
+    def create_user_base_recommendations(self):
         docs = self.db.collection(self.collection_name).get()
         userdict = {}
-        user_list_imgae = {}
-
 
         for doc in docs:
             doc_data = doc.to_dict()
@@ -40,13 +38,16 @@ class FirebaseSubTs:
             
             # sublist에서 필요한 정보 추출
             title = sublist.get('title', '')
-            platform = sublist.get('platform', '')
 
             # userdict에 title이 이미 있는지 확인하고 없으면 빈 리스트로 초기화
             if title not in userdict:
                 userdict[title] = []
 
         user_list = list(userdict.keys())
+        user_sub_list = {}  # 빈 딕셔너리를 생성
+        for webtoon_name in user_list:
+            user_sub_list[str(webtoon_name)] = []
+        # print(user_sub_list)
 
         for keyword in user_list:
             # API 호출을 위한 파라미터 설정
@@ -60,59 +61,38 @@ class FirebaseSubTs:
                 totalWebtoonCount = data.get("totalWebtoonCount")
                 webtoons = data.get("webtoons")
                 if totalWebtoonCount > 0:
-                    print(f"검색 결과 (총 {totalWebtoonCount} 개의 웹툰)")
+                    print(f"연결 및 접속 양호. 검색 결과 (총 {totalWebtoonCount} 개의 웹툰이 검색되었습니다.)")
                     for webtoon in webtoons:
-                        print(f"제목: {webtoon['title']}")
-                        print(f"작가: {webtoon['author']}")
-                        print(f"서비스: {webtoon['service']}")
-                        print(f"URL: {webtoon['url']}")
-                        print(f"이미지 URL: {webtoon['img']}")
-                        url_webtoon =  webtoon['url']
-                        print()
+                        user_sub_list[webtoon['title']].append(webtoon['author'])
+                        user_sub_list[webtoon['title']].append(webtoon['url'])
+                        user_sub_list[webtoon['title']].append(webtoon['service'])
+                        user_sub_list[webtoon['title']].append(webtoon['img'])
                 else:
-                    print("검색 결과가 없습니다.")
+                    print("ERROR: 해당 웹툰의 검색 결과가 없습니다.")
             else:
                 print("API 요청에 실패했습니다. 상태 코드:", response.status_code)
-
+    
         user_Recom_list = {genre: 0 for genre in Genre_list}
         # MongoDB 연결
         client = MongoClient('localhost', 27017)
         db = client['fsdb_naver']
-
         for user in user_list:
             for genre_index in range(len(Genre_list)):
                 collections = db['Genre_{0}'.format(Genre_list[genre_index])]
                 for collection in collections.find():
                     if (collection.get('title', '') == user):
                         user_Recom_list[collection.get('genre', '')] += 1
-                        
-
         client.close()
-        return user_Recom_list, userdict
+        return user_Recom_list, user_sub_list
 
 
-# 제공해야하는 것, 이미지, 플랫폼, 컨텐츠 확인 여부
+# 제공해야하는 것:  썸네일 이미지, 웹툰 플랫폼, 웹툰 제공 위치, 작가, 컨텐츠 사용자 구독 여부
 
-
-
-# 예제 사용
-firebase_sub_ts = FirebaseSubTs('sub_ts')
-user_recommendations, user_sub = firebase_sub_ts.create_user_recommendations()
-print(user_recommendations, user_sub)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+user = Firebase_User_Base_INFO('sub_ts')
+user_recommendations_weight, user_sub_info = user.create_user_base_recommendations()
+print("user interesting table               : ", user_recommendations_weight)
+print("\n\n\n")
+print("user subscrible content basic INFO   : ",user_sub_info)
 
 
 
@@ -121,14 +101,6 @@ print(user_recommendations, user_sub)
 # 1. 접속한 유저 확인
 # 2. 유저에 대한 subscribe 목록확인
 # 3. subscribe 목록에 대해서 추천 목록 설정
-
-
-
-
-
-
-
-
 
 # import firebase_admin
 # from firebase_admin import credentials
