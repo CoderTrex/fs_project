@@ -108,12 +108,11 @@ class _SearchState extends State<Search> {
   }
 
   double widgetHeight = 0.0;
-
   Widget _buildMovingWidget() {
     String imageUrl1 =
-        // "https://www.urbanbrush.net/web/wp-content/uploads/edd/2019/09/urbanbrush-20190904080511711323.png";
         "https://i.namu.wiki/i/U5dn88xRShxCjIpIg7aYPXgN4_-Idr2BMIU2HohOFAQ9oNgKBSlsRUCrsX1YfXjTkkJnLKkP8jrRIrmWsDfeWw.webp";
-    // String imageUrl2 = "path/to/your/image2.png"; // 이미지2의 경로 또는 URL
+    String imageUrl2 =
+        "https://i.namu.wiki/i/U5dn88xRShxCjIpIg7aYPXgN4_-Idr2BMIU2HohOFAQ9oNgKBSlsRUCrsX1YfXjTkkJnLKkP8jrRIrmWsDfeWw.webp";
 
     return AnimatedPositioned(
       duration: Duration(milliseconds: 300),
@@ -130,14 +129,24 @@ class _SearchState extends State<Search> {
         child: Container(
           height: MediaQuery.of(context).size.height * 4 / 5,
           color: Colors.white.withOpacity(0.5),
-          // color: Color.fromARGB(255, 218, 144, 232).withOpacity(0.8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildImageContainer(imageUrl1), // 첫 번째 이미지를 띄우는 Container
-              // _buildImageContainer(imageUrl2), // 두 번째 이미지를 띄우는 Container
-              // 추가적인 이미지를 띄우는 Container를 필요에 따라 계속 추가할 수 있습니다.
-            ],
+          child: Padding(
+            padding: EdgeInsets.only(top: 50),
+            child: ListView.builder(
+              itemCount: 5 * 2 - 1, // 데이터 리스트의 두 배에서 1을 뺀 개수로 지정
+              // yourDataList.length * 2 - 1, // 데이터 리스트의 두 배에서 1을 뺀 개수로 지정
+              itemBuilder: (context, index) {
+                if (index.isOdd) {
+                  // 홀수 인덱스에는 간격을 추가
+                  return SizedBox(height: 10); // 10의 간격 추가
+                } else {
+                  // 짝수 인덱스에는 이미지를 띄우는 Container
+                  // 이미지 데이터 리스트에서 적절한 인덱스 계산
+                  final dataIndex = index ~/ 2;
+                  return _buildImageContainer(imageUrl1);
+                  // return _buildImageContainer(yourDataList[dataIndex].imageUrl);
+                }
+              },
+            ),
           ),
         ),
       ),
@@ -147,9 +156,12 @@ class _SearchState extends State<Search> {
   Widget _buildImageContainer(String imageUrl) {
     return Container(
       height: 200,
-      width: 400,
-      color: Colors.blue, // 구역의 배경색
-      margin: EdgeInsets.symmetric(vertical: 10), // 간격을 조절하는 margin 속성 추가
+      width: 200,
+      decoration: BoxDecoration(
+        color: Colors.blue, // 구역의 배경색
+        borderRadius: BorderRadius.circular(20.0), // 모서리를 둥글게 만들기
+      ),
+      margin: EdgeInsets.symmetric(vertical: 0), // 간격을 조절하는 margin 속성 추가
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start, // 이미지를 왼쪽에 정렬
         children: [
@@ -185,7 +197,8 @@ class _SearchState extends State<Search> {
                       ),
                     ),
                   ),
-                  _buildMovingWidget(),
+                  _buildMovingWidget()
+                  // _ContentWidget(),
                 ],
               ),
             ),
