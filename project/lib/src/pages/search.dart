@@ -142,7 +142,9 @@ class _SearchState extends State<Search> {
                   // 짝수 인덱스에는 이미지를 띄우는 Container
                   // 이미지 데이터 리스트에서 적절한 인덱스 계산
                   final dataIndex = index ~/ 2;
-                  return _buildImageContainer(imageUrl1);
+                  return _buildImageContainer(
+                      imageUrl1, 200.0); // 원하는 width 값을 전달
+
                   // return _buildImageContainer(yourDataList[dataIndex].imageUrl);
                 }
               },
@@ -153,26 +155,26 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget _buildImageContainer(String imageUrl) {
+  Widget _buildImageContainer(String imageUrl, double width) {
     return Container(
       height: 200,
-      width: 200,
+      width: width, // 외부에서 전달된 width 값으로 설정
       decoration: BoxDecoration(
-        color: Colors.blue, // 구역의 배경색
-        borderRadius: BorderRadius.circular(20.0), // 모서리를 둥글게 만들기
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(20.0),
       ),
-      margin: EdgeInsets.symmetric(vertical: 0), // 간격을 조절하는 margin 속성 추가
+      margin: EdgeInsets.symmetric(vertical: 0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start, // 이미지를 왼쪽에 정렬
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image.network(
-            imageUrl, // 이미지 경로 또는 URL
-            height: 150, // 이미지 높이 조절
-            width: 150, // 이미지 너비 조절
+            imageUrl,
+            height: 150,
+            width: 150,
           ),
-          SizedBox(width: 10), // 이미지와 텍스트 간의 간격 조절
+          SizedBox(width: 10),
           Text(
-            'Your Custom Widget', // 이미지에 대한 텍스트
+            'Your Custom Widget',
             style: TextStyle(fontSize: 20),
           ),
         ],

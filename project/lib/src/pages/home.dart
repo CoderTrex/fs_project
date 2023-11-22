@@ -10,21 +10,19 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:project/src/models/post.dart';
 
-// // ignore: no_leading_underscores_for_local_identifiers
-void _launchURL(String url) async {
-  // String url = "https://comic.naver.com/index";
-
-  var httpsUri = Uri(
-      scheme: 'https',
-      host: 'dart.dev',
-      path: '/guides/libraries/library-tour',
-      fragment: 'numbers');
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $httpsUri';
-  }
-}
+// // // ignore: no_leading_underscores_for_local_identifiers
+// void _launchURL(String url) async {
+//   var httpsUri = Uri(
+//       scheme: 'https',
+//       host: 'dart.dev',
+//       path: '/guides/libraries/library-tour',
+//       fragment: 'numbers');
+//   if (await canLaunch(url)) {
+//     await launch(url);
+//   } else {
+//     throw 'Could not launch $httpsUri';
+//   }
+// }
 
 class Home extends GetView<HomeController> {
   const Home({super.key});
@@ -174,12 +172,22 @@ class Home extends GetView<HomeController> {
     );
   }
 
+// ...
+
   Widget _platformList() {
     List<String> imagePath = [
       IconsPath.naverWebtoon,
       IconsPath.kakaoWebtoon,
       IconsPath.kakaoPage,
       IconsPath.lezhinComics,
+    ];
+
+    List<String> platformUrls = [
+      "https://comic.naver.com/index",
+      "https://webtoon.kakao.com/",
+      "https://page.kakao.com/",
+      "https://www.lezhinus.com/ko",
+      // Add other URLs for each platform
     ];
 
     List<String> platformNames = [
@@ -189,7 +197,7 @@ class Home extends GetView<HomeController> {
       'LezhinComics',
     ];
 
-    double imageMargin = 0.0; // 이미지 간의 간격 조절
+    double imageMargin = 0.0;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -201,7 +209,8 @@ class Home extends GetView<HomeController> {
             return Container(
               margin: EdgeInsets.symmetric(horizontal: imageMargin),
               child: GestureDetector(
-                // onTap: () => _launchURL('https://comic.naver.com/index'),
+                onTap: () =>
+                    _launchURL(platformUrls[index]), // Launch URL on tap
                 child: Stack(
                   children: [
                     ClipOval(
@@ -230,8 +239,8 @@ class Home extends GetView<HomeController> {
                             fontSize: 12,
                           ),
                           textAlign: TextAlign.center,
-                          maxLines: 1, // 텍스트를 한 줄로 표시
-                          overflow: TextOverflow.visible, // 길면 생략 부호(...) 표시
+                          maxLines: 1,
+                          overflow: TextOverflow.visible,
                         ),
                       ),
                     ),
@@ -240,12 +249,95 @@ class Home extends GetView<HomeController> {
               ),
             );
           },
-          controller:
-              PageController(viewportFraction: 0.3), // 한 번에 보여지는 아이템의 개수를 조절
+          controller: PageController(viewportFraction: 0.3),
         ),
       ),
     );
   }
+
+// Function to launch URL
+  void _launchURL(String url) async {
+    // if (await canLaunch(url)) {
+    await launch(url);
+    // } else {
+    //   throw 'Could not launch $url';
+    // }
+  }
+
+// Widget _platformList() {
+//   String url = "https://comic.naver.com/index";
+
+//   List<String> imagePath = [
+//     IconsPath.naverWebtoon,
+//     IconsPath.kakaoWebtoon,
+//     IconsPath.kakaoPage,
+//     IconsPath.lezhinComics,
+//   ];
+
+//   List<String> platformNames = [
+//     'NaverWebtoon',
+//     'KakaoWebtoon',
+//     'KakaoPage',
+//     'LezhinComics',
+//   ];
+
+//   double imageMargin = 0.0; // 이미지 간의 간격 조절
+
+//   return Container(
+//     margin: const EdgeInsets.symmetric(vertical: 10),
+//     child: SizedBox(
+//       height: 130.0,
+//       child: PageView.builder(
+//         itemCount: imagePath.length,
+//         itemBuilder: (context, index) {
+//           return Container(
+//             margin: EdgeInsets.symmetric(horizontal: imageMargin),
+//             child: GestureDetector(
+//               // onTap: () => _launchURL('https://comic.naver.com/index'),
+//               child: Stack(
+//                 children: [
+//                   ClipOval(
+//                     child: Container(
+//                       width: 90.0,
+//                       height: 90.0,
+//                       color: Colors.white,
+//                       child: Image.asset(
+//                         imagePath[index],
+//                         fit: BoxFit.contain,
+//                       ),
+//                     ),
+//                   ),
+//                   Positioned(
+//                     bottom: 10,
+//                     left: 0,
+//                     right: 30,
+//                     child: Container(
+//                       padding: EdgeInsets.all(0.0),
+//                       color: Colors.transparent,
+//                       child: Text(
+//                         platformNames[index],
+//                         style: TextStyle(
+//                           color: Colors.black,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 12,
+//                         ),
+//                         textAlign: TextAlign.center,
+//                         maxLines: 1, // 텍스트를 한 줄로 표시
+//                         overflow: TextOverflow.visible, // 길면 생략 부호(...) 표시
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           );
+//         },
+//         controller:
+//             PageController(viewportFraction: 0.3), // 한 번에 보여지는 아이템의 개수를 조절
+//       ),
+//     ),
+//   );
+// }
 
   //////////////////////////////////////////////////////////
   Widget _Content_you_Missing() {
