@@ -1,5 +1,3 @@
-
-
 # firebase 라이브러리 import
 import firebase_admin
 from firebase_admin import credentials
@@ -81,11 +79,14 @@ class Firebase_User_Base_INFO:
         client = MongoClient('localhost', 27017)
         db = client['fsdb_naver']
         for user in user_list:
+            print(user)
             for genre_index in range(len(Genre_list)):
                 collections = db['Genre_{0}'.format(Genre_list[genre_index])]
                 for collection in collections.find():
                     if (collection.get('title', '') == user):
                         user_Recom_list[collection.get('genre', '')] += 1
+                        print(collection.get('genre', ''))
+                        # print(user_Recom_list)
         client.close()
         return user_Recom_list, user_sub_list
 
@@ -93,63 +94,64 @@ class Firebase_User_Base_INFO:
 # 제공해야하는 것:  썸네일 이미지, 웹툰 플랫폼, 웹툰 제공 위치, 작가, 컨텐츠 사용자 구독 여부
 user = Firebase_User_Base_INFO('sub_ts')
 user_recommendations_weight, user_sub_info = user.create_user_base_recommendations()
-print("user interesting table               : ", user_recommendations_weight)
-print("\n\n\n")
-print("user subscrible content basic INFO   : ",user_sub_info)
+
+# 신의 탑
+# 0 "FANTASY"
+# 1 "먼치킨"
+# 2 "소년왕도물"
+
+# 화산 귀환
+# 0 "HISTORICAL"
+# 1 "먼치킨"
+# 2 "이세계"
+
+# 전지적 독자 시점
+# 0 "FANTASY"
+# 1 "먼치킨"
+# 2 "게임판타지"
+# 3 "아포칼립스"
+
+# --------------------------------------------------------------- #
+# ----------------- 해당 과정까지 진행완료된 목록 ----------------- #
+# --- user_recommendations_weight(유저가 좋아하는 목록의 가중치) -- #
+# --------------- user_sub_info(유저가 구독한 목록)--------------- #
+# --------------------------------------------------------------- #
+
+# print("user interesting table               : ", user_recommendations_weight)
+# print("\n\n\n")
+# print("user subscrible content basic INFO   : ",user_sub_info)
 
 
+for key, value in user_recommendations_weight.items():
+    if value != 0:
+        print(f'{key}: {value}')
 
-
-# 알고리즘을 구현하기 위해서는 해당 작품의 특징을 추출해야함.
-
-
-
-
-
-# 1. 접속한 유저 확인
-# 2. 유저에 대한 subscribe 목록확인
-# 3. subscribe 목록에 대해서 추천 목록 설정
-
-# import firebase_admin
-# from firebase_admin import credentials
-# from firebase_admin import firestore
-# from pymongo import MongoClient
-
-# Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
-#               'SENSIBILITY', 'SPORTS']
-
+# import pymongo
+# import time
 # # MongoDB 연결
-# client = MongoClient('localhost', 27017)
-# db_mongo = client['fsdb_naver']
+# client = pymongo.MongoClient("mongodb://localhost:27017")  # MongoDB의 주소와 포트에 맞게 수정
 
-# # Firestore에서 유저 목록 가져오기
-# docs = db_firestore.collection('users').get()
-# for doc in docs:
-#     user_data = doc.to_dict()
+# # 데이터베이스 선택
+# db = client["fsdb_naver"]  
 
-#     # 유저의 subscribe 목록 확인
-#     subscribe_list = user_data.get('subscribe', [])
+# days = ['mons', 'tues', 'weds', 'thus', 'fris', 'sats', 'suns']
 
-#     # 각 subscribe에 대해 MongoDB에서 데이터 추출
-#     for genre in subscribe_list:
-#         genre_collection = db_mongo['Genre_{0}'.format(genre)]
-#         for document in genre_collection.find():
-#             print("Genre: {} Title: {}".format(genre, document.get('title')))
+# # 각 컬렉션의 문서에 대해 작업
+# for day in days:
+#     # 컬렉션 선택
+#     collection = db[day]
 
+#     # 모든 문서 가져오기
+#     documents = collection.find()
+    
+#     print(day)
+#     print("\n\n")
+#     # 문서 출력 및 값 입력
+#     for document in documents:
+#         title = document["title"]
+#         genre = document["genre"]
+#         print("{0}: {1}".format(title, genre))
+        
 
-
-# 데이터 베이스 접근 방식 #
-
-# # Firebase 서비스 계정 키 로드
-# cred = credentials.Certificate("C:\\Code\\fs_project\\algorithm_serv\\fsserv_acoount_key.json")
-# firebase_admin.initialize_app(cred, {'storageBucket': 'fsserv.appspot.com'})
-
-# # Firebase Storage의 루트 참조 가져오기
-# bucket = storage.bucket()
-
-# # Firebase Storage의 파일 리스트 가져오기
-# blobs = bucket.list_blobs()
-
-# # 파일 리스트 출력
-# for blob in blobs:
-#     print(f"File: {blob.name}")
+# # 연결 닫기
+# client.close()
