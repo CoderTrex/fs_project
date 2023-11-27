@@ -14,7 +14,7 @@ api_Search_url = "https://korea-webtoon-api.herokuapp.com/search"
 
 Genre_list = [
                 'PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
-                'SENSIBILITY', 'SPORTS', "먼치킨", "학원로맨스", "로판", "게임판타지", "재회", "슈퍼스트링", "육아물", 
+                'SENSIBILITY', 'SPORTS', "먼치킨", "학원로맨스", "로판", "재회", "슈퍼스트링", "육아물", 
                 "역사물", "게임판타지", "직업드라마", "괴담", "러블리", "해외작품", "계약연애", 
                 "음악", "느와르", "직진남",  "축구", "친구>연인", "아포칼립스", "퓨전사극", "격투기", "범죄", "음식%26요리"
                 "전남친", "소년왕도물", "다크히어로", "감염", "이세계", "하이틴", "소꿉친구", "역하렘", "까칠남", 
