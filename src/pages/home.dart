@@ -8,7 +8,7 @@ import '../components/post_widget.dart';
 import '../controller/home_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:newtest/src/models/post.dart';
+// import 'package:app/src/models/post.dart';
 
 // // // ignore: no_leading_underscores_for_local_identifiers
 // void _launchURL(String url) async {
