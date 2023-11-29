@@ -3,6 +3,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
+
 # mongoDB 라이브러리 import
 from pymongo import MongoClient
 
@@ -31,7 +32,6 @@ class Firebase_User_Base_INFO:
         cred = credentials.Certificate("C:\\Code\\fs_project\\algorithm_serv\\fsserv_acoount_key.json")
         firebase_admin.initialize_app(cred)
         self.db = firestore.client()
-
         # 컬렉션 이름 설정
         self.collection_name = collection_name
 
@@ -138,7 +138,7 @@ action_genre = ['HISTORICAL', '슈퍼스트링', '느와르', '격투기', '범�
 # mass-produced         webtoon prefer
 mass_produced_genre = ['HISTORICAL', '먼치킨', '게임판타지', '아포칼립스', '소년왕도물', '다크히어로', '이세계', '차원이동', '블루스트링', '타임슬립', '이능력배틀물', '회귀', '성장물', '헌터물']
 # not mass-produced     webtoon prefer
-not_produced_genre = ['THRILL', 'SPORTS', '역사물', '직업드라마', '괴담', '해외작품', '음악', '축구', '감염', '서스펜스', '스포츠성장', '농구', '프리퀄', '하이퍼리얼리즘', '빙의', '오컬트',  '두뇌싸움']
+not_mass_produced_genre = ['THRILL', 'SPORTS', '역사물', '직업드라마', '괴담', '해외작품', '음악', '축구', '감염', '서스펜스', '스포츠성장', '농구', '프리퀄', '하이퍼리얼리즘', '빙의', '오컬트',  '두뇌싸움']
 
 
 for key, value in user_recommendations_weight.items():

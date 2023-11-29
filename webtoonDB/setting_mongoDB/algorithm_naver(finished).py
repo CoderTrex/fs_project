@@ -47,6 +47,6 @@ for document in documents:
         {"_id": _id},  # 업데이트할 문서의 조건
         {"$set": {"genre": append_genre_list}}  # 업데이트할 필드와 값
     )
-    
+
 # 연결 닫기
 client.close()

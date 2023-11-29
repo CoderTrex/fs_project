@@ -74,7 +74,6 @@ for genre_index in range(0, len(Genre_list)):
             # print(li_elements)
             total_li_list += li_elements
             # 새로운 li 요소가 더 이상 로딩되지 않으면 반복 종료
-            
             if len(li_elements) == current_li_count:
                 break
 
@@ -85,8 +84,8 @@ for genre_index in range(0, len(Genre_list)):
         db_genre = []
         # MongoDB 연결
         client = MongoClient('localhost', 27017)
-        db = client['fsdb_naver']  # 여기에는 사용할 데이터베이스의 이름을 입력하세요
-        collection = db['Genre_{0}'.format(Genre_list[genre_index])]  # 여기에는 사용할 컬렉션의 이름을 입력하세요
+        db = client['fsdb_naver']  
+        collection = db['Genre_{0}'.format(Genre_list[genre_index])]  
 
         # 위에서 사용한 코드를 그대로 가져와서 MongoDB에 데이터 넣기
         for index in range(1, 1000):
@@ -111,10 +110,8 @@ for genre_index in range(0, len(Genre_list)):
                     print(f"새로운 문서 {index}가 삽입되었습니다.")
 
     except Exception as e:
-        # 예외가 발생하면 이 블록이 실행됩니다.
-        # 예외에 대한 메시지를 출력하거나 필요에 따라 다른 처리를 할 수 있습니다.
         print(f"An exception occurred: {e}")
-        continue  # 예외가 발생하면 다음 반복으로 넘어갑니다.
+        continue  
 
 
 client.close()  # MongoDB 연결 종료
