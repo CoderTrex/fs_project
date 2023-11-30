@@ -1,3 +1,5 @@
+import 'package:project/providers/subscribles.dart';
+
 import './providers/auth.dart';
 import './providers/posts.dart';
 import 'providers/comments.dart';
@@ -60,6 +62,14 @@ class Myproject extends StatelessWidget {
             auth.token,
             auth.userId,
             previousNotifications == null ? [] : previousNotifications.items,
+          ),
+        ),
+        ChangeNotifierProxyProvider<Auth, subscribles>(
+          create: (_) => subscribles('', '', []),
+          update: (ctx, auth, previousSubscrible) => subscribles(
+            auth.token,
+            auth.userId,
+            previousSubscrible == null ? [] : previousSubscrible.items,
           ),
         ),
       ],

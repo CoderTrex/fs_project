@@ -1,9 +1,12 @@
+import 'package:project/models/subscrible.dart';
 import 'package:project/providers/home_controller.dart';
 import 'package:project/providers/image_dart.dart';
+import 'package:project/providers/subscribles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ImageCarousel extends StatelessWidget {
@@ -72,88 +75,6 @@ class Home extends GetView<HomeController> {
     );
   }
 
-  Widget _advertiseList() {
-    return CarouselSlider(
-      options: CarouselOptions(
-        height: 250.0,
-        aspectRatio: 16 / 9,
-        viewportFraction: 1.0,
-      ),
-      items: [1, 2, 3, 4, 5].map((i) {
-        return Builder(
-          builder: (BuildContext context) {
-            return Container(
-              child: Stack(
-                children: [
-                  Image.asset(
-                    IconsPath.advertiseMain,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.cover,
-                  ),
-                  ColorFiltered(
-                    colorFilter: ColorFilter.mode(
-                      Color.fromARGB(255, 10, 146, 191).withOpacity(0.1),
-                      BlendMode.dstATop,
-                    ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 250.0,
-                      color: Color.fromARGB(255, 4, 153, 176),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 200,
-                    left: 240.0,
-                    child: Text(
-                      'Everything',
-                      style: GoogleFonts.amethysta(
-                        textStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 170,
-                    left: 290.0,
-                    child: Text(
-                      'in CEE',
-                      style: GoogleFonts.amethysta(
-                        textStyle: TextStyle(
-                          color: Colors.blueGrey,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 130,
-                    left: 220.0,
-                    child: Text(
-                      'infinity content',
-                      style: GoogleFonts.amethysta(
-                        textStyle: TextStyle(
-                          color: Colors.blueGrey,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      }).toList(),
-    );
-  }
-
-// ...
-
   Widget _platformList() {
     List<String> imagePath = [
       IconsPath.naverWebtoon,
@@ -167,7 +88,6 @@ class Home extends GetView<HomeController> {
       "https://webtoon.kakao.com/",
       "https://page.kakao.com/",
       "https://www.lezhinus.com/ko",
-      // Add other URLs for each platform
     ];
 
     List<String> platformNames = [
@@ -237,11 +157,11 @@ class Home extends GetView<HomeController> {
 
 // Function to launch URL
   void _launchURL(String url) async {
-    // if (await canLaunch(url)) {
-    await launch(url);
-    // } else {
-    //   throw 'Could not launch $url';
-    // }
+    try {
+      await launch(url);
+    } catch (e) {
+      print("url launch error");
+    }
   }
 
   //////////////////////////////////////////////////////////
@@ -309,7 +229,18 @@ class Home extends GetView<HomeController> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+
+    
+    final subscriblesInstance = Provider.of<subscribles>(context);
+    await subscriblesInstance.fetchAndSetSubScribles("uid11234");
+    final subscriblesData = subscriblesInstance.items;
+    for (var subscrible in subscriblesData) {
+      print("Title: ${subscrible.title}");
+      // print("Data: ${subscrible.title}");
+      print("--------");
+    }
+    print("hello test test");
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.blueGrey[600],
@@ -318,6 +249,7 @@ class Home extends GetView<HomeController> {
             Positioned.fill(
               child: ListView(
                 children: [
+                  // Printing the data
                   const SizedBox(height: 30),
                   ImageCarousel(),
                   const SizedBox(height: 30),
