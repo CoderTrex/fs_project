@@ -43,7 +43,7 @@ for day in days:
         # else:
         #     print(f"장르가 입력되지 않은 문서 {title}입니다. 넘어갑니다.")
         
-        append_genre_list = []
+        projectend_genre_list = []
         
         for genre_element in Genre_list:
             genre_collection = db["Genre_{0}".format(genre_element)]
@@ -51,19 +51,19 @@ for day in days:
             for genre_document in genre_documents:
                 genre_title = genre_document['title']
                 if (title == genre_title):
-                    append_genre_list.append(genre_element)
+                    projectend_genre_list.projectend(genre_element)
                     break
 
-        # print(title, append_genre_list)
+        # print(title, projectend_genre_list)
         # 변경된 값 업데이트
         collection.update_one(
             {"_id": _id},  # 업데이트할 문서의 조건
-            {"$set": {"genre": append_genre_list}}  # 업데이트할 필드와 값
+            {"$set": {"genre": projectend_genre_list}}  # 업데이트할 필드와 값
         )
         
         # time.sleep(5)
 
-        # print(f"장르가 비어있는 문서 {_id}에 대해 '{append_genre_list}'로 장르를 설정했습니다.") 
+        # print(f"장르가 비어있는 문서 {_id}에 대해 '{projectend_genre_list}'로 장르를 설정했습니다.") 
 
 # 연결 닫기
 client.close()

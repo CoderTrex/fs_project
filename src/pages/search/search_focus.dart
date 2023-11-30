@@ -73,7 +73,7 @@ class _SearchFocusState extends State<SearchFocus>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      AppBar: AppBar(
         elevation: 0,
         leading: GestureDetector(
           onTap: BottomNavcontroller.to.willPopAction,

@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-// import 'package:app/src/components/image_data.dart';
+// import 'package:project/src/components/image_data.dart';
 
 import 'package:flutter/material.dart';
 import '../components/image_dart.dart';
@@ -204,7 +204,7 @@ class Upload extends GetView<UploadController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
+      AppBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: GestureDetector(

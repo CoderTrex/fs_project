@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const apiUrl = 'https://korea-webtoon-api.herokuapp.com';
+const apiUrl = 'https://korea-webtoon-api.herokuproject.com';
 
 const requestParams = {
   page: 1,        // 페이지 번호

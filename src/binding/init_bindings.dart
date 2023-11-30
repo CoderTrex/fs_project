@@ -4,7 +4,7 @@ import '../controller/home_controller.dart';
 import '../controller/auth_controller.dart';
 import '../controller/mypage_controller.dart';
 import '../controller/bottom_nav_controller.dart';
-// import 'package:app/src/binding/init_bindings.dart';
+// import 'package:project/src/binding/init_bindings.dart';
 import '../controller/upload_controller.dart';
 
 class InitBinding extends Bindings {

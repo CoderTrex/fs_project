@@ -123,7 +123,7 @@ class ActiveHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
+      AppBar: AppBar(
         elevation: 0,
         centerTitle: true,
         title: Text(

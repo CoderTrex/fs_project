@@ -31,7 +31,7 @@ for document in documents:
     img_url = document["img"]
     genre = document["genre"]
     
-    append_genre_list = []
+    projectend_genre_list = []
     
     for genre_element in Genre_list:
         genre_collection = db["Genre_{0}".format(genre_element)]
@@ -39,13 +39,13 @@ for document in documents:
         for genre_document in genre_documents:
             genre_title = genre_document['title']
             if (title == genre_title):
-                append_genre_list.append(genre_element)
+                projectend_genre_list.projectend(genre_element)
                 break
 
     # 변경된 값 업데이트
     collection.update_one(
         {"_id": _id},  # 업데이트할 문서의 조건
-        {"$set": {"genre": append_genre_list}}  # 업데이트할 필드와 값
+        {"$set": {"genre": projectend_genre_list}}  # 업데이트할 필드와 값
     )
 
 # 연결 닫기

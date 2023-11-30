@@ -13,7 +13,7 @@ from pymongo import MongoClient
 import requests
 
 # API 엔드포인트 URL
-api_Search_url = "https://korea-webtoon-api.herokuapp.com/search"
+api_Search_url = "https://korea-webtoon-api.herokuproject.com/search"
 
 Genre_list = [
                 'PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
@@ -32,7 +32,7 @@ class Firebase_User_Base_INFO:
     def __init__(self, collection_name):
         # Firebase database 인증 및 앱 초기화
         cred = credentials.Certificate("C:\\Code\\fs_project\\webtoonDB\\algorithm_serv\\chatting_acoount_key.json")
-        firebase_admin.initialize_app(cred, {
+        firebase_admin.initialize_project(cred, {
             'databaseURL': "https://chatting-test-863cb-default-rtdb.asia-southeast1.firebasedatabase.app"
         })
         # 컬렉션 이름 설정
@@ -69,10 +69,10 @@ class Firebase_User_Base_INFO:
                 if totalWebtoonCount > 0:
                     print(f"연결 및 접속 양호. 검색 결과 (총 {totalWebtoonCount} 개의 웹툰이 검색되었습니다.)")
                     for webtoon in webtoons:
-                        user_sub_list[webtoon['title']].append(webtoon['author'])
-                        user_sub_list[webtoon['title']].append(webtoon['url'])
-                        user_sub_list[webtoon['title']].append(webtoon['service'])
-                        user_sub_list[webtoon['title']].append(webtoon['img'])
+                        user_sub_list[webtoon['title']].projectend(webtoon['author'])
+                        user_sub_list[webtoon['title']].projectend(webtoon['url'])
+                        user_sub_list[webtoon['title']].projectend(webtoon['service'])
+                        user_sub_list[webtoon['title']].projectend(webtoon['img'])
                 else:
                     print("ERROR: 해당 웹툰의 검색 결과가 없습니다.")
             else:

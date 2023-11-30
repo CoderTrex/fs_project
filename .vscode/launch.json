@@ -5,21 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "app",
-            "cwd": "app",
+            "name": "project",
+            "cwd": "project",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "app (profile mode)",
-            "cwd": "app",
+            "name": "project (profile mode)",
+            "cwd": "project",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "app (release mode)",
-            "cwd": "app",
+            "name": "project (release mode)",
+            "cwd": "project",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

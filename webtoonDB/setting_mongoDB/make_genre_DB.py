@@ -60,7 +60,7 @@ Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORIC
     "하이틴", "소꿉친구", "역하렘", "까칠남", "계약연애", "음식%26요리"]
 
 # API 엔드포인트 URL
-api_Search_url = "https://korea-webtoon-api.herokuapp.com/search"
+api_Search_url = "https://korea-webtoon-api.herokuproject.com/search"
 
 # 데이터베이스 선택
 db = client["fsdb_naver"]

@@ -1,7 +1,7 @@
 import requests
 
 # API 엔드포인트 URL
-url = "https://korea-webtoon-api.herokuapp.com/search"
+url = "https://korea-webtoon-api.herokuproject.com/search"
 
 # 검색할 키워드 입력
 keyword = input("검색할 웹툰 키워드를 입력하세요: ")

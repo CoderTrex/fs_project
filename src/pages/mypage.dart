@@ -202,7 +202,7 @@ class MyPage extends GetView<MyPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
+      AppBar: AppBar(
         elevation: 0,
         title: Obx(
           () => Text(

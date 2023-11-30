@@ -98,7 +98,7 @@ class UploadDescription extends GetView<UploadController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
+      AppBar: AppBar(
         elevation: 0,
         leading: GestureDetector(
           onTap: Get.back,

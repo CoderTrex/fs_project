@@ -26,7 +26,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      AppBar: AppBar(
         elevation: 0,
         centerTitle: true,
         title: const Text(

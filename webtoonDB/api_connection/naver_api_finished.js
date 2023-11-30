@@ -30,7 +30,7 @@ db.once('open', () => {
   }));
 
   // API 요청
-  const baseURL = 'https://korea-webtoon-api.herokuapp.com';
+  const baseURL = 'https://korea-webtoon-api.herokuproject.com';
   const params = {
     page: 0,
     perPage: 10000,

@@ -31,7 +31,7 @@ class _SearchState extends State<Search> {
     }
   }
 
-  Widget _appbar() {
+  Widget _AppBar() {
     return Row(
       children: [
         Expanded(
@@ -187,7 +187,7 @@ class _SearchState extends State<Search> {
       body: SafeArea(
         child: Column(
           children: [
-            _appbar(),
+            _AppBar(),
             Expanded(
               child: Stack(
                 children: [

@@ -3,12 +3,12 @@
     "project_number": "898555191747",
     "firebase_url": "https://chatting-test-863cb-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "chatting-test-863cb",
-    "storage_bucket": "chatting-test-863cb.appspot.com"
+    "storage_bucket": "chatting-test-863cb.projectspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:898555191747:android:4a44fc72980e26a1711d76",
+        "mobilesdk_project_id": "1:898555191747:android:4a44fc72980e26a1711d76",
         "android_client_info": {
           "package_name": "fss.firebase"
         }
@@ -20,7 +20,7 @@
         }
       ],
       "services": {
-        "appinvite_service": {
+        "projectinvite_service": {
           "other_platform_oauth_client": []
         }
       }

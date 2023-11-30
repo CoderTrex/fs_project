@@ -37,7 +37,7 @@ db.once('open', () => {
     }));
     
     // API 요청
-    const baseURL = 'https://korea-webtoon-api.herokuapp.com';
+    const baseURL = 'https://korea-webtoon-api.herokuproject.com';
     const params = {
       page: 0, // 페이지 번호
       perPage: 100, // 한 페이지 결과 수

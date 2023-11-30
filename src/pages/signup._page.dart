@@ -85,7 +85,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
+      AppBar: AppBar(
         title: const Text(
           '회원가입',
           style: TextStyle(

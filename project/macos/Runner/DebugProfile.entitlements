@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//projectle//DTD PLIST 1.0//EN" "http://www.projectle.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>com.projectle.security.project-sandbox</key>
+	<true/>
+	<key>com.projectle.security.cs.allow-jit</key>
+	<true/>
+	<key>com.projectle.security.network.server</key>
+	<true/>
+</dict>
+</plist>
