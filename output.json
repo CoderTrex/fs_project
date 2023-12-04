@@ -1,0 +1,1587 @@
+{
+  "SelectedModel": "mass_produced_genre",
+  "RandomRecommendedWorks": [
+    {
+      "_id": "6566e695ad176931f3f5fab6",
+      "title": "\uc624\uc131X\ud55c\uc74c",
+      "genre": "HISTORICAL",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=551648",
+      "author": "\uc720\uc2b9\uc9c4",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e696ad176931f3f5fab7",
+      "title": "\ud55c\uc12c\uc138\ub300",
+      "genre": "HISTORICAL",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=400735",
+      "author": "\uc720\uc2b9\uc9c4",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e697ad176931f3f5fab8",
+      "title": "\uc0ac\ub9c9\uc5d0 \ud540 \ub2ec",
+      "genre": "HISTORICAL",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=769801",
+      "author": "\uc120\uc9c0",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e699ad176931f3f5fab9",
+      "title": "\uc655\uc73c\ub85c \uc0b4\ub2e4",
+      "genre": "HISTORICAL",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=713294",
+      "author": "\ub124\uc2a4\ud2f0\ucea3",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e69aad176931f3f5faba",
+      "title": "\ud589\uc6b4\uc18c\ub144\uc18c\ub140",
+      "genre": "HISTORICAL",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=789989",
+      "author": "S\uc704\ubc0d",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e6a0ad176931f3f5fabe",
+      "title": "99\uac15\ud654\ub098\ubb34\ubabd\ub465\uc774",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=792651&week=sat",
+      "author": "\ud64d\uc2e4,\uc9c0\ud398\ub9ac",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6a1ad176931f3f5fabf",
+      "title": "\ud018\uc2a4\ud2b8\uc9c0\uc0c1\uc8fc\uc758",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=783052&week=mon",
+      "author": "\ubc15\ud0dc\uc900 \ub9cc\ud654\ud68c\uc0ac, \uc720\ub204\ub2c8,\ubc15\ud0dc\uc900 \ub9cc\ud654\ud68c\uc0ac, \ud0dc\uc644",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6a6ad176931f3f5fac2",
+      "title": "\ucde8\uc0ac\ubcd1 \uc804\uc124\uc774 \ub418\ub2e4",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=727188&week=sat",
+      "author": "\uc81c\uc774\ub85c\ube48,\uc774\uc9c4\uc218",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6aaad176931f3f5fac5",
+      "title": "\ub9cc\ub819\ub3cc\ud30c",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=759940&week=mon",
+      "author": "\uc131\ubd88\uc608\uc815,\uc784\ud615,\ubbf8\ub178",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6aead176931f3f5fac7",
+      "title": "\uac15\ucca0\uc744 \uba39\ub294 \ud50c\ub808\uc774\uc5b4",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=814421&week=wed",
+      "author": "\uac10\ub3c59,\uc9c0\uc810\uc7a5",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6b1ad176931f3f5fac9",
+      "title": "\uc2dc\ud55c\ubd80 \ucc9c\uc7ac \uc554\ud751\uae30\uc0ac",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=809625&week=thu",
+      "author": "\uc815\uc120\uc728,\ub098\uae30",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": true,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6b4ad176931f3f5facb",
+      "title": "\ub354 \uac8c\uc774\uba38",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://page.kakao.com/content/56630472",
+      "author": "\ub9dd\uc0dd,\uc131\uc0c1\uc601",
+      "service": "kakaoPage",
+      "additional": {
+        "new": false,
+        "rest": false,
+        "up": false,
+        "adult": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e6b6ad176931f3f5facc",
+      "title": "\uaf43\ub9cc \ud0a4\uc6b0\ub294\ub370 \ub108\ubb34\uac15\ud568",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=741825&week=thu",
+      "author": "\uc8fc\ud604\ud6c4,\ucff0\ud0c0\ud0c0",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": true,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6b7ad176931f3f5facd",
+      "title": "\ud310\ud0c0\uc9c0 \uc5ec\ub3d9\uc0dd!",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=730425&week=wed",
+      "author": "\uc720\ub204",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6b9ad176931f3f5face",
+      "title": "\ub354\ube14\ud074\ub9ad",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=769663&week=mon",
+      "author": "\uae40\uc7a5\ud6c8,\ubc15\uc218\ubd09,\ubc15\uc218\ubd09",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6bbad176931f3f5facf",
+      "title": "\ud50c\ub808\uc774\uc5b4",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=811707&week=sat",
+      "author": "\uac1c\ucc28\ubc18,\ube44\ub204\ub07c,\ubca0\ub370\uc2a4",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6bead176931f3f5fad1",
+      "title": "\uc6e8\ud3f0 \ud06c\ub9ac\uc5d0\uc774\ud130",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=814753&week=thu",
+      "author": "\uc11c\ud0dc\ub791,\uac15\uc7ac",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": true,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6c0ad176931f3f5fad2",
+      "title": "\ub9cc\ub2a5\uc7a1\uce90",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=783117&week=thu",
+      "author": "\ud0a4\ubcf4\ub4dc\ub9cc\uc138, \ud64d\uc2e4,\uae40\ub300\ud6c8",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": true,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6c2ad176931f3f5fad3",
+      "title": "\ub3c8\ub0b4\ub194",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=812560&week=thu",
+      "author": "\uc740\ub958,\ub3c4\ub291",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": true,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6c3ad176931f3f5fad4",
+      "title": "\ub0b4\uac8c \uc885\ub9d0\uc740 \uac8c\uc784\uc774\ub2e4",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=807826&week=sun",
+      "author": "HOOPA,\ucd5c\uc6b0\uc9c4",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6c5ad176931f3f5fad5",
+      "title": "\uc5d1\uc2a4\uc560\uc26c",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=783814&week=sat",
+      "author": "\uae40\uc138\ud6c8,\uc774\uad11\uc218",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6c6ad176931f3f5fad6",
+      "title": "\ubc30\ub4dc \uc5d4\ub529 \uba54\uc774\ucee4",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=812017&week=tue",
+      "author": "\uc624\uc77c\uad6c,\uc2ec\uc7ac\uc601,\ub958\uc740\uac00\ub78c",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6c8ad176931f3f5fad7",
+      "title": "\uc808\ub300\ubcf5\uc885",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=799524&week=fri",
+      "author": "\ud63c",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6caad176931f3f5fad8",
+      "title": "\ub9dd\uac9c\uc758 \ud604\uae08\uc220\uc0ac",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=812645&week=sat",
+      "author": "\ubb34\ub987",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6ccad176931f3f5fad9",
+      "title": "\ucd5c\uac15\ubd80\uce90",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=778580&week=sat",
+      "author": "\uc9c1\uc528",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6cdad176931f3f5fada",
+      "title": "\uc18c\ub144 \uac80\uc0ac",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=784582&week=sat",
+      "author": "\ud601\uc528",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6cfad176931f3f5fadb",
+      "title": "\uc5b4\uc314\uc2e0 \ud06c\ub9ac\ub4dc - \uc78a\ud600\uc9c4 \uc0ac\uc6d0",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=808760&week=mon",
+      "author": "\uc0e4\uc774\uc544\ud0c4, ARC, Ubisoft,Tabii",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6d2ad176931f3f5fadd",
+      "title": "\ub300\ub9ac\uac8c\uc784",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=809263&week=tue",
+      "author": "\ucca0\uc900",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6d4ad176931f3f5fade",
+      "title": "\ubcc0\ubc29\uc758 \uc678\ub178\uc790",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=780172",
+      "author": "\ud10d,\ubd81\uad6d\ub108\uad6c\ub9ac,\ud6c4\ub85c\uc2a4\ud2b8",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": true,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6d6ad176931f3f5fadf",
+      "title": "\uc2e0\uc740 \uc8fc\uc0ac\uc704 \ub180\uc774\ub97c \ud558\ub294\uac00?",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=780172",
+      "author": "\ud10d,\ubd81\uad6d\ub108\uad6c\ub9ac,\ud6c4\ub85c\uc2a4\ud2b8",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": true,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6d8ad176931f3f5fae0",
+      "title": "\ubc84\uadf8\uc774\ud130",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=793067&week=mon",
+      "author": "\uc774\ub959",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6d9ad176931f3f5fae1",
+      "title": "\uc5f4\ub819\uc804\uc0ac",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=817032&week=fri",
+      "author": "\uae40\uc138\ud6c8",
+      "service": "naver",
+      "additional": {
+        "new": true,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6dbad176931f3f5fae2",
+      "title": "\ubbf8\ub77c\uc8fc",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=816522&week=thu",
+      "author": "\ubc15\ub300\ud601",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": true,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6ddad176931f3f5fae3",
+      "title": "\uac00\uc0c1&RPG",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=785701",
+      "author": "\uc8fc\ub2e4\ud604",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": true,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6dfad176931f3f5fae4",
+      "title": "\ud0dc\ubc31 : \ud29c\ud1a0\ub9ac\uc5bc \ub9e8",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=755559",
+      "author": "\uc774\ub09c,\ubc31\uc138",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e6e1ad176931f3f5fae5",
+      "title": "\uba78\ub9dd\uae09 \ube4c\ub7f0\ub4e4\uc758 \uc120\uc0dd\ub2d8",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=784843&week=dailyPlus",
+      "author": "\uc774\uc9c0,\ub5a1\uad6c\uc774,SANA",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e6e2ad176931f3f5fae6",
+      "title": "\ucd5c\uc885\ubcf4\uc2a4 \uacf5\ub300\uc7a5",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=784841&week=dailyPlus",
+      "author": "\uae40\uc7a5\ud6c8,\ubc15\uc218\ubd09, \ud558\uc131\uc2e0",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e6e4ad176931f3f5fae7",
+      "title": "\uad34\ub2f4\uac8c\uc784",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=808732&week=dailyPlus",
+      "author": "\ubbf8\ub808,\uc194\ud30c",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e6e5ad176931f3f5fae8",
+      "title": "\ucc9c\uc7ac\uc758 \uac8c\uc784\ubc29\uc1a1",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=797417",
+      "author": "\ub2e4\ub11b,\uc9c0\uae08,\ud558\uc774\uc5d4\ub4dc",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e6e7ad176931f3f5fae9",
+      "title": "\uc7ac\uc0dd\uc874\uacbd\uc7c1",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=793696",
+      "author": "\ubbf8\ud2f0,\ud1a8\uc820",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e6e8ad176931f3f5faea",
+      "title": "\ub9ac\uc5bc\uc6d4\ub4dc ; \ubc38\ub7f0\uc2a4\ubd95\uad34\uc790",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=784842&week=dailyPlus",
+      "author": "\ucf69\uc774,\uc5d8\ucf54",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": true,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e6eaad176931f3f5faeb",
+      "title": "\uae09\uc2dd\ub7ec\ub108",
+      "genre": "\uac8c\uc784\ud310\ud0c0\uc9c0",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=770030",
+      "author": "\uc2ac\ub7ad\ud0b7",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e6f0ad176931f3f5faef",
+      "title": "\uc6a9\uc0ac\uac00 \ub3cc\uc544\uc654\ub2e4",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=773459&week=tue",
+      "author": "\ub098\ub77d,\ud48d\ubc31",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6f1ad176931f3f5faf0",
+      "title": "\ub370\ub4dc\ud038",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=753478&week=fri",
+      "author": "\uae40\uaddc\uc0bc",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6f2ad176931f3f5faf1",
+      "title": "\ud29c\ud1a0\ub9ac\uc5bc \ud0d1\uc758 \uace0\uc778\ubb3c",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=738694&week=wed",
+      "author": "\ud1a0\ud504,\ubc29\uad6c\uc11d\uae40\uc528",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6f4ad176931f3f5faf2",
+      "title": "\ubb3c\uc704\uc758 \uc6b0\ub9ac",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=780404&week=sat",
+      "author": "\ubc41\uc0c8,\uc648\ud328",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6f6ad176931f3f5faf4",
+      "title": "\uc9c0\uc6252:\ubd80\ud65c\uc790",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=817342&week=sat",
+      "author": "\uc5f0\uc0c1\ud638,\ucd5c\uaddc\uc11d",
+      "service": "naver",
+      "additional": {
+        "new": true,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6f8ad176931f3f5faf5",
+      "title": "\ud558\uc6b0\uc2a4\ud0a4\ud37c",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=723046&week=tue",
+      "author": "\ucc44\uc6a9\ud0dd,\uc720\ud604",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6f9ad176931f3f5faf6",
+      "title": "\uc5b4\ub290\ub0a0 \uac11\uc790\uae30 \uc11c\uc6b8\uc740",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=776092&week=sun",
+      "author": "\ubc15\ucc3d\uadfc",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6fdad176931f3f5faf9",
+      "title": "\uafc8\uc758 \uae30\uc5c5",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=687915&week=mon",
+      "author": "\ubb38\uc9c0\ud604",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e6ffad176931f3f5fafa",
+      "title": "\uc880\ube44X\uc2ac\ub798\uc154",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=808533&week=sat",
+      "author": "\ub098\ub77d,\ud64d\uc900\uae30",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e702ad176931f3f5fafc",
+      "title": "\uc704\uc544\ub354\uc880\ube44",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=766648",
+      "author": "\uc774\uba85\uc7ac",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e703ad176931f3f5fafd",
+      "title": "\uba78\uc885\uc704\uae30\uc885\uc778\uac04",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=791892&week=wed",
+      "author": "\uc0ac\ud558\ub77c",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e704ad176931f3f5fafe",
+      "title": "\ud2b8\ub9ac\uac70",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://page.kakao.com/content/54240599",
+      "author": "\ubd88\ub9cc\uc788\ub0e5",
+      "service": "kakaoPage",
+      "additional": {
+        "new": false,
+        "rest": false,
+        "up": false,
+        "adult": false,
+        "singularityList": [
+          "over15"
+        ]
+      }
+    },
+    {
+      "_id": "6566e706ad176931f3f5faff",
+      "title": "[\ub4dc\ub77c\ub9c8\uc6d0\uc791] \uc2a4\uc704\ud2b8\ud648",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=701081",
+      "author": "\uae40\uce78\ube44,\ud669\uc601\ucc2c",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e707ad176931f3f5fb00",
+      "title": "\uc870\uc758 \uc601\uc5ed",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=697656",
+      "author": "\uc870\uc11d",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e709ad176931f3f5fb01",
+      "title": "\ud558\uc774\ube0c 1~2",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=609480",
+      "author": "\uae40\uaddc\uc0bc",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e70aad176931f3f5fb02",
+      "title": "\uc2e0\ub3c4\ub9bc",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=683496",
+      "author": "\uc624\uc138\ud615",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e70bad176931f3f5fb03",
+      "title": "\uac1c\uc7a5\uc218",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=729255",
+      "author": "\uae40\uaddc\uc0bc",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e70dad176931f3f5fb04",
+      "title": "\uc0b4\uc544\ub0a8\uc740 \ub85c\ub9e8\uc2a4",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=764129",
+      "author": "\uc774\uc5f0",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e70fad176931f3f5fb05",
+      "title": "\ud0dd\ubc30\uae30\uc0ac",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=808654&week=dailyPlus",
+      "author": "\uc774\uc724\uade0",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e710ad176931f3f5fb06",
+      "title": "\uc232\uc18d\uc758 \ub2f4",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=738145",
+      "author": "\ub2e4\ud64d",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e712ad176931f3f5fb07",
+      "title": "[\ub4dc\ub77c\ub9c8\uc6d0\uc791] \ubc29\uacfc \ud6c4 \uc804\uc7c1\ud65c\ub3d9",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=517773",
+      "author": "\ud558\uc77c\uad8c",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": true,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e714ad176931f3f5fb08",
+      "title": "\uadf9\uc57c",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=721463",
+      "author": "\uc6b4,\ud55c\ud070\ube5b",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e715ad176931f3f5fb09",
+      "title": "[\ub4dc\ub77c\ub9c8\uc6d0\uc791] \uc9c0\uae08 \uc6b0\ub9ac \ud559\uad50\ub294",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=67235",
+      "author": "\uc8fc\ub3d9\uadfc",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": true,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e719ad176931f3f5fb0b",
+      "title": "\uc5fd\ucd1d\uc18c\ub144",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=759925",
+      "author": "\uae40\uce78\ube44,\ud64d\ud544",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e71aad176931f3f5fb0c",
+      "title": "\ubb35\uc2dc\uc758 \uc778\ud50c\ub8e8\uc5b8\uc11c",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=775218",
+      "author": "\uc870\uc11d",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e71cad176931f3f5fb0d",
+      "title": "\uac15\ub0a8\uc758 \uae30\uc0ac",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=802865",
+      "author": "B\uae09\ub2ec\uad81,\uae40\uc7ac\ud658",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e71ead176931f3f5fb0e",
+      "title": "\ub370\ub4dc\ub370\uc774\uc988(DEAD DAYS)",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=628998",
+      "author": "DEY",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e721ad176931f3f5fb10",
+      "title": "\ud3ec\uc2dd\ub3d9\ubb3c",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=773417",
+      "author": "\uc2e0\ud76c\ube48,\uce58\ud6c8",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": true,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e723ad176931f3f5fb11",
+      "title": "\ud559\uad50\uc815\ubc8c",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=739097",
+      "author": "\ub098\ub77d,\uc9c0\uc564",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e725ad176931f3f5fb12",
+      "title": "\uc0ac\ub78c\uc758 \uc870\uac01",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=765821",
+      "author": "\uc2e0\uc758\ucca0,\ucc9c\ubc94\uc2dd",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e726ad176931f3f5fb13",
+      "title": "\uae30\uacc4\uc99d\uc2dd\uc99d",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=774504",
+      "author": "\ud64d\uc791\uac00",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e728ad176931f3f5fb14",
+      "title": "\ube14\ub799\ud640\uacfc 3\ub9cc\uc6d0",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=775690",
+      "author": "\uae40\uaddc\uc0bc,\ud61c\uc6d0",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e729ad176931f3f5fb15",
+      "title": "\ube44\uc778\uac04",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://page.kakao.com/content/54737612",
+      "author": "\ud604",
+      "service": "kakaoPage",
+      "additional": {
+        "new": false,
+        "rest": false,
+        "up": false,
+        "adult": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e72bad176931f3f5fb16",
+      "title": "\uc2a4\ud3ec",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://page.kakao.com/content/61289684",
+      "author": "\uce58\uce58",
+      "service": "kakaoPage",
+      "additional": {
+        "new": false,
+        "rest": false,
+        "up": false,
+        "adult": false,
+        "singularityList": [
+          "free"
+        ]
+      }
+    },
+    {
+      "_id": "6566e72cad176931f3f5fb17",
+      "title": "\uce68\ubb35\uc758 \ubc24",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=783551",
+      "author": "\ud55c\ub3d9\uc6b0,Q-Ha",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e72ead176931f3f5fb18",
+      "title": "\ubd88\ucf8c\ud55c \uace8\uc9dc\uae30",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=784886",
+      "author": "\uc0ac\ub77d,7R2BNSIG",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e730ad176931f3f5fb19",
+      "title": "\uc624\ub978\ub208\uc774 \ubcf4\ub294 \uc138\uacc4",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=751992",
+      "author": "\ucf54\uc5b4",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e731ad176931f3f5fb1a",
+      "title": "\ub9ac\ud2b8\ub9ac\uce20",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=783552",
+      "author": "\uc2e0\ud615\uc6b1,\uae40\uc120\ud76c",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e733ad176931f3f5fb1b",
+      "title": "\uc0dd\uc874\ub85c\uadf8",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=773027",
+      "author": "\uc774\ub178",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e734ad176931f3f5fb1c",
+      "title": "\ubc14\ud034",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=809445&week=sat",
+      "author": "\ub7ed\ud0a4\uace0\ub9b4\ub77c,\ud300 \ub124\ubaa8\ubc14\ud034,\uc774\uc720\uc9c4",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e736ad176931f3f5fb1d",
+      "title": "\ucc3d\uad90",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=703855",
+      "author": "\ud669\uc870\uc724,\uc724\uad70",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e738ad176931f3f5fb1e",
+      "title": "\ud574\uadc0",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=762786",
+      "author": "\uc54c\ud30cA",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e739ad176931f3f5fb1f",
+      "title": "\ubc14\uc774\ub7ec\uc2a4X",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=754781",
+      "author": "\uc900,\ud558\ub791",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e73bad176931f3f5fb20",
+      "title": "\uc7ac\ub09c\uc18c\ub144",
+      "genre": "\uc544\ud3ec\uce7c\ub9bd\uc2a4",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=775176",
+      "author": "\ucf54\ub9d0\ub791",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": [
+          "waitFree"
+        ]
+      }
+    },
+    {
+      "_id": "6566e73dad176931f3f5fb21",
+      "title": "\uc5ed\ub300\uae09 \uc601\uc9c0 \uc124\uacc4\uc0ac",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=777767&week=fri",
+      "author": "\uc774\ud604\ubbfc,\uae40\ud604\uc218,\ubb38\ubc31\uacbd",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e740ad176931f3f5fb23",
+      "title": "\ub0b4\uac00 \ud0a4\uc6b4 S\uae09\ub4e4",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=784248&week=tue",
+      "author": "seri,\ube44\uc644,\uadfc\uc11c",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e741ad176931f3f5fb24",
+      "title": "\uc2f8\uc6c0\ub3c5\ud559",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=736277&week=sun",
+      "author": "\ubc15\ud0dc\uc900 \ub9cc\ud654\ud68c\uc0ac,\uae40\uc815\ud604 \uc2a4\ud29c\ub514\uc624",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e743ad176931f3f5fb25",
+      "title": "\ucd08\uc778\uc758 \uc2dc\ub300",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=730694&week=sat",
+      "author": "\uc12d\uc774",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e745ad176931f3f5fb26",
+      "title": "\uc2e0\ud654\uae09 \uadc0\uc18d \uc544\uc774\ud15c\uc744 \uc190\uc5d0 \ub123\uc5c8\ub2e4",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=795297&week=mon",
+      "author": "\uc815\uc120\uc728,\ud5e4\uc2a4",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e749ad176931f3f5fb28",
+      "title": "\ud55c\ub9bc\uccb4\uc721\uad00",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=743139&week=tue",
+      "author": "\ud61c\uc131,\uc774\uc11d\uc7ac",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e74bad176931f3f5fb29",
+      "title": "\ube4c\ub4dc\uc5c5",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=750826&week=wed",
+      "author": "911",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e74cad176931f3f5fb2a",
+      "title": "\ub098\ud0dc \uacf5\uc790, \ub178\ub825 \ucc9c\uc7ac \ub418\ub2e4",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=772853&week=sat",
+      "author": "doip,\ub3c4\ub3c4\ubb38,\uc774\ub4f1\ubcc4",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e74ead176931f3f5fb2b",
+      "title": "\ubcc4\uc744 \ud488\uc740 \uc18c\ub4dc\ub9c8\uc2a4\ud130",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=816809&week=wed",
+      "author": "\ud64d\ub300\uc758,\uc8fc\ub178,Q10",
+      "service": "naver",
+      "additional": {
+        "new": true,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e753ad176931f3f5fb2e",
+      "title": "\ube0c\ub808\uc774\ucee4 : \uc774\ud130\ub110 \ud3ec\uc2a4",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=794383&week=fri",
+      "author": "\uc804\uadf9\uc9c4,\ubc15\uc9c4\ud658",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e755ad176931f3f5fb2f",
+      "title": "\uccb4\ud0d0\uc790",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=814834&week=tue",
+      "author": "\ubcd1\uc7a5,\ud574\uc131",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e759ad176931f3f5fb31",
+      "title": "\ud2b8\ub864\ud2b8\ub7a9",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=701700&week=thu",
+      "author": "\uc720\ube44",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": true,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e75bad176931f3f5fb32",
+      "title": "\uc2e0\uad70",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=783050&week=mon",
+      "author": "\uaddc\ub0a8",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    },
+    {
+      "_id": "6566e75cad176931f3f5fb33",
+      "title": "\ube4c\ub7f0\ud22c\ud0ac",
+      "genre": "\uc18c\ub144\uc655\ub3c4\ubb3c",
+      "url": "https://m.comic.naver.com/webtoon/list?titleId=765156&week=tue",
+      "author": "\ud4e8\ud540,\uc740\uc9c0",
+      "service": "naver",
+      "additional": {
+        "new": false,
+        "adult": false,
+        "rest": false,
+        "up": false,
+        "singularityList": []
+      }
+    }
+  ]
+}

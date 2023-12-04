@@ -1,13 +1,20 @@
+import 'dart:convert'; // Import the dart:convert library
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:project/models/subscrible.dart';
+import 'package:project/providers/auth.dart';
 import 'package:project/providers/home_controller.dart';
 import 'package:project/providers/image_dart.dart';
-import 'package:project/providers/subscribles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project/models/subscrible.dart';
 
 class ImageCarousel extends StatelessWidget {
   final List<String> images = [
@@ -59,8 +66,13 @@ class ImageCarousel extends StatelessWidget {
   }
 }
 
-class Home extends GetView<HomeController> {
-  const Home({super.key});
+class Home extends StatefulWidget {
+  @override
+  _MyHome createState() => _MyHome();
+}
+
+class _MyHome extends State<Home> {
+  static get dataSnapShot => null;
 
   Widget _profile() {
     return SingleChildScrollView(
@@ -74,6 +86,8 @@ class Home extends GetView<HomeController> {
       ),
     );
   }
+
+  List<subscribleContent> dataList = [];
 
   Widget _platformList() {
     List<String> imagePath = [
@@ -199,48 +213,84 @@ class Home extends GetView<HomeController> {
         crossAxisSpacing: 0.0, // 열 간의 간격
         mainAxisSpacing: 0.0, // 행 간의 간격
       ),
-      itemCount: imagePath.length,
+      itemCount: dataList.length,
       itemBuilder: (context, index) {
-        return Container(
-          child: Column(
-            children: [
-              Container(
-                width: 180.0,
-                height: 150.0,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0), // 원하는 네모의 모양을 정의
-                ),
-              ),
-              SizedBox(height: 8.0),
-              Text(
-                platformNames[index],
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        );
+        return _buildExpansionTile(dataList[index]);
       },
     );
   }
 
-  @override
-  Widget build(BuildContext context)  {
+  Widget _buildExpansionTile(subscribleContent data) {
+    return ExpansionTile(
+      title: Text(
+        data.title,
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 10,
+        ),
+        textAlign: TextAlign.center,
+      ),
+      children: [
+        Stack(
+          children: [
+            Container(
+              width: 150.0,
+              height: 120.0,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            Transform.scale(
+              scale: 1, // Adjust the scale factor as needed
+              child: Container(
+                width: 150.0,
+                height: 120.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      data.img,
+                      headers: {
+                        'User-Agent':
+                            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+                      },
+                    ),
+                    fit: BoxFit.contain,
+                  ),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
 
-    
-    final subscriblesInstance = Provider.of<subscribles>(context);
-    await subscriblesInstance.fetchAndSetSubScribles("uid11234");
-    final subscriblesData = subscriblesInstance.items;
-    for (var subscrible in subscriblesData) {
-      print("Title: ${subscrible.title}");
-      // print("Data: ${subscrible.title}");
-      print("--------");
+  void getCurrentSubInfo() async {
+    FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await _firestore.collection("eunseong").get();
+
+    for (QueryDocumentSnapshot<Map<String, dynamic>> document
+        in querySnapshot.docs) {
+      String author = document.data()["author"];
+      String url = document.data()["url"];
+      String img = document.data()["img"];
+      String service = document.data()["service"];
+      String title = document.data()["title"];
+
+      subscribleContent data = subscribleContent(
+          author: author, url: url, img: img, service: service, title: title);
+      dataList.add(data);
     }
-    print("hello test test");
+  }
+
+  bool isGridVisible = false;
+  @override
+  Widget build(BuildContext context) {
+    getCurrentSubInfo();
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.blueGrey[600],
@@ -256,7 +306,17 @@ class Home extends GetView<HomeController> {
                   _platformList(),
                   _Content_you_Missing(),
                   const SizedBox(height: 30),
-                  _buildPlatformGrid(),
+                  isGridVisible ? _buildPlatformGrid() : Container(),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Toggle the visibility of the grid
+                      setState(() {
+                        isGridVisible = !isGridVisible;
+                      });
+                    },
+                    child: Text(isGridVisible ? 'HIDE' : 'SHOW'),
+                    // _buildPlatformGrid(),
+                  )
                 ],
               ),
             ),

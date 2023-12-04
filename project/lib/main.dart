@@ -1,4 +1,4 @@
-import 'package:project/providers/subscribles.dart';
+import 'package:project/screens/main_screen.dart';
 
 import './providers/auth.dart';
 import './providers/posts.dart';
@@ -14,7 +14,6 @@ import 'package:provider/provider.dart';
 import 'package:project/screens/fluid_screen.dart';
 import './screens/edit_post_screen.dart';
 import './screens/post_detail_screen.dart';
-import 'package:project/screens/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import './screens/notification_center_screen.dart';
 
@@ -64,14 +63,6 @@ class Myproject extends StatelessWidget {
             previousNotifications == null ? [] : previousNotifications.items,
           ),
         ),
-        ChangeNotifierProxyProvider<Auth, subscribles>(
-          create: (_) => subscribles('', '', []),
-          update: (ctx, auth, previousSubscrible) => subscribles(
-            auth.token,
-            auth.userId,
-            previousSubscrible == null ? [] : previousSubscrible.items,
-          ),
-        ),
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
@@ -81,10 +72,9 @@ class Myproject extends StatelessWidget {
             primarySwatch: Colors.purple,
             fontFamily: 'Lato',
           ),
-          // ? MainScreen()
           home: auth.isAuth
-              // ? Home()
-              ? WithPages()
+              ? MainScreen()
+              // ? WithPages()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
                   builder: (ctx, authResultSnapshot) =>

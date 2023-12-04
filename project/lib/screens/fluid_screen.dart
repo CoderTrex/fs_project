@@ -1,8 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:project/fluid/liquid_swipe.dart';
+import 'package:project/main.dart';
+import 'package:project/models/board.dart';
 import 'package:project/providers/image_dart.dart';
+import 'package:project/screens/board_screen.dart';
 import 'package:project/screens/main_page.dart';
+import 'package:project/screens/main_screen.dart';
 
 ///Example of project with LiquidSwipe by providing list of widgets
 class WithPages extends StatefulWidget {
@@ -60,174 +64,9 @@ class _WithPages extends State<WithPages> {
   late LiquidController liquidController;
   late UpdateType updateType;
   final pages = [
-    // MyWidget(),
+    MainScreen(),
     Home(),
-    Container(
-      color: Colors.deepPurpleAccent,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Image.asset(
-            IconsPath.image1,
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.all(24.0),
-          ),
-          Column(
-            children: <Widget>[
-              Text(
-                "Take a",
-                style: WithPages.style,
-              ),
-              Text(
-                "look at",
-                style: WithPages.style,
-              ),
-              Text(
-                "Liquid Swipe",
-                style: WithPages.style,
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
-    Container(
-      color: Colors.green,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Image.asset(
-            IconsPath.image1,
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.all(24.0),
-          ),
-          Column(
-            children: <Widget>[
-              Text(
-                "Liked?",
-                style: WithPages.style,
-              ),
-              Text(
-                "Fork!",
-                style: WithPages.style,
-              ),
-              Text(
-                "Give Star!",
-                style: WithPages.style,
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
-    Container(
-      color: Colors.yellow,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Image.asset(
-            IconsPath.image1,
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.all(24.0),
-          ),
-          Column(
-            children: <Widget>[
-              Text(
-                "Can be",
-                style: WithPages.style,
-              ),
-              Text(
-                "Used for",
-                style: WithPages.style,
-              ),
-              Text(
-                "Onboarding Design",
-                style: WithPages.style,
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
-    Container(
-      color: Colors.pink,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Image.asset(
-            IconsPath.image1,
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 70.0),
-            child: ExampleSlider(),
-          ),
-          Column(
-            children: <Widget>[
-              Text(
-                "Example",
-                style: WithPages.style,
-              ),
-              Text(
-                "of a page",
-                style: WithPages.style,
-              ),
-              Text(
-                "with Gesture",
-                style: WithPages.style,
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
-    Container(
-      color: Colors.red,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Image.asset(
-            IconsPath.image1,
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.all(24.0),
-          ),
-          Column(
-            children: <Widget>[
-              Text(
-                "Do",
-                style: WithPages.style,
-              ),
-              Text(
-                "Try it",
-                style: WithPages.style,
-              ),
-              Text(
-                "Thank You",
-                style: WithPages.style,
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
+    MyWidget(),
   ];
 
   @override

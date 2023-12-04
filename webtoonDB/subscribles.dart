@@ -4,9 +4,9 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/http_exception.dart';
-import '../models/comment.dart';
-import '../models/subscrible.dart';
+import '../project/lib/models/http_exception.dart';
+import '../project/lib/models/comment.dart';
+import '../project/lib/models/subscrible.dart';
 
 class subscribles with ChangeNotifier {
   List<Subscrible> _items = [];
@@ -22,7 +22,7 @@ class subscribles with ChangeNotifier {
     return [..._items];
   }
 
-  Future<void> fetchAndSetSubScribles(String userId) async {
+  Future<void> fetchAndSetSubScribles() async {
     // final filterString = 'orderBy="postId"&equalTo="$postId"';
     var url = Uri.parse(
         'https://chatting-test-863cb-default-rtdb.asia-southeast1.firebasedatabase.app/subscribles.json?auth=$authToken');

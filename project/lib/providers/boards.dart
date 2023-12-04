@@ -18,11 +18,8 @@ class Board_List with ChangeNotifier {
   Future<void> fetchAndSetBoards() async {
     var url = Uri.parse(
         'https://chatting-test-863cb-default-rtdb.asia-southeast1.firebasedatabase.app/boards.json?auth=$authToken');
-
-    print("hellohellohellohellohellohellohellohellohello");
     try {
       final response = await http.get(url);
-      if (response == 200) print("hello1hello1hello1hello1hello1hello1");
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       if (extractedData == null) {
         return;
@@ -34,11 +31,8 @@ class Board_List with ChangeNotifier {
             .add(Board(boardId.toString(), boardData['name'].toString()));
       });
       _items = loadedBoards;
-      print("hellohellohellohellohellohellohellohellohello");
-      print(this.items);
       notifyListeners();
     } catch (error) {
-      print(error);
       throw (error);
     }
   }

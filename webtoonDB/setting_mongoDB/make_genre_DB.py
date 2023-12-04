@@ -22,30 +22,35 @@ not_mass_produced_genre =   ['THRILL', 'SPORTS', '역사물', '직업드라마',
 
 # -------------------------------------------------------------------- #
 # 1차 작업
-# Genre_model_list = [healing_daily_genre, provocative_romance_genre]
+# Genre_model_list = [healing_daily_genre] 
+# Genre_model_list = [provocative_romance_genre]
 # 2차 작업
 # Genre_model_list = [plain_romance_genre]
 # 3차 작업
-# Genre_model_list = [action_genre]
+Genre_model_list = [action_genre]
+
 
 # 4차 작업
-# 남은 작업
-Genre_model_list =  [not_mass_produced_genre]
-# Genre_model_list =  [mass_produced_genre, not_mass_produced_genre]
+# Genre_model_list =  [not_mass_produced_genre]
+# 5차 작업
+# Genre_model_list =  [mass_produced_genre]
 # -------------------------------------------------------------------- #
 
 # -------------------------------------------------------------------- #
 # 1차 작업
-# Genre_model_list_name = ['healing_daily_genre', 'provocative_romance_genre']
+# Genre_model_list_name = ['healing_daily_genre']
+# Genre_model_list_name = ['provocative_romance_genre']
 # 2차 작업
 # Genre_model_list_name = ['plain_romance_genre'] 
 # 3차 작업
-# Genre_model_list_name = ['action_genre']
+Genre_model_list_name = ['action_genre']
+
+
 
 # 4차 작업
-# 남은 작업
-Genre_model_list_name = ['not_produced_genre']
-# Genre_model_list_name = ['mass_produced_genre', 'not_produced_genre']
+# Genre_model_list_name = ['not_produced_genre']
+# 5차 작업
+# Genre_model_list_name = ['mass_produced_genre']
 # -------------------------------------------------------------------- #
 
 Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
@@ -60,7 +65,8 @@ Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORIC
     "하이틴", "소꿉친구", "역하렘", "까칠남", "계약연애", "음식%26요리"]
 
 # API 엔드포인트 URL
-api_Search_url = "https://korea-webtoon-api.herokuproject.com/search"
+api_Search_url = "https://korea-webtoon-api.herokuapp.com/search"
+
 
 # 데이터베이스 선택
 db = client["fsdb_naver"]
@@ -93,7 +99,8 @@ for model_name, model_genre in zip(Genre_model_list_name, Genre_model_list):
                             service = webtoon["service"]
                             additional = webtoon["additional"]
                         model_collection.insert_one({"title": title, "genre": genre_ele, 
-                                                    "url" : url, "author" : author, 
+                                                    "url" : url, "author" : author,
+                                                    "img" : img,
                                                     "service" : service, "additional" : additional})
                     else:
                         print("ERROR: 해당 웹툰의 검색 결과가 없습니다.")

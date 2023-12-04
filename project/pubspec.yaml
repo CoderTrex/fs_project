@@ -39,12 +39,24 @@ dependencies:
   shared_preferences: ^2.2.2
   http: ^1.1.1
   intl: ^0.18.1
-  firebase_core: ^2.23.0
+  firebase_core: ^2.24.0
   badges: ^3.1.2
   carousel_slider: ^4.2.1
   get: ^4.6.6
   url_launcher: ^6.2.1
   google_fonts: ^6.1.0
+  firebase_database: ^10.3.6
+  cached_network_image: ^3.3.0
+  firebase_auth: ^4.15.0
+  cloud_firestore: ^4.13.3
+  flutterfire_cli: ^0.1.1+2
+  photo_manager: ^2.8.1
+  image_picker: ^1.0.4
+  google_sign_in: ^6.1.6
+  photofilters: ^3.0.1
+  firebase_storage: ^11.5.3
+  timeago: ^3.6.0
+  expandable_text: ^2.3.0
 
 dev_dependencies:
   flutter_test:
