@@ -36,7 +36,6 @@ mass_produced_genre_len = 316
 not_mass_produced_genre = ['THRILL', 'SPORTS', '역사물', '직업드라마', '괴담', '해외작품', '음악', '축구', '감염', '서스펜스', '스포츠성장', '농구', '프리퀄', '하이퍼리얼리즘', '빙의', '오컬트',  '두뇌싸움']
 not_mass_produced_genre_len = 466
 
-
 Genre_list = [
                 'PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
                 'SENSIBILITY', 'SPORTS', "먼치킨", "학원로맨스", "로판", "재회", "슈퍼스트링", "육아물", 
@@ -61,23 +60,32 @@ models = {
 }
 
 
+from google.cloud import firestore
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+
+
 class Firebase_User_Base_INFO:
     def __init__(self, userid):
         # Firebase database 인증 및 앱 초기화
         cred = credentials.Certificate("C:\\Code\\fs_project\\webtoonDB\\algorithm_server\\chatting_account_key.json")
         firebase_admin.initialize_app(cred, {
-            'databaseURL': "https://chatting-test-863cb-default-rtdb.asia-southeast1.firebasedatabase.app"
+            'projectId': "chatting-test-863cb"
         })
+        db = firestore.client()
+        # 'databaseURL': "https://chatting-test-863cb-default-rtdb.asia-southeast1.firebasedatabase.app"
         # 컬렉션 이름 설정
-        self.collection_name = 'subscribles'
-        self.db = db.reference(self.collection_name)
-        self.data = self.db.child(userid).get()
-        
+        self.collection_name = userid
+        self.db = db.collection(self.collection_name)
 
     def create_user_base_recommendations(self):
         user_subscrible_list = []
-        for _title, subscriptions in self.data.items():
+        documents = self.db.get()
+        for _title in documents:
             title = _title
+            print(title)
             if (title not in user_subscrible_list and title is not None):
                 user_subscrible_list.append(title)    
         user_Recom_list = {genre: 0 for genre in Genre_list}
@@ -160,8 +168,8 @@ def get_recommendations():
 
         # Firebase_User_Base_INFO 인스턴스 생성
         user = Firebase_User_Base_INFO(user_id)
+            
         user_recommendations_weight = user.create_user_base_recommendations()
-
         # ModelPreferenceCalculator 인스턴스 생성
         model_preference_calculator = ModelPreferenceCalculator(user_recommendations_weight, models, mongodb_client)
         model_preference_calculator.calculate_model_preferences()
@@ -176,7 +184,6 @@ def get_recommendations():
             # JSON 직렬화 시도
         try:
             json_result = json.dumps(result, default=convert_to_json_serializable, ensure_ascii=False)
-            print(json_result)
         except Exception as e:
             print(f"Error: {e}")
         return jsonify(json_result)

@@ -47,7 +47,6 @@ try:
 
     driver.execute_script('window.scrollTo(0, 0)')
 
-
     soup = BeautifulSoup(driver.page_source, 'html.parser')
     db_genre = []
     # MongoDB 연결

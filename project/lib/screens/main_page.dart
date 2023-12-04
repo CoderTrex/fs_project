@@ -271,7 +271,7 @@ class _MyHome extends State<Home> {
   void getCurrentSubInfo() async {
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await _firestore.collection("eunseong").get();
+        await _firestore.collection(Auth().email!).get();
 
     for (QueryDocumentSnapshot<Map<String, dynamic>> document
         in querySnapshot.docs) {

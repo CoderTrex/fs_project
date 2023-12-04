@@ -35,14 +35,6 @@ for day in days:
         img_url = document["img"]
         genre = document["genre"]
 
-        # # 만약 장르값이 있다면 넘어감
-        # if "genre" in document and document["genre"]:
-        #     print(f"장르가 이미 결정된 문서 {title}입니다. 넘어갑니다.")
-        #     # print(f"Title: {title} Genre : {genre}")
-        #     continue
-        # else:
-        #     print(f"장르가 입력되지 않은 문서 {title}입니다. 넘어갑니다.")
-        
         projectend_genre_list = []
         
         for genre_element in Genre_list:

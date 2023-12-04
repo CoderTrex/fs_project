@@ -22,36 +22,8 @@ not_mass_produced_genre =   ['THRILL', 'SPORTS', '역사물', '직업드라마',
 
 # -------------------------------------------------------------------- #
 # 1차 작업
-# Genre_model_list = [healing_daily_genre] 
-# Genre_model_list = [provocative_romance_genre]
-# 2차 작업
-# Genre_model_list = [plain_romance_genre]
-# 3차 작업
-Genre_model_list = [action_genre]
-
-
-# 4차 작업
-# Genre_model_list =  [not_mass_produced_genre]
-# 5차 작업
-# Genre_model_list =  [mass_produced_genre]
-# -------------------------------------------------------------------- #
-
-# -------------------------------------------------------------------- #
-# 1차 작업
-# Genre_model_list_name = ['healing_daily_genre']
-# Genre_model_list_name = ['provocative_romance_genre']
-# 2차 작업
-# Genre_model_list_name = ['plain_romance_genre'] 
-# 3차 작업
-Genre_model_list_name = ['action_genre']
-
-
-
-# 4차 작업
-# Genre_model_list_name = ['not_produced_genre']
-# 5차 작업
-# Genre_model_list_name = ['mass_produced_genre']
-# -------------------------------------------------------------------- #
+Genre_model_list = [healing_daily_genre, provocative_romance_genre, plain_romance_genre, action_genre, not_mass_produced_genre, mass_produced_genre]
+Genre_model_list_name = ["healing_daily_genre", "provocative_romance_genre", "plain_romance_genre", "action_genre", "not_mass_produced_genre", "mass_produced_genre"]
 
 Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORICAL', 'DRAMA',
         'SENSIBILITY', 'SPORTS'"먼치킨", "학원로맨스", "로판", "게임판타지", "재회", "현실로맨스", "슈퍼스트링", "육아물", "역사물",
@@ -66,7 +38,6 @@ Genre_list = ['PURE', 'FANTASY', 'ACTION', 'DAILY', 'THRILL', 'COMIC', 'HISTORIC
 
 # API 엔드포인트 URL
 api_Search_url = "https://korea-webtoon-api.herokuapp.com/search"
-
 
 # 데이터베이스 선택
 db = client["fsdb_naver"]
