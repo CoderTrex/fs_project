@@ -4,9 +4,9 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
-import '../project/lib/models/http_exception.dart';
-import '../project/lib/models/comment.dart';
-import '../project/lib/models/subscrible.dart';
+import 'project/lib/models/http_exception.dart';
+import 'project/lib/models/comment.dart';
+import 'project/lib/models/subscrible.dart';
 
 class subscribles with ChangeNotifier {
   List<Subscrible> _items = [];
