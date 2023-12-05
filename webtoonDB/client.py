@@ -83,19 +83,19 @@ if __name__ == '__main__':
     # # -------------------------------------------------------- ##
     
     
-    result_PR = get_recommendations_from_api(email_PR)
-    if result_PR:
-        print("API Response: OKAY")
-        print(result_PR)
-    else:
-        print("Failed to get recommendations from API.")
+    # result_PR = get_recommendations_from_api(email_PR)
+    # if result_PR:
+    #     print("API Response: OKAY")
+    #     print(result_PR)
+    # else:
+    #     print("Failed to get recommendations from API.")
 
-    result_MP = get_recommendations_from_api(email_MP)
-    if result_MP:
-        print("API Response: OKAY")
-        print(result_MP)
-    else:
-        print("Failed to get recommendations from API.")
+    # result_MP = get_recommendations_from_api(email_MP)
+    # if result_MP:
+    #     print("API Response: OKAY")
+    #     print(result_MP)
+    # else:
+    #     print("Failed to get recommendations from API.")
 
     # result3 = del_content_api(email, title_to_search)
     # if result3:
