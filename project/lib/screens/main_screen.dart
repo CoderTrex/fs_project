@@ -67,17 +67,92 @@ class ImageCarousel extends StatelessWidget {
   }
 }
 
+// Future<Map<String, dynamic>?> getTodayContentApi(String email) async {
+//   final baseUrl = "http://10.0.2.2:5000";
+//   final path = "/api_get_today_content";
+//   final uri = Uri.parse('$baseUrl$path?email=$email');
+
+//   try {
+//     final response = await http.get(uri);
+//     if (response.statusCode == 200) {
+//       final Map<String, dynamic>? result = json.decode(response.body);
+//       // JSON 데이터로 파싱
+//       print("Connection is Welldone");
+//       return result;
+//     } else {
+//       // 서버로부터 오류 응답
+//       print("Error: ${response.statusCode}");
+//       return null;
+//     }
+//   } catch (e) {
+//     // 네트워크 오류 등의 예외 처리
+//     print("Error: $e");
+//     return null;
+//   }
+// }
+
+// class CombinedWidget extends StatelessWidget {
+//   final double screenWidth;
+//   CombinedWidget(this.screenWidth);
+
+//   Future<void> _refreshBoards(BuildContext context, String email) async {
+//     await Provider.of<Board_List>(context, listen: false).fetchAndSetBoards();
+
+//     final baseUrl = "http://10.0.2.2:5000";
+//     final path = "/api_get_today_content";
+//     final uri = Uri.parse('$baseUrl$path?email=$email');
+
+//     try {
+//       final response = await http.get(uri);
+//       if (response.statusCode == 200) {
+//         final Map<String, dynamic>? result = json.decode(response.body);
+//         // JSON 데이터로 파싱
+//         print("Connection is Welldone");
+//         return result;
+//       } else {
+//         // 서버로부터 오류 응답
+//         print("Error: ${response.statusCode}");
+//         return null;
+//       }
+//     } catch (e) {
+//       // 네트워크 오류 등의 예외 처리
+//       print("Error: $e");
+//       return null;
+//     }
+//   }
 class CombinedWidget extends StatelessWidget {
   final double screenWidth;
-
   CombinedWidget(this.screenWidth);
+
+  Map<String, dynamic>? result; // Define the result variable
+
+  Future<void> _refreshBoards(BuildContext context, String email) async {
+    await Provider.of<Board_List>(context, listen: false).fetchAndSetBoards();
+
+    final baseUrl = "http://10.0.2.2:5000";
+    final path = "/api_get_today_content";
+    final uri = Uri.parse('$baseUrl$path?email=$email');
+
+    try {
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        result = json.decode(response.body); // Update the result variable
+        print("Connection is Welldone");
+      } else {
+        print("Error: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    String email = "plain_romance@naver.com";
     return Container(
       color: Colors.lightBlue[100]!.withOpacity(1.0),
       child: FutureBuilder(
-        future: _refreshBoards(context),
+        future: _refreshBoards(context, email),
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -90,8 +165,8 @@ class CombinedWidget extends StatelessWidget {
                 builder: (ctx, boardsData, _) => Padding(
                   padding: EdgeInsets.all(3),
                   child: ListView.builder(
-                    shrinkWrap: false, // 수정된 부분
-                    physics: AlwaysScrollableScrollPhysics(), // 추가된 부분
+                    shrinkWrap: false,
+                    physics: AlwaysScrollableScrollPhysics(),
                     itemCount: boardsData.items.length + 4,
                     itemBuilder: (_, i) {
                       if (i == 0) {
@@ -102,6 +177,53 @@ class CombinedWidget extends StatelessWidget {
                         return const SizedBox(height: 30);
                       } else if (i == 3) {
                         return _platformList();
+                      } else if (i == 4) {
+                        return Column(
+                          children: [
+                            const SizedBox(height: 30),
+                            Text("Community"),
+                            const SizedBox(height: 30),
+                            if (result != null)
+                              for (var category in result!.keys) ...[
+                                Text(category),
+                                for (var item in result![category]) ...[
+                                  SizedBox(height: 8),
+                                  Container(
+                                    width: screenWidth - 30,
+                                    child: OutlinedButton(
+                                      onPressed: () {
+                                        // launch();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 100),
+                                        primary: Colors.blue.withAlpha(255),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(9.0),
+                                        ),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Image.network(item['img'], headers: {
+                                            'User-Agent':
+                                                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                                          }),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            item['title'],
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                ],
+                              ],
+                            SizedBox(height: 8),
+                          ],
+                        );
                       } else {
                         return Column(
                           children: [
@@ -138,7 +260,6 @@ class CombinedWidget extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 8),
                           ],
                         );
                       }
@@ -154,9 +275,88 @@ class CombinedWidget extends StatelessWidget {
   }
 }
 
-Future<void> _refreshBoards(BuildContext context) async {
-  await Provider.of<Board_List>(context, listen: false).fetchAndSetBoards();
-}
+// @override
+// Widget build(BuildContext context) {
+//   String email = "plain_romance@naver.com";
+//   return Container(
+//     color: Colors.lightBlue[100]!.withOpacity(1.0),
+//     child: FutureBuilder(
+//       future: _refreshBoards(context, email),
+//       builder: (ctx, snapshot) {
+//         if (snapshot.connectionState == ConnectionState.waiting) {
+//           return Center(
+//             child: CircularProgressIndicator(),
+//           );
+//         } else {
+//           return Container(
+//             width: screenWidth - 10,
+//             child: Consumer<Board_List>(
+//               builder: (ctx, boardsData, _) => Padding(
+//                 padding: EdgeInsets.all(3),
+//                 child: ListView.builder(
+//                   shrinkWrap: false, // 수정된 부분
+//                   physics: AlwaysScrollableScrollPhysics(), // 추가된 부분
+//                   itemCount: boardsData.items.length + 4,
+//                   itemBuilder: (_, i) {
+//                     if (i == 0) {
+//                       return const SizedBox(height: 30);
+//                     } else if (i == 1) {
+//                       return ImageCarousel();
+//                     } else if (i == 2) {
+//                       return const SizedBox(height: 30);
+//                     } else if (i == 3) {
+//                       return _platformList();
+//                     } else {
+//                       return Column(
+//                         children: [
+//                           const SizedBox(height: 30),
+//                           Text("Community"),
+//                           const SizedBox(height: 30),
+//                           Container(
+//                             width: screenWidth - 30,
+//                             child: OutlinedButton(
+//                               onPressed: () {
+//                                 Navigator.of(context).pushNamed(
+//                                   BoardScreen.routeName,
+//                                   arguments: BoardScreenArguments(
+//                                     boardsData.items[i - 4].id,
+//                                     boardsData.items[i - 4].name,
+//                                   ),
+//                                 );
+//                               },
+//                               style: ElevatedButton.styleFrom(
+//                                 padding:
+//                                     EdgeInsets.symmetric(horizontal: 100),
+//                                 primary: Colors.blue.withAlpha(255),
+//                                 shape: RoundedRectangleBorder(
+//                                   borderRadius: BorderRadius.circular(9.0),
+//                                 ),
+//                               ),
+//                               child: Container(
+//                                 child: Center(
+//                                   child: Text(
+//                                     (boardsData.items[i - 4].name),
+//                                     style: TextStyle(fontSize: 16),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                           SizedBox(height: 8),
+//                         ],
+//                       );
+//                     }
+//                   },
+//                 ),
+//               ),
+//             ),
+//           );
+//         }
+//       },
+//     ),
+//   );
+// }
+// }
 
 Widget _platformList() {
   List<String> imagePath = [

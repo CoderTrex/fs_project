@@ -189,7 +189,6 @@ class ContentSetter:
     def get_today_content(self, email):
         fsdb = self.db.collection(email).get()
         result_today_dic = {}
-        reulst_not_today_dic = {}
         date = datetime.today().weekday()
         
         for doc in fsdb:
@@ -204,8 +203,6 @@ class ContentSetter:
                         if title not in result_today_dic:
                             result_today_dic[title] = []
                         result_today_dic[title].append(info)
-                    flag = False
-                    result_not
         return result_today_dic
 
 

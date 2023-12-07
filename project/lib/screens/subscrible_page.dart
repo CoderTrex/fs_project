@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'dart:convert';
 
 import 'package:url_launcher/url_launcher.dart'; // Add this import for json decoding
@@ -102,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         final Map<String, dynamic>? result = json.decode(response.body);
         // JSON 데이터로 파싱
         print("Connection is Welldone");
+        print(result);
         return result;
       } else {
         // 서버로부터 오류 응답
@@ -133,19 +135,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text("Error fetching data"),
             );
           } else {
-            // Data is available.
             final result = snapshot.data!;
-
-            // Create a list of widgets dynamically based on all webtoon data.
             final allWebtoonWidgets = result.entries.map<Widget>((entry) {
               final webtoonList = entry.value;
-              print("check point webtoonList: ${webtoonList}");
-              // Create a list of widgets dynamically based on the current webtoonList.
               final webtoonListWidgets = webtoonList.map<Widget>((webtoon) {
                 return Container(
                   decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Colors.grey), // Add border styling here
+                    border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(
                         8.0), // Optional: Add rounded corners
                   ),
