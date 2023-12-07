@@ -1,8 +1,33 @@
 import requests
 import json
 
+
+def get_content_api(email):
+    url = "http://localhost:5000/api_get_content"
+    param = {'email': email}
+    try:
+        response = requests.get(url, params=param)
+        response.raise_for_status()
+        result = response.json()
+        # result = response
+        return result
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+
+def get_today_content_api(email):
+    url = "http://localhost:5000/api_get_today_content"
+    param = {'email': email}
+    try:
+        response = requests.get(url, params=param)
+        response.raise_for_status()
+        result1, result2 = response.json()
+        # result = response
+        return result1, result2
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+
 def set_content_api(email, title):
-    url = "http://127.0.0.1:5000/api_set_content"
+    url = "http://localhost:5000/api_set_content"
     params = {'email': email, 'title': title}
     
     try:
@@ -15,7 +40,7 @@ def set_content_api(email, title):
         return None
 
 def del_content_api(email, title):
-    url = "http://127.0.0.1:5000/api_del_content"
+    url = "http://localhost:5000/api_del_content"
     params = {'email': email, 'title': title}
     
     try:
@@ -29,7 +54,7 @@ def del_content_api(email, title):
         return None
 
 def get_recommendations_from_api(userid):
-    url = "http://127.0.0.1:5000/get_recommendations"
+    url = "http://localhost:5000/api_get_recommendations"
     headers = {'Content-Type': 'application/json'}
     data = {'email': userid}
     
@@ -56,6 +81,24 @@ if __name__ == '__main__':
                             ]
     email_PR = "plain_romance@naver.com"
     email_MP = "mass_produce@naver.com"
+
+
+
+    # # -------------------------------------------------------- ##
+    # # -------------------------------------------------------- ##
+    # # ------ 이메일을 통해서 해당 유저의 subscrible 목록 갱신 --- ##
+    # # -------------------------------------------------------- ##
+    # # -------------------------------------------------------- ##
+    # result_today, result_not_today = get_content_api(email_PR)
+    # print("today: {}\n\n\n\n\n\n".format(result_today), 
+    #         "not today: {}\n\n\n\n\n\n".format(result_not_today))
+    # result = get_content_api(email_MP)
+
+    # result2 = get_today_content_api(email_PR)
+    # print(result2)
+    # result2 = get_today_content_api(email_MP)
+    # print(result2)
+
 
     # # -------------------------------------------------------- ##
     # # -------------------------------------------------------- ##

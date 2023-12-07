@@ -9,6 +9,7 @@ import random
 import pymongo
 from bson import ObjectId
 from random import sample
+from datetime import datetime
 from pymongo import MongoClient
 from flask import Flask, request, jsonify
 
@@ -128,6 +129,7 @@ class ModelPreferenceCalculator:
         random_documents = list(collection.find().limit(num_works).skip(random_indices[0]))
         for random_document in random_documents:
             result = {
+                "title" : random_document["title"],
                 "url": random_document["url"],
                 "img": random_document["img"],
                 "author": random_document["author"],
@@ -169,8 +171,43 @@ class ContentSetter:
         self.db_kakao = client["fsdb_kakao"]
         self.db_kakopage = client["fsdb_kakaopage"]
         self.platform_list = [self.db_naver, self.db_kakao, self.db_kakopage]
-        self.days_naver = ['mons', 'tues', 'weds', 'thus', 'fris', 'sats', 'suns', 'finisheds']
-        self.days = ['mons', 'tues', 'weds', 'thus', 'fris', 'sats', 'suns']
+        self.days = ['mons', 'tues', 'weds', 'thus', 'fris', 'sats', 'suns', 'finisheds']
+
+    def get_content(self, email):
+        fsdb = self.db.collection(email).get()
+        result_dic = {}
+        date = datetime.today().weekday()
+        for doc in fsdb:
+            title = doc.id
+            info = doc.to_dict()
+            if title not in result_dic:
+                result_dic[title] = []
+            
+            result_dic[title].append(info)
+        return result_dic
+
+    def get_today_content(self, email):
+        fsdb = self.db.collection(email).get()
+        result_today_dic = {}
+        reulst_not_today_dic = {}
+        date = datetime.today().weekday()
+        
+        for doc in fsdb:
+            title = doc.id
+            info = doc.to_dict()
+            for platform in self.platform_list:
+                print("today's date is : {0}".format(self.days[date]))
+                collection = platform[self.days[date]]
+                documents = collection.find()
+                for document in documents:
+                    if title == document["title"]:
+                        if title not in result_today_dic:
+                            result_today_dic[title] = []
+                        result_today_dic[title].append(info)
+                    flag = False
+                    result_not
+        return result_today_dic
+
 
     def set_content(self, email, title):
         fsdb = self.db.collection(email)
@@ -185,6 +222,7 @@ class ContentSetter:
                     for document in documents:
                         if title == document["title"]:
                             result = {
+                                "title" : document["title"],
                                 "url": document["url"],
                                 "img": document["img"],
                                 "author": document["author"],
@@ -198,6 +236,7 @@ class ContentSetter:
                     for document in documents:
                         if title == document["title"]:
                             result = {
+                                "title" : document["title"],
                                 "url": document["url"],
                                 "img": document["img"],
                                 "author": document["author"],
@@ -208,11 +247,13 @@ class ContentSetter:
         if find:
             document_ref = fsdb.document(title)
             document = document_ref.get()
-            if document.exists:
-                print(f"Document '{title}' already exists. Skipping update.")
-            else:
-                document_ref.set(result)
-                print(f"Document '{title}' created with data: {result}")
+            # if document.exists:
+            #     print(f"Document '{title}' already exists. Skipping update.")
+            # else:
+            document_ref.set(result)
+            print(f"Document '{title}' created with data: {result}")
+                
+
 
     def del_content(self, email, title):
         fsdb = self.db.collection(email)
@@ -236,10 +277,24 @@ class MyAPI:
         self.db = firestore.client()
         self.content_setter = ContentSetter(self.db, self.client)
         
+        
+        # api_get_today_content
         # Flask 라우트 등록
+        self.app.add_url_rule('/api_get_content', 'api_get_content', self.api_get_content, methods=['GET'])
+        self.app.add_url_rule('/api_get_today_content', 'api_get_today_content', self.api_get_today_content, methods=['GET'])
         self.app.add_url_rule('/api_set_content', 'api_set_content', self.api_set_content, methods=['GET'])
         self.app.add_url_rule('/api_del_content', 'api_del_content', self.api_del_content, methods=['GET'])
-        self.app.add_url_rule('/get_recommendations', 'get_recommendations', self.get_recommendations, methods=['GET'])
+        self.app.add_url_rule('/api_get_recommendations', 'api_get_recommendations', self.api_get_recommendations, methods=['GET'])
+
+    def api_get_content(self):
+        email = request.args.get('email')
+        result = self.content_setter.get_content(email)
+        return result
+    
+    def api_get_today_content(self):
+        email = request.args.get('email')
+        result = self.content_setter.get_today_content(email)
+        return result
 
     def api_set_content(self):
         email = request.args.get('email')
@@ -259,7 +314,7 @@ class MyAPI:
         result = self.get_info(email, name_title)
         return jsonify(result)
 
-    def get_recommendations(self):
+    def api_get_recommendations(self):
         try:
             # 사용자 ID 받기
             email = request.json.get('email')

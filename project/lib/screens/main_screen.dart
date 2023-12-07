@@ -1,14 +1,20 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project/fluid/liquid_swipe.dart';
 import 'package:project/models/subscrible.dart';
+import 'package:project/screens/fluid_screen.dart';
+import 'package:project/screens/subscrible_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '/screens/board_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/boards.dart';
 import '../providers/auth.dart';
+import 'dart:math';
 import '../providers/notifications.dart';
 import '../widgets/app_drawer.dart';
+import 'dart:convert'; // Add this import for json decoding
+import 'package:http/http.dart' as http;
 import 'package:project/providers/image_dart.dart';
 
 class ImageCarousel extends StatelessWidget {
@@ -61,167 +67,281 @@ class ImageCarousel extends StatelessWidget {
   }
 }
 
-class MainScreen extends StatelessWidget {
-  Future<void> _refreshBoards(BuildContext context) async {
-    await Provider.of<Board_List>(context, listen: false).fetchAndSetBoards();
-  }
+class CombinedWidget extends StatelessWidget {
+  final double screenWidth;
 
-  void _launchURL(String url) async {
-    try {
-      await launch(url);
-    } catch (e) {
-      print("url launch error");
-    }
-  }
+  CombinedWidget(this.screenWidth);
 
-  List<subscribleContent> dataList = [];
-
-  Widget _platformList() {
-    List<String> imagePath = [
-      IconsPath.naverWebtoon,
-      IconsPath.kakaoWebtoon,
-      IconsPath.kakaoPage,
-      IconsPath.lezhinComics,
-    ];
-
-    List<String> platformUrls = [
-      "https://comic.naver.com/index",
-      "https://webtoon.kakao.com/",
-      "https://page.kakao.com/",
-      "https://www.lezhinus.com/ko",
-    ];
-
-    List<String> platformNames = [
-      'NaverWebtoon',
-      'KakaoWebtoon',
-      'KakaoPage',
-      'LezhinComics',
-    ];
-
-    double imageMargin = 0.0;
-
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: SizedBox(
-        height: 130.0,
-        child: PageView.builder(
-          itemCount: imagePath.length,
-          itemBuilder: (context, index) {
+      color: Colors.lightBlue[100]!.withOpacity(1.0),
+      child: FutureBuilder(
+        future: _refreshBoards(context),
+        builder: (ctx, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
             return Container(
-              margin: EdgeInsets.symmetric(horizontal: imageMargin),
-              child: GestureDetector(
-                onTap: () =>
-                    _launchURL(platformUrls[index]), // Launch URL on tap
-                child: Stack(
-                  children: [
-                    ClipOval(
-                      child: Container(
-                        width: 90.0,
-                        height: 90.0,
-                        color: Colors.white,
-                        child: Image.asset(
-                          imagePath[index],
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 10,
-                      left: 0,
-                      right: 30,
-                      child: Container(
-                        padding: EdgeInsets.all(0.0),
-                        color: Colors.transparent,
-                        child: Text(
-                          platformNames[index],
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          overflow: TextOverflow.visible,
-                        ),
-                      ),
-                    ),
-                  ],
+              width: screenWidth - 10,
+              child: Consumer<Board_List>(
+                builder: (ctx, boardsData, _) => Padding(
+                  padding: EdgeInsets.all(3),
+                  child: ListView.builder(
+                    shrinkWrap: false, // 수정된 부분
+                    physics: AlwaysScrollableScrollPhysics(), // 추가된 부분
+                    itemCount: boardsData.items.length + 4,
+                    itemBuilder: (_, i) {
+                      if (i == 0) {
+                        return const SizedBox(height: 30);
+                      } else if (i == 1) {
+                        return ImageCarousel();
+                      } else if (i == 2) {
+                        return const SizedBox(height: 30);
+                      } else if (i == 3) {
+                        return _platformList();
+                      } else {
+                        return Column(
+                          children: [
+                            const SizedBox(height: 30),
+                            Text("Community"),
+                            const SizedBox(height: 30),
+                            Container(
+                              width: screenWidth - 30,
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed(
+                                    BoardScreen.routeName,
+                                    arguments: BoardScreenArguments(
+                                      boardsData.items[i - 4].id,
+                                      boardsData.items[i - 4].name,
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 100),
+                                  primary: Colors.blue.withAlpha(255),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(9.0),
+                                  ),
+                                ),
+                                child: Container(
+                                  child: Center(
+                                    child: Text(
+                                      (boardsData.items[i - 4].name),
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                          ],
+                        );
+                      }
+                    },
+                  ),
                 ),
               ),
             );
-          },
-          controller: PageController(viewportFraction: 0.3),
+          }
+        },
+      ),
+    );
+  }
+}
+
+Future<void> _refreshBoards(BuildContext context) async {
+  await Provider.of<Board_List>(context, listen: false).fetchAndSetBoards();
+}
+
+Widget _platformList() {
+  List<String> imagePath = [
+    IconsPath.naverWebtoon,
+    IconsPath.kakaoWebtoon,
+    IconsPath.kakaoPage,
+    IconsPath.lezhinComics,
+  ];
+
+  List<String> platformUrls = [
+    "https://comic.naver.com/index",
+    "https://webtoon.kakao.com/",
+    "https://page.kakao.com/",
+    "https://www.lezhinus.com/ko",
+  ];
+
+  List<String> platformNames = [
+    'NaverWebtoon',
+    'KakaoWebtoon',
+    'KakaoPage',
+    'LezhinComics',
+  ];
+
+  double imageMargin = 0.0;
+
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 10),
+    child: SizedBox(
+      height: 130.0,
+      child: PageView.builder(
+        itemCount: imagePath.length,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: imageMargin),
+            child: GestureDetector(
+              onTap: () => _launchURL(platformUrls[index]), // Launch URL on tap
+              child: Stack(
+                children: [
+                  ClipOval(
+                    child: Container(
+                      width: 90.0,
+                      height: 90.0,
+                      color: Colors.white,
+                      child: Image.asset(
+                        imagePath[index],
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    left: 0,
+                    right: 30,
+                    child: Container(
+                      padding: EdgeInsets.all(0.0),
+                      color: Colors.transparent,
+                      child: Text(
+                        platformNames[index],
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.visible,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+        controller: PageController(viewportFraction: 0.3),
+      ),
+    ),
+  );
+}
+
+void _launchURL(String url) async {
+  try {
+    await launch(url);
+  } catch (e) {
+    print("url launch error");
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int page = 0;
+  late LiquidController liquidController;
+  late UpdateType updateType;
+  final pages = [
+    CombinedWidget(double.infinity),
+    MyApp_Sub(),
+    MyWidget(),
+  ];
+
+  void initState() {
+    liquidController = LiquidController();
+    super.initState();
+  }
+
+  Widget _buildDot(int index) {
+    double selectedness = Curves.easeOut.transform(
+      max(
+        0.0,
+        1.0 - ((page) - index).abs(),
+      ),
+    );
+    double zoom = 1.0 + (2.0 - 1.0) * selectedness;
+    return new Container(
+      width: 25.0,
+      child: new Center(
+        child: new Material(
+          color: Colors.white,
+          type: MaterialType.circle,
+          child: new Container(
+            width: 8.0 * zoom,
+            height: 8.0 * zoom,
+          ),
         ),
       ),
     );
   }
 
+  @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     final userId = Provider.of<Auth>(context).userId;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome CEE'),
-      ),
-      body: ListView(
-        children: [
-          const SizedBox(height: 30),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Column(
-              children: [
-                ImageCarousel(),
-              ],
+          // backgroundColor: Colors.transparent,
+          ),
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(IconsPath.loginPage), // 이미지의 경로
+                fit: BoxFit.cover, // 이미지를 화면에 맞게 채우도록 설정
+              ),
             ),
           ),
-          const SizedBox(height: 30),
-          Positioned(child: _platformList()),
-          FutureBuilder(
-            future: _refreshBoards(context),
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return Consumer<Board_List>(
-                  builder: (ctx, boardsData, _) => Padding(
-                    padding: EdgeInsets.all(8),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: boardsData.items.length,
-                      itemBuilder: (_, i) => Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            child: OutlinedButton(
-                              onPressed: () {
-                                Navigator.of(context).pushNamed(
-                                  BoardScreen.routeName,
-                                  arguments: BoardScreenArguments(
-                                    boardsData.items[i].id,
-                                    boardsData.items[i].name,
-                                  ),
-                                );
-                              },
-                              child: Text(boardsData.items[i].name),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }
-            },
+          LiquidSwipe(
+            pages: pages,
+            positionSlideIcon: 0.8,
+            fullTransitionValue: 880,
+            slideIconWidget: Icon(Icons.arrow_back_ios),
+            onPageChangeCallback: pageChangeCallback,
+            waveType: WaveType.liquidReveal,
+            liquidController: liquidController,
+            preferDragFromRevealedArea: true,
+            enableSideReveal: true,
+            ignoreUserGestureWhileAnimating: true,
+            enableLoop: true,
+          ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(children: <Widget>[
+              Expanded(child: SizedBox()),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List<Widget>.generate(pages.length, _buildDot),
+              )
+            ]),
           ),
         ],
       ),
       drawer: AppDrawer(),
     );
+  }
+
+  pageChangeCallback(int lpage) {
+    setState(() {
+      page = lpage;
+    });
   }
 }
 
