@@ -70,10 +70,12 @@ def get_recommendations_from_api(userid):
 
 
 if __name__ == '__main__':
-    Genre_Plain_Rommance = ["오늘은 나랑 만나", "앞집나리", "성스러운 작가생활", "작전명 순정", "아홉수 우리들",
-                            "내향남녀", "유사연애", "잔인한 축제", "공복의 저녁식사", "운빨로맨스", "옆반의 인어",
-                            "인간의 자격", "도와줘우주", "파리의 우리동네", "화이트멜로우", "인간졸업", 
-                            "오직, 밝은 미래", "세기말 풋사과 보습학원", "빛나는 나나나나", "오로지 너를 이기고 싶어"]
+    # Genre_Plain_Rommance = ["오늘은 나랑 만나", "앞집나리", "성스러운 작가생활", "작전명 순정", "아홉수 우리들",
+    #                         "내향남녀", "유사연애", "잔인한 축제", "공복의 저녁식사", "운빨로맨스", "옆반의 인어",
+    #                         "인간의 자격", "도와줘우주", "파리의 우리동네", "화이트멜로우", "인간졸업", 
+    #                         "오직, 밝은 미래", "세기말 풋사과 보습학원", "빛나는 나나나나", "오로지 너를 이기고 싶어"]
+    
+    Genre_Plain_Rommance = ["재혼황후", "전남편의 미친개를 길들였다", "성스러운 그대 이르시길"]
     Genre_Mass_Produce = ["마도 전생기", "일타강사 백사부", "망나니 소교주로 환생했다", "절대검감",
                             "천하제일 대사형", "마도귀환록", "천화서고 대공자", "사상최강", "황제의 검",
                             "해골협객", "무한 레벨업 in 무림", "재벌집 막내아들", "왕게임", "말년용사",
@@ -112,12 +114,12 @@ if __name__ == '__main__':
         else:
             print("Failed to get recommendations from API.")
 
-    for title in Genre_Mass_Produce:
-        result = set_content_api(email_MP, title)
-        if result:
-            print("API Response: OKAY")
-        else:
-            print("Failed to get recommendations from API.")
+    # for title in Genre_Mass_Produce:
+    #     result = set_content_api(email_MP, title)
+    #     if result:
+    #         print("API Response: OKAY")
+    #     else:
+    #         print("Failed to get recommendations from API.")
 
     # # -------------------------------------------------------- ##
     # # -------------------------------------------------------- ##

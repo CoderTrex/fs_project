@@ -195,7 +195,6 @@ class ContentSetter:
             title = doc.id
             info = doc.to_dict()
             for platform in self.platform_list:
-                print("today's date is : {0}".format(self.days[date]))
                 collection = platform[self.days[date]]
                 documents = collection.find()
                 for document in documents:
@@ -212,41 +211,22 @@ class ContentSetter:
         result = {}
 
         for platform in self.platform_list:
-            if platform == self.db_naver:
-                for day in self.days_naver:
-                    collection = platform[day]
-                    documents = collection.find()
-                    for document in documents:
-                        if title == document["title"]:
-                            result = {
-                                "title" : document["title"],
-                                "url": document["url"],
-                                "img": document["img"],
-                                "author": document["author"],
-                                "service": document["service"]
-                            }
-                            find = True
-            else:
-                for day in self.days:
-                    collection = platform[day]
-                    documents = collection.find()
-                    for document in documents:
-                        if title == document["title"]:
-                            result = {
-                                "title" : document["title"],
-                                "url": document["url"],
-                                "img": document["img"],
-                                "author": document["author"],
-                                "service": document["service"]
-                            }
-                            find = True
-
+            for day in self.days:
+                collection = platform[day]
+                documents = collection.find()
+                for document in documents:
+                    if title == document["title"]:
+                        result = {
+                            "title" : document["title"],
+                            "url": document["url"],
+                            "img": document["img"],
+                            "author": document["author"],
+                            "service": document["service"]
+                        }
+                        find = True
         if find:
             document_ref = fsdb.document(title)
             document = document_ref.get()
-            # if document.exists:
-            #     print(f"Document '{title}' already exists. Skipping update.")
-            # else:
             document_ref.set(result)
             print(f"Document '{title}' created with data: {result}")
                 
