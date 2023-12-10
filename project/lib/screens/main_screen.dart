@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project/fluid/liquid_swipe.dart';
 import 'package:project/models/subscrible.dart';
 import 'package:project/screens/fluid_screen.dart';
+import 'package:project/screens/recommandation.dart';
 import 'package:project/screens/subscrible_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '/screens/board_screen.dart';
@@ -114,14 +115,13 @@ class CombinedWidget extends StatelessWidget {
             );
           } else {
             return Container(
-              width: screenWidth - 10,
               child: Consumer<Board_List>(
                 builder: (ctx, boardsData, _) => Padding(
                   padding: EdgeInsets.all(3),
                   child: ListView.builder(
-                    shrinkWrap: false, // 수정된 부분
-                    physics: AlwaysScrollableScrollPhysics(), // 추가된 부분
-                    itemCount: boardsData.items.length + 4,
+                    shrinkWrap: false,
+                    physics: AlwaysScrollableScrollPhysics(),
+                    itemCount: boardsData.items.length + 6,
                     itemBuilder: (_, i) {
                       if (i == 0) {
                         return const SizedBox(height: 30);
@@ -152,14 +152,13 @@ class CombinedWidget extends StatelessWidget {
                                 for (var item in items) ...[
                                   SizedBox(height: 8),
                                   Container(
-                                    width: screenWidth / 2 - 15,
                                     child: OutlinedButton(
                                       onPressed: () {
-                                        // launch();
+                                        launch(item['url']);
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 50),
+                                        padding:
+                                            EdgeInsets.symmetric(horizontal: 5),
                                         primary: Colors.blue.withAlpha(255),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -188,45 +187,10 @@ class CombinedWidget extends StatelessWidget {
                             );
                           },
                         );
+                      } else if (i == 5) {
+                        return Text("Community");
                       } else {
-                        return Column(
-                          children: [
-                            const SizedBox(height: 30),
-                            Text("Community"),
-                            const SizedBox(height: 30),
-                            Container(
-                              width: screenWidth - 30,
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pushNamed(
-                                    BoardScreen.routeName,
-                                    arguments: BoardScreenArguments(
-                                      boardsData.items[i - 4].id,
-                                      boardsData.items[i - 4].name,
-                                    ),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 100),
-                                  primary: Colors.blue.withAlpha(255),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(9.0),
-                                  ),
-                                ),
-                                child: Container(
-                                  child: Center(
-                                    child: Text(
-                                      (boardsData.items[i - 4].name),
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                          ],
-                        );
+                        return _buildCommunityWidget(context, boardsData, i);
                       }
                     },
                   ),
@@ -238,62 +202,45 @@ class CombinedWidget extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildCommunityWidget(
+      BuildContext context, Board_List boardsData, int i) {
+    return Column(
+      children: [
+        Container(
+          width: screenWidth - 30,
+          child: OutlinedButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                BoardScreen.routeName,
+                arguments: BoardScreenArguments(
+                  boardsData.items[i - 6].id,
+                  boardsData.items[i - 6].name,
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 100),
+              primary: Colors.blue.withAlpha(255),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(9.0),
+              ),
+            ),
+            child: Container(
+              child: Center(
+                child: Text(
+                  (boardsData.items[i - 6].name),
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 8),
+      ],
+    );
+  }
 }
-// }
-
-//                   return GridView.builder(
-//                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                       crossAxisCount: 2,
-//                       crossAxisSpacing: 10.0,
-//                       mainAxisSpacing: 10.0,
-//                     ),
-//                     shrinkWrap: true,
-//                     physics: NeverScrollableScrollPhysics(),
-//                     itemCount: result?.length ?? 0,
-//                     itemBuilder: (context, index) {
-//                       var category = result!.keys.toList()[index];
-//                       var items = result![category];
-
-//                       return Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           for (var item in items) ...[
-//                             SizedBox(height: 8),
-//                             Container(
-//                               width: screenWidth / 2 - 15,
-//                               child: OutlinedButton(
-//                                 onPressed: () {
-//                                   // launch();
-//                                 },
-//                                 style: ElevatedButton.styleFrom(
-//                                   padding: EdgeInsets.symmetric(horizontal: 50),
-//                                   primary: Colors.blue.withAlpha(255),
-//                                   shape: RoundedRectangleBorder(
-//                                     borderRadius: BorderRadius.circular(9.0),
-//                                   ),
-//                                 ),
-//                                 child: Column(
-//                                   children: [
-//                                     Image.network(item['img'], headers: {
-//                                       'User-Agent':
-//                                           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-//                                     }),
-//                                     SizedBox(height: 8),
-//                                     Text(
-//                                       item['title'],
-//                                       style: TextStyle(fontSize: 10),
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ),
-//                             ),
-//                             SizedBox(height: 8),
-//                           ],
-//                           SizedBox(height: 8),
-//                         ],
-//                       );
-//                     },
-//                   );
 
 Widget _platformList() {
   List<String> imagePath = [
@@ -394,7 +341,7 @@ class _MainScreenState extends State<MainScreen> {
   final pages = [
     CombinedWidget(double.infinity),
     MyApp_Sub(),
-    MyWidget(),
+    MyApp_Reco(),
   ];
 
   void initState() {

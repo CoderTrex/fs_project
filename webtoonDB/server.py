@@ -185,6 +185,19 @@ class ContentSetter:
             
             result_dic[title].append(info)
         return result_dic
+    
+    def get_reco_content(self, email):
+        email = email + "_recommendation"
+        fsdb = self.db.collection(email).get()
+        result_dic = {}
+        for doc in fsdb:
+            title = doc.id
+            info = doc.to_dict()
+            if title not in result_dic:
+                result_dic[title] = []
+            
+            result_dic[title].append(info)
+        return result_dic
 
     def get_today_content(self, email):
         fsdb = self.db.collection(email).get()
@@ -229,7 +242,8 @@ class ContentSetter:
             document = document_ref.get()
             document_ref.set(result)
             print(f"Document '{title}' created with data: {result}")
-                
+            return True
+        return False
 
 
     def del_content(self, email, title):
@@ -261,7 +275,8 @@ class MyAPI:
         self.app.add_url_rule('/api_get_today_content', 'api_get_today_content', self.api_get_today_content, methods=['GET'])
         self.app.add_url_rule('/api_set_content', 'api_set_content', self.api_set_content, methods=['GET'])
         self.app.add_url_rule('/api_del_content', 'api_del_content', self.api_del_content, methods=['GET'])
-        self.app.add_url_rule('/api_get_recommendations', 'api_get_recommendations', self.api_get_recommendations, methods=['GET'])
+        self.app.add_url_rule('/api_get_reco_content', 'api_get_reco_content', self.api_get_reco_content, methods=['GET'])
+        self.app.add_url_rule('/api_set_recommendations', 'api_set_recommendations', self.api_set_recommendations, methods=['GET'])
 
     def api_get_content(self):
         email = request.args.get('email')
@@ -276,8 +291,10 @@ class MyAPI:
     def api_set_content(self):
         email = request.args.get('email')
         title = request.args.get('title')
-        self.content_setter.set_content(email, title)
-        return jsonify({"message": "Content setting complete."})
+        reply = self.content_setter.set_content(email, title)
+        if (reply):
+            return jsonify({"message": "Content setting complete."})
+        return jsonify({""})
 
     def api_del_content(self):
         email = request.args.get('email')
@@ -290,8 +307,13 @@ class MyAPI:
         name_title = request.args.get('title')
         result = self.get_info(email, name_title)
         return jsonify(result)
+    
+    def api_get_reco_content(self):
+        email = request.args.get('email')
+        result = self.content_setter.get_reco_content(email)
+        return result
 
-    def api_get_recommendations(self):
+    def api_set_recommendations(self):
         try:
             # 사용자 ID 받기
             email = request.json.get('email')
@@ -310,13 +332,17 @@ class MyAPI:
                 "RandomRecommendedWorks": random_recommended_works
             }
                 # JSON 직렬화 시도
+            print("hello3")
             try:
                 json_result = json.dumps(result, default=convert_to_json_serializable, ensure_ascii=False)
             except Exception as e:
                 print(f"Error: {e}")
-            return jsonify(json_result)
+            # return True
+            # return jsonify(json_result)
         except Exception as e:
-            return jsonify({"error": str(e)})
+            print(f"Error: {e}")
+            
+            # return False
 
     def run(self):
         self.app.run(debug=True)

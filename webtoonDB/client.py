@@ -142,7 +142,7 @@ if __name__ == '__main__':
     # else:
     #     print("Failed to get recommendations from API.")
 
-    # result3 = del_content_api(email, title_to_search)
+    result3 = del_content_api(email_PR, title_to_del)
     # if result3:
     #     print("API Response: OKAY")
     # else:
