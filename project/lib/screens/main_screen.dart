@@ -105,7 +105,12 @@ class CombinedWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     String email = "plain_romance@naver.com";
     return Container(
-      color: Colors.lightBlue[100]!.withOpacity(1.0),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(IconsPath.loginPage),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: FutureBuilder(
         future: _refreshBoards(context, email),
         builder: (ctx, snapshot) {
@@ -114,30 +119,31 @@ class CombinedWidget extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            return Container(
-              child: Consumer<Board_List>(
-                builder: (ctx, boardsData, _) => Padding(
-                  padding: EdgeInsets.all(3),
-                  child: ListView.builder(
-                    shrinkWrap: false,
-                    physics: AlwaysScrollableScrollPhysics(),
-                    itemCount: boardsData.items.length + 6,
-                    itemBuilder: (_, i) {
-                      if (i == 0) {
-                        return const SizedBox(height: 30);
-                      } else if (i == 1) {
-                        return ImageCarousel();
-                      } else if (i == 2) {
-                        return const SizedBox(height: 30);
-                      } else if (i == 3) {
-                        return _platformList();
-                      } else if (i == 4) {
-                        return GridView.builder(
+            return Consumer<Board_List>(
+              builder: (ctx, boardsData, _) => Padding(
+                padding: EdgeInsets.all(3),
+                child: ListView.builder(
+                  shrinkWrap: false,
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemCount: boardsData.items.length + 6,
+                  itemBuilder: (_, i) {
+                    if (i == 0) {
+                      return const SizedBox(height: 30);
+                    } else if (i == 1) {
+                      return ImageCarousel();
+                    } else if (i == 2) {
+                      return const SizedBox(height: 30);
+                    } else if (i == 3) {
+                      return _platformList();
+                    } else if (i == 4) {
+                      return Expanded(
+                        child: GridView.builder(
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: (0.6),
                             crossAxisCount: 2,
                             crossAxisSpacing: 10.0,
-                            mainAxisSpacing: 10.0,
+                            mainAxisSpacing: 0.0,
                           ),
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
@@ -150,50 +156,50 @@ class CombinedWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 for (var item in items) ...[
-                                  SizedBox(height: 8),
-                                  Container(
-                                    child: OutlinedButton(
-                                      onPressed: () {
-                                        launch(item['url']);
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        padding:
-                                            EdgeInsets.symmetric(horizontal: 5),
-                                        primary: Colors.blue.withAlpha(255),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(9.0),
-                                        ),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Image.network(item['img'], headers: {
-                                            'User-Agent':
-                                                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-                                          }),
-                                          SizedBox(height: 8),
-                                          Text(
-                                            item['title'],
-                                            style: TextStyle(fontSize: 10),
-                                          ),
-                                        ],
+                                  OutlinedButton(
+                                    onPressed: () {
+                                      launch(item['url']);
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 30),
+                                      primary: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(9.0),
                                       ),
                                     ),
+                                    child: Column(
+                                      children: [
+                                        Image.network(
+                                          item['img'],
+                                          headers: {
+                                            'User-Agent':
+                                                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                                          },
+                                          width: 200,
+                                          height: 200,
+                                        ),
+                                        SizedBox(height: 8),
+                                        Text(
+                                          item['title'],
+                                          style: TextStyle(fontSize: 10),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(height: 8),
                                 ],
-                                SizedBox(height: 8),
                               ],
                             );
                           },
-                        );
-                      } else if (i == 5) {
-                        return Text("Community");
-                      } else {
-                        return _buildCommunityWidget(context, boardsData, i);
-                      }
-                    },
-                  ),
+                        ),
+                      );
+                    } else if (i == 5) {
+                      return Text("Community");
+                    } else {
+                      return _buildCommunityWidget(context, boardsData, i);
+                    }
+                  },
                 ),
               ),
             );
@@ -379,8 +385,8 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       appBar: AppBar(
-          // backgroundColor: Colors.transparent,
-          ),
+        backgroundColor: Colors.transparent,
+      ),
       extendBodyBehindAppBar: true,
       body: Stack(
         fit: StackFit.expand,

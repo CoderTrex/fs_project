@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -58,6 +61,7 @@ class WebtoonTile extends StatelessWidget {
     required this.imageUrl,
     required this.url,
   });
+
   void _onTrashIconPressed(String email, String title) async {
     try {
       final result = await _delContentApi(email, title);
@@ -85,6 +89,8 @@ class WebtoonTile extends StatelessWidget {
         contentPadding: EdgeInsets.all(8.0),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment:
+              MainAxisAlignment.end, // Align to the end of the row
           children: [
             Text(
               title,
@@ -114,18 +120,18 @@ class WebtoonTile extends StatelessWidget {
               onTap: () {
                 String email = "plain_romance@naver.com";
                 _onTrashIconPressed(email, title);
-                // Handle trash icon tap (delete operation, for example)
                 print("Trash icon tapped for $title");
               },
-              child: Icon(Icons.delete),
+              child: Container(
+                padding: EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child:
+                    Icon(Icons.delete, size: 20.0), // Adjust the size as needed
+              ),
             ),
             SizedBox(width: 8),
-            GestureDetector(
-              onTap: () {
-                print("Star icon tapped for $title");
-              },
-              child: Icon(Icons.star),
-            ),
           ],
         ),
         onTap: () {
@@ -141,6 +147,96 @@ class WebtoonTile extends StatelessWidget {
     );
   }
 }
+
+// class WebtoonTile extends StatelessWidget {
+//   final String title;
+//   final String author;
+//   final String imageUrl;
+//   final String url;
+
+//   WebtoonTile({
+//     required this.title,
+//     required this.author,
+//     required this.imageUrl,
+//     required this.url,
+//   });
+//   void _onTrashIconPressed(String email, String title) async {
+//     try {
+//       final result = await _delContentApi(email, title);
+
+//       if (result != null) {
+//         print("API Response: $result");
+//         // Add any additional handling based on the API response, if needed
+//       } else {
+//         print("Failed to delete content via API.");
+//       }
+//     } catch (e) {
+//       print("Error: $e");
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: MediaQuery.of(context).size.width - 30,
+//       decoration: BoxDecoration(
+//         border: Border.all(color: Colors.grey),
+//         borderRadius: BorderRadius.circular(8.0),
+//       ),
+//       child: ListTile(
+//         contentPadding: EdgeInsets.all(8.0),
+//         title: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Text(
+//               title,
+//               style: TextStyle(
+//                 fontWeight: FontWeight.bold,
+//                 fontSize: 16.0,
+//               ),
+//             ),
+//             SizedBox(height: 4.0),
+//             Text(author),
+//           ],
+//         ),
+//         leading: Image.network(
+//           imageUrl,
+//           headers: {
+//             'User-Agent':
+//                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+//           },
+//           errorBuilder: (context, error, stackTrace) {
+//             return Icon(Icons.error);
+//           },
+//         ),
+//         trailing: Row(
+//           mainAxisSize: MainAxisSize.min,
+//           children: [
+//             GestureDetector(
+//               onTap: () {
+//                 String email = "plain_romance@naver.com";
+//                 _onTrashIconPressed(email, title);
+//                 // Handle trash icon tap (delete operation, for example)
+//                 print("Trash icon tapped for $title");
+//               },
+//               child: Icon(Icons.delete),
+//             ),
+//             SizedBox(width: 8),
+//           ],
+//         ),
+//         onTap: () {
+//           try {
+//             // Perform the main action when the whole ListTile is tapped
+//             launch(url);
+//           } catch (e) {
+//             print("URL launch error");
+//           }
+//           print("Open URL: $url");
+//         },
+//       ),
+//     );
+//   }
+// }
 
 class _MyHomePageState extends State<MyHomePage> {
   Future<Map<String, dynamic>?> getContentApi(String email) async {
@@ -198,16 +294,24 @@ class _MyHomePageState extends State<MyHomePage> {
             );
           } else {
             final result = snapshot.data!;
-            final allWebtoonWidgets = result.entries.map<Widget>((entry) {
-              final webtoonList = entry.value;
-              final webtoonListWidgets = webtoonList.map<Widget>((webtoon) {
+            final webtoonList =
+                result.entries.expand((entry) => entry.value).toList();
+
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8.0,
+              ),
+              itemCount: webtoonList.length,
+              itemBuilder: (context, index) {
+                final webtoon = webtoonList[index];
                 return Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(
-                        8.0), // Optional: Add rounded corners
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
-                  margin: EdgeInsets.all(8.0), // Add some margin for spacing
+                  margin: EdgeInsets.all(8.0),
                   child: WebtoonTile(
                     title: webtoon["title"] ?? "",
                     author: webtoon["author"] ?? "",
@@ -215,21 +319,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     url: webtoon["url"] ?? "",
                   ),
                 );
-              }).toList();
-              // Combine the webtoonListWidgets with a header for each entry.
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                  ),
-                  ...webtoonListWidgets,
-                ],
-              );
-            }).toList();
-
-            return ListView(
-              children: allWebtoonWidgets,
+              },
             );
           }
         },
