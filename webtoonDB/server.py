@@ -26,11 +26,13 @@ healing_daily_genre = ['DAILY', 'COMIC', 'SENSIBILITY', '육아물', '음식%26�
 healing_daily_genre_len = 473
 
 # provocative romance   webtoon prefer 
-provocative_romance_genre = ['PURE', 'DRAMA', '학원로맨스', '로판', '재회', '러블리', '계약연애', '퓨전사극', '전남친', '역하렘', '집착물', '궁중로맨스', '선결혼후연애', '성별반전', '후회물', '고자극로맨스', '계략여주', '재벌', '폭스남', '연애계', '인플루언서']
+provocative_romance_genre = ['PURE', 'DRAMA', '학원로맨스', '로판', '재회', '러블리', '계약연애', '퓨전사극', '전남친', '역하렘', '집착물', '궁중로맨스', 
+                                '선결혼후연애', '성별반전', '후회물', '고자극로맨스', '계략여주', '재벌', '폭스남', '연애계', '인플루언서']
 provocative_romance_genre_len = 1285
 
 # plain romance         webtoon prefer
-plain_romance_genre = ['PURE', 'DRAMA', '학원로맨스', '로판', '재회', '러블리', '직진남', '친구>연인', '하이틴', '까칠남', '동아리', '소꿉친구', '짝사랑', '청춘로맨스', '다정남', '사내연애', '연상연하', '캠퍼스로맨스']
+plain_romance_genre = ['PURE', 'DRAMA', '학원로맨스', '로판', '재회', '러블리', '직진남', '친구>연인', '하이틴', '까칠남', '동아리', '소꿉친구', '짝사랑', 
+                                '청춘로맨스', '다정남', '사내연애', '연상연하', '캠퍼스로맨스']
 plain_romance_genre_len = 1275
 
 # action                webtoon prefer
@@ -38,12 +40,13 @@ action_genre = ['HISTORICAL', '슈퍼스트링', '느와르', '격투기', '범�
 action_genre_len = 210
 
 # mass-produced         webtoon prefer
-mass_produced_genre = ['HISTORICAL', '먼치킨', '게임판타지', '아포칼립스', '소년왕도물', '다크히어로', '이세계', '차원이동', '블루스트링', '타임슬립', '이능력배틀물', '회귀', '성장물', '헌터물']
+mass_produced_genre = ['HISTORICAL', '먼치킨', '게임판타지', '아포칼립스', '소년왕도물', '다크히어로', '이세계', '차원이동', '블루스트링', '타임슬립', 
+                            '이능력배틀물', '회귀', '성장물', '헌터물']
 mass_produced_genre_len = 316
 
-
 # not mass-produced     webtoon prefer
-not_mass_produced_genre = ['THRILL', 'SPORTS', '역사물', '직업드라마', '괴담', '해외작품', '음악', '축구', '감염', '서스펜스', '스포츠성장', '농구', '프리퀄', '하이퍼리얼리즘', '빙의', '오컬트',  '두뇌싸움']
+not_mass_produced_genre = ['THRILL', 'SPORTS', '역사물', '직업드라마', '괴담', '해외작품', '음악', '축구', '감염', '서스펜스', '스포츠성장', '농구', 
+                                '프리퀄', '하이퍼리얼리즘', '빙의', '오컬트',  '두뇌싸움']
 not_mass_produced_genre_len = 466
 
 Genre_list = [
@@ -146,7 +149,6 @@ class ModelPreferenceCalculator:
                 document_ref.set(result)
                 print(f"Document '{random_document['title']}' created with data: {result}")
 
-            
         return random_documents
 
     def save_results_to_json(self, filename):
@@ -154,7 +156,6 @@ class ModelPreferenceCalculator:
             if isinstance(obj, ObjectId):
                 return str(obj)
             raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
-        
         
         results = {
             "SelectedModel": self.get_selected_model(),
@@ -182,7 +183,6 @@ class ContentSetter:
             info = doc.to_dict()
             if title not in result_dic:
                 result_dic[title] = []
-            
             result_dic[title].append(info)
         return result_dic
     
@@ -195,7 +195,6 @@ class ContentSetter:
             info = doc.to_dict()
             if title not in result_dic:
                 result_dic[title] = []
-            
             result_dic[title].append(info)
         return result_dic
 
@@ -216,7 +215,6 @@ class ContentSetter:
                             result_today_dic[title] = []
                         result_today_dic[title].append(info)
         return result_today_dic
-
 
     def set_content(self, email, title):
         fsdb = self.db.collection(email)
@@ -244,7 +242,23 @@ class ContentSetter:
             print(f"Document '{title}' created with data: {result}")
             return True
         return False
-
+    
+    def get_info(self, title):
+        result = {}
+        for platform in self.platform_list:
+            for day in self.days:
+                collection = platform[self.days]
+                documents = collection.find()
+                for document in documents:
+                    if title == document["title"]:
+                        result = {
+                            "title" : document["title"],
+                            "url": document["url"],
+                            "img": document["img"],
+                            "author": document["author"],
+                            "service": document["service"]
+                        }
+                        return result
 
     def del_content(self, email, title):
         fsdb = self.db.collection(email)
@@ -267,7 +281,6 @@ class MyAPI:
         })
         self.db = firestore.client()
         self.content_setter = ContentSetter(self.db, self.client)
-        
         
         # api_get_today_content
         # Flask 라우트 등록
@@ -303,9 +316,8 @@ class MyAPI:
         return jsonify({"message": "Content setting complete."})
 
     def api_get_info(self):
-        email = request.args.get('email')
         name_title = request.args.get('title')
-        result = self.get_info(email, name_title)
+        result = self.get_info(name_title)
         return jsonify(result)
     
     def api_get_reco_content(self):
@@ -332,7 +344,6 @@ class MyAPI:
                 "RandomRecommendedWorks": random_recommended_works
             }
                 # JSON 직렬화 시도
-            print("hello3")
             try:
                 json_result = json.dumps(result, default=convert_to_json_serializable, ensure_ascii=False)
             except Exception as e:
