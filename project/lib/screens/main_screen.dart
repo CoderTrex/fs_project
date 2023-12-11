@@ -17,7 +17,57 @@ import '../widgets/app_drawer.dart';
 import 'dart:convert'; // Add this import for json decoding
 import 'package:http/http.dart' as http;
 import 'package:project/providers/image_dart.dart';
+import 'package:flutter_fancy_container/flutter_fancy_container.dart';
 
+// class ImageCarousel extends StatelessWidget {
+//   final List<String> images = [
+//     IconsPath.nmixx_team,
+//     IconsPath.nmixx_bae,
+//     IconsPath.nmixx_seolyoon,
+//     IconsPath.nmixx_haeown,
+//   ];
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return CarouselSlider(
+//       options: CarouselOptions(
+//         height: 200.0, // 이미지 높이
+//         aspectRatio: 16 / 9, // 이미지 가로세로 비율
+//         viewportFraction: 0.8, // 한 번에 보이는 이미지의 비율
+//         initialPage: 0, // 초기 페이지
+//         enableInfiniteScroll: true, // 무한 스크롤 활성화
+//         reverse: false, // 순방향 스크롤 활성화
+//         autoPlay: true, // 자동 재생 활성화
+//         autoPlayInterval: Duration(seconds: 5), // 자동 재생 간격
+//         autoPlayAnimationDuration:
+//             Duration(milliseconds: 1800), // 자동 재생 애니메이션 속도
+//         autoPlayCurve: Curves.fastOutSlowIn, // 자동 재생 애니메이션 커브
+//         enlargeCenterPage: true, // 현재 페이지 크게 표시
+//         onPageChanged: (index, reason) {
+//           // 페이지 변경 이벤트 핸들링
+//         },
+//         scrollDirection: Axis.horizontal, // 스크롤 방향
+//       ),
+//       items: images.map((url) {
+//         return Builder(
+//           builder: (BuildContext context) {
+//             return Container(
+//               width: MediaQuery.of(context).size.width,
+//               margin: EdgeInsets.symmetric(horizontal: 5.0),
+//               decoration: BoxDecoration(
+//                 color: Colors.amber,
+//               ),
+//               child: Image.asset(
+//                 url,
+//                 fit: BoxFit.cover,
+//               ),
+//             );
+//           },
+//         );
+//       }).toList(),
+//     );
+//   }
+// }
 class ImageCarousel extends StatelessWidget {
   final List<String> images = [
     IconsPath.nmixx_team,
@@ -30,22 +80,21 @@ class ImageCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 200.0, // 이미지 높이
-        aspectRatio: 16 / 9, // 이미지 가로세로 비율
-        viewportFraction: 0.8, // 한 번에 보이는 이미지의 비율
-        initialPage: 0, // 초기 페이지
-        enableInfiniteScroll: true, // 무한 스크롤 활성화
-        reverse: false, // 순방향 스크롤 활성화
-        autoPlay: true, // 자동 재생 활성화
-        autoPlayInterval: Duration(seconds: 5), // 자동 재생 간격
-        autoPlayAnimationDuration:
-            Duration(milliseconds: 1800), // 자동 재생 애니메이션 속도
-        autoPlayCurve: Curves.fastOutSlowIn, // 자동 재생 애니메이션 커브
-        enlargeCenterPage: true, // 현재 페이지 크게 표시
+        height: 200.0,
+        aspectRatio: 16 / 9,
+        viewportFraction: 0.8,
+        initialPage: 0,
+        enableInfiniteScroll: true,
+        reverse: false,
+        autoPlay: true,
+        autoPlayInterval: Duration(seconds: 5),
+        autoPlayAnimationDuration: Duration(milliseconds: 1800),
+        autoPlayCurve: Curves.fastOutSlowIn,
+        enlargeCenterPage: true,
         onPageChanged: (index, reason) {
           // 페이지 변경 이벤트 핸들링
         },
-        scrollDirection: Axis.horizontal, // 스크롤 방향
+        scrollDirection: Axis.horizontal,
       ),
       items: images.map((url) {
         return Builder(
@@ -55,6 +104,11 @@ class ImageCarousel extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 5.0),
               decoration: BoxDecoration(
                 color: Colors.amber,
+                border: Border.all(
+                  color: Colors.black,
+                  width: 10.0, // 테두리의 두께 조절
+                ),
+                borderRadius: BorderRadius.circular(8.0), // 테두리의 모서리 둥글기 조절
               ),
               child: Image.asset(
                 url,
@@ -102,6 +156,21 @@ class CombinedWidget extends StatelessWidget {
     }
   }
 
+  Color getPrimary(String platform) {
+    if (platform == 'naver') {
+      print("color test: 1");
+      return Colors.green;
+    } else if (platform == 'kakao') {
+      print("color test: 2");
+      return Colors.yellow;
+    } else if (platform == 'kakaopage') {
+      print("color test: 3");
+      return Colors.black;
+    }
+    print("color test: 4");
+    return Colors.blueAccent;
+  }
+
   Widget build(BuildContext context) {
     String email = "plain_romance@naver.com";
     return Container(
@@ -109,6 +178,15 @@ class CombinedWidget extends StatelessWidget {
         image: DecorationImage(
           image: AssetImage(IconsPath.loginPage),
           fit: BoxFit.cover,
+        ),
+        gradient: LinearGradient(
+          colors: [
+            Color.fromRGBO(117, 237, 255, 1).withOpacity(0.5),
+            Color.fromRGBO(117, 175, 255, 1).withOpacity(0.9),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          stops: [0, 1],
         ),
       ),
       child: FutureBuilder(
@@ -160,34 +238,47 @@ class CombinedWidget extends StatelessWidget {
                                     onPressed: () {
                                       launch(item['url']);
                                     },
-                                    style: ElevatedButton.styleFrom(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 30),
-                                      primary: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(9.0),
+                                    child: Container(
+                                      width: 300,
+                                      height: 280,
+                                      decoration: BoxDecoration(
+                                        color: getPrimary(item['service']),
+                                        border: Border.all(
+                                          color: Colors.black,
+                                          width: 10.0, // border의 두께
+                                        ),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Image.network(
+                                            item['img'],
+                                            headers: {
+                                              'User-Agent':
+                                                  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                                            },
+                                            width: 200,
+                                            height: 200,
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            item['title'],
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black87),
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            item['author'],
+                                            style: TextStyle(
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.black87),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    child: Column(
-                                      children: [
-                                        Image.network(
-                                          item['img'],
-                                          headers: {
-                                            'User-Agent':
-                                                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-                                          },
-                                          width: 200,
-                                          height: 200,
-                                        ),
-                                        SizedBox(height: 8),
-                                        Text(
-                                          item['title'],
-                                          style: TextStyle(fontSize: 10),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  )
                                 ],
                               ],
                             );
@@ -213,8 +304,11 @@ class CombinedWidget extends StatelessWidget {
       BuildContext context, Board_List boardsData, int i) {
     return Column(
       children: [
-        Container(
-          width: screenWidth - 30,
+        FlutterFancyContainer(
+          colorOne: Colors.lightGreenAccent,
+          colorTwo: Colors.lightBlue,
+          width: MediaQuery.of(context).size.width * 0.8,
+          height: 100,
           child: OutlinedButton(
             onPressed: () {
               Navigator.of(context).pushNamed(
@@ -227,7 +321,6 @@ class CombinedWidget extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(horizontal: 100),
-              primary: Colors.blue.withAlpha(255),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(9.0),
               ),

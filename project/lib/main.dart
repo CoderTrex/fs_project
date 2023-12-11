@@ -6,7 +6,7 @@ import 'providers/comments.dart';
 import './providers/boards.dart';
 import './screens/auth_screen.dart';
 import './screens/board_screen.dart';
-import '/screens/serach_screen.dart';
+import 'screens/search_screen.dart';
 import './screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import './providers/notifications.dart';

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:convert'; // Import the dart:convert library
 import 'package:http/http.dart' as http;
+import 'package:project/providers/image_dart.dart';
 
 void main() {
-  runApp(Search_api());
+  runApp(SearchApi());
 }
 
-class Search_api extends StatelessWidget {
+class SearchApi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -73,25 +74,54 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('API Search Example'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _wordController,
-              decoration: InputDecoration(labelText: 'Enter a word'),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => _onSearchButtonPressed(context),
-              child: Text('Webtoon Search'),
-            ),
-          ],
+        title: const Text(
+          'Get Webtoon!',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
+        backgroundColor: Colors.transparent,
       ),
+      body: Stack(children: [
+        // 배경 이미지
+        Image.asset(
+          IconsPath.loginPage,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: double.infinity,
+        ),
+        // 그라데이션을 씌울 위젯
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(89, 96, 236, 1).withOpacity(0.5),
+                Color.fromRGBO(237, 2, 217, 1).withOpacity(0.9),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0, 1],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: _wordController,
+                decoration: InputDecoration(labelText: 'Enter a word'),
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => _onSearchButtonPressed(context),
+                child: Text('Webtoon Search'),
+              ),
+            ],
+          ),
+        ),
+      ]),
     );
   }
 }

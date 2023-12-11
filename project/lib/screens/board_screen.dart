@@ -1,4 +1,4 @@
-import '/screens/serach_screen.dart';
+import 'search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
