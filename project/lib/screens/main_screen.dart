@@ -19,55 +19,6 @@ import 'package:http/http.dart' as http;
 import 'package:project/providers/image_dart.dart';
 import 'package:flutter_fancy_container/flutter_fancy_container.dart';
 
-// class ImageCarousel extends StatelessWidget {
-//   final List<String> images = [
-//     IconsPath.nmixx_team,
-//     IconsPath.nmixx_bae,
-//     IconsPath.nmixx_seolyoon,
-//     IconsPath.nmixx_haeown,
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return CarouselSlider(
-//       options: CarouselOptions(
-//         height: 200.0, // 이미지 높이
-//         aspectRatio: 16 / 9, // 이미지 가로세로 비율
-//         viewportFraction: 0.8, // 한 번에 보이는 이미지의 비율
-//         initialPage: 0, // 초기 페이지
-//         enableInfiniteScroll: true, // 무한 스크롤 활성화
-//         reverse: false, // 순방향 스크롤 활성화
-//         autoPlay: true, // 자동 재생 활성화
-//         autoPlayInterval: Duration(seconds: 5), // 자동 재생 간격
-//         autoPlayAnimationDuration:
-//             Duration(milliseconds: 1800), // 자동 재생 애니메이션 속도
-//         autoPlayCurve: Curves.fastOutSlowIn, // 자동 재생 애니메이션 커브
-//         enlargeCenterPage: true, // 현재 페이지 크게 표시
-//         onPageChanged: (index, reason) {
-//           // 페이지 변경 이벤트 핸들링
-//         },
-//         scrollDirection: Axis.horizontal, // 스크롤 방향
-//       ),
-//       items: images.map((url) {
-//         return Builder(
-//           builder: (BuildContext context) {
-//             return Container(
-//               width: MediaQuery.of(context).size.width,
-//               margin: EdgeInsets.symmetric(horizontal: 5.0),
-//               decoration: BoxDecoration(
-//                 color: Colors.amber,
-//               ),
-//               child: Image.asset(
-//                 url,
-//                 fit: BoxFit.cover,
-//               ),
-//             );
-//           },
-//         );
-//       }).toList(),
-//     );
-//   }
-// }
 class ImageCarousel extends StatelessWidget {
   final List<String> images = [
     IconsPath.nmixx_team,
@@ -136,7 +87,7 @@ class CombinedWidget extends StatelessWidget {
 
   Map<String, dynamic>? result; // Define the result variable
 
-  Future<void> _refreshBoards(BuildContext context, String email) async {
+  Future<void> _refreshBoards(BuildContext context, String? email) async {
     await Provider.of<Board_List>(context, listen: false).fetchAndSetBoards();
 
     final baseUrl = "http://10.0.2.2:5000";
@@ -153,6 +104,20 @@ class CombinedWidget extends StatelessWidget {
       }
     } catch (e) {
       print("Error: $e");
+    }
+    final path1 = "/api_set_recommendations";
+    final uri1 = Uri.parse('$baseUrl$path1?email=$email');
+    try {
+      final response = await http.get(uri1);
+      if (response.statusCode == 200) {
+        print("Connection is Welldone");
+      } else {
+        throw Error();
+      }
+    } catch (e) {
+      // 네트워크 오류 등의 예외 처리
+      print("Error: $e");
+      return null;
     }
   }
 
@@ -172,7 +137,7 @@ class CombinedWidget extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    String email = "plain_romance@naver.com";
+    String? email = Provider.of<Auth>(context).email;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -475,6 +440,8 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     final userId = Provider.of<Auth>(context).userId;
+    final token = Provider.of<Auth>(context).token;
+    final email = Provider.of<Auth>(context).email;
 
     return Scaffold(
       appBar: AppBar(

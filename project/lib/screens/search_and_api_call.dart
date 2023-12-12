@@ -49,7 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
     final String word = _wordController.text.trim();
     if (word.isNotEmpty) {
       final result = await _setContentApi(word);
-      print("test1234: $result");
       if (result != null) {
         // Check if the result is empty or not
         if (result.isNotEmpty) {

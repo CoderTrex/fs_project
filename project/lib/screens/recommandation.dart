@@ -188,12 +188,15 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:project/providers/auth.dart';
 import 'package:project/screens/search_and_api_call.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart'; // Add this import for json decoding
 
 void main() {
@@ -332,36 +335,64 @@ class WebtoonTile extends StatelessWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future<Map<String, dynamic>?> getContentApi(String email) async {
-    // final baseUrl = "http://10.0.2.2:5000";
-    // final path = "/api_get_content";
-    // final uri = Uri.parse('$baseUrl$path?email=$email');
+  Future<Map<String, dynamic>?> getContentApi(String? email) async {
     final baseUrl = "http://10.0.2.2:5000";
-    final path = "/api_get_reco_content";
-    final uri = Uri.parse('$baseUrl$path?email=$email');
+    final path2 = "/api_get_reco_content";
+    final uri2 = Uri.parse('$baseUrl$path2?email=$email');
 
-    try {
-      final response = await http.get(uri);
-      if (response.statusCode == 200) {
-        final Map<String, dynamic>? result = json.decode(response.body);
-        // JSON 데이터로 파싱
-        print("Connection is Welldone");
-        print(result);
-        return result;
-      } else {
-        // 서버로부터 오류 응답
-        print("Error: ${response.statusCode}");
-        return null;
+    // 대기할 최대 시간 (초 단위)
+    final maxRetryDuration = 10;
+    int retryCount = 0;
+
+    while (retryCount < maxRetryDuration) {
+      try {
+        final response = await http.get(uri2);
+        if (response.statusCode == 200) {
+          final Map<String, dynamic>? result = json.decode(response.body);
+          // JSON 데이터로 파싱
+          print("Connection is Welldone");
+          print(result);
+          return result;
+        } else {
+          // 서버로부터 오류 응답
+          print("Error: ${response.statusCode}");
+          return null;
+        }
+      } catch (e) {
+        // 네트워크 오류 등의 예외 처리
+        print("Error: $e");
+        // 재시도를 위해 2초 대기
+        await Future.delayed(Duration(seconds: 2));
+        retryCount++;
       }
-    } catch (e) {
-      // 네트워크 오류 등의 예외 처리
-      print("Error: $e");
-      return null;
     }
+
+    print("Max retry duration exceeded");
+    return null;
   }
+  //   try {
+  //     final response = await http.get(uri2);
+  //     if (response.statusCode == 200) {
+  //       final Map<String, dynamic>? result = json.decode(response.body);
+  //       // JSON 데이터로 파싱
+  //       print("Connection is Welldone");
+  //       print(result);
+  //       return result;
+  //     } else {
+  //       // 서버로부터 오류 응답
+  //       print("Error: ${response.statusCode}");
+  //       return null;
+  //     }
+  //   } catch (e) {
+  //     // 네트워크 오류 등의 예외 처리
+  //     print("Error: $e");
+  //     return null;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    String? email = Provider.of<Auth>(context).email;
     return Scaffold(
       appBar: AppBar(
         title: Text('Webtoon List'),
@@ -378,7 +409,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: FutureBuilder<Map<String, dynamic>?>(
-        future: getContentApi("plain_romance@naver.com"),
+        future: getContentApi(email),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(

@@ -22,8 +22,8 @@ def convert_to_json_serializable(obj):
     raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
 
 # healing and Daily     webtoon prefer
-healing_daily_genre = ['DAILY', 'COMIC', 'SENSIBILITY', '육아물', '음식%26요리', '4차원', '레트로', '무해한', '공감성수치', '동물']
-healing_daily_genre_len = 473
+# healing_daily_genre = ['DAILY', 'COMIC', 'SENSIBILITY', '육아물', '음식%26요리', '4차원', '레트로', '무해한', '공감성수치', '동물']
+# healing_daily_genre_len = 473
 
 # provocative romance   webtoon prefer 
 provocative_romance_genre = ['PURE', 'DRAMA', '학원로맨스', '로판', '재회', '러블리', '계약연애', '퓨전사극', '전남친', '역하렘', '집착물', '궁중로맨스', 
@@ -64,7 +64,7 @@ Genre_list = [
 
 # 모델 리스트
 models = {
-    'healing_daily_genre': healing_daily_genre,
+    # 'healing_daily_genre': healing_daily_genre,
     'provocative_romance_genre': provocative_romance_genre,
     'plain_romance_genre': plain_romance_genre,
     'action_genre': action_genre,
@@ -79,24 +79,44 @@ class Firebase_User_Base_INFO:
         self.collection_name = userid
         self.db = db.collection(self.collection_name)
 
+    # def create_user_base_recommendations(self):
+    
+    #     user_subscrible_list = []
+    #     documents = self.db.get()
+    #     for _title in documents:
+    #         title = _title
+            
+    #         if (title not in user_subscrible_list and title is not None):
+    #             user_subscrible_list.append(title) 
+    #             # print(title)
+                
     def create_user_base_recommendations(self):
         user_subscrible_list = []
-        documents = self.db.get()
-        for _title in documents:
-            title = _title
-            if (title not in user_subscrible_list and title is not None):
-                user_subscrible_list.append(title)    
+        
+        # Assuming self.db is a Firestore CollectionReference
+        documents = self.db.stream()  # Use stream() to get a generator of documents
+        
+        for doc in documents:
+            title = doc.id  # Assuming title is the document ID
+            
+            if title not in user_subscrible_list and title is not None:
+                user_subscrible_list.append(title)
+                print(title)
+        # print(user_subscrible_list)
         user_Recom_list = {genre: 0 for genre in Genre_list}
         # # MongoDB 연결
         client = MongoClient('localhost', 27017)
         db = client['fsdb_naver']
         for title in user_subscrible_list:
+            # print(title)
             for genre_index in range(len(Genre_list)):
                 collections = db['Genre_{0}'.format(Genre_list[genre_index])]
+                # print(Genre_list[genre_index])
                 for collection in collections.find():
                     if (collection.get('title', '') == title):
                         user_Recom_list[collection.get('genre', '')] += 1
         client.close()
+        print(user_Recom_list)
         return user_Recom_list
 
 class ModelPreferenceCalculator:
@@ -130,6 +150,11 @@ class ModelPreferenceCalculator:
         
         random_indices = random.sample(range(total_document), min(num_works, total_document))
         random_documents = list(collection.find().limit(num_works).skip(random_indices[0]))
+        
+        fsdb = self.db.collection(self.email + "_recommendation")
+        docs = fsdb.stream()
+        for doc in docs:
+            doc.reference.delete()
         for random_document in random_documents:
             result = {
                 "title" : random_document["title"],
@@ -144,26 +169,13 @@ class ModelPreferenceCalculator:
             document = document_ref.get()
 
             if document.exists:
-                print(f"Document '{document.get('title')}' already exists. Skipping update.")
+                continue
+                # print(f"Document '{document.get('title')}' already exists. Skipping update.")
             else:
                 document_ref.set(result)
-                print(f"Document '{random_document['title']}' created with data: {result}")
+                # print(f"Document '{random_document['title']}' created with data: {result}")
 
         return random_documents
-
-    def save_results_to_json(self, filename):
-        def custom_encoder(obj):
-            if isinstance(obj, ObjectId):
-                return str(obj)
-            raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
-        
-        results = {
-            "SelectedModel": self.get_selected_model(),
-            "RandomRecommendedWorks": self.get_random_recommended_works(f'model_{self.selected_model}', num_works=100)
-        }
-
-        with open(filename, 'w') as json_file:
-            json.dump(results, json_file, indent=2, default=custom_encoder)
 
 class ContentSetter:
     def __init__(self, db, client):
@@ -324,7 +336,6 @@ class MyAPI:
         email = request.args.get('email')
         result = self.content_setter.get_reco_content(email)
         return result
-
     def api_set_recommendations(self):
         try:
             # 사용자 ID 받기
@@ -348,8 +359,9 @@ class MyAPI:
                 json_result = json.dumps(result, default=convert_to_json_serializable, ensure_ascii=False)
             except Exception as e:
                 print(f"Error: {e}")
+            # return jsonify({"message": "Content setting complete."})
             # return True
-            # return jsonify(json_result)
+            return jsonify(json_result)
         except Exception as e:
             print(f"Error: {e}")
             

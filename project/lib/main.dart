@@ -74,7 +74,6 @@ class Myproject extends StatelessWidget {
           ),
           home: auth.isAuth
               ? MainScreen()
-              // ? WithPages()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
                   builder: (ctx, authResultSnapshot) =>
