@@ -81,7 +81,8 @@ if __name__ == '__main__':
     #                         ]
     # email_PR = "plain_romance@naver.com"
     # email_MP = "mass_produce@naver.com"
-    email_MP = "jsilvercastle@gmail.com"
+    # email_MP = "jsilvercastle@gmail.com"
+    email_MP = "romance_lover@gmail.com"
 
 
 

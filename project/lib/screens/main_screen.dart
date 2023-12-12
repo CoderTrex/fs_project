@@ -105,20 +105,21 @@ class CombinedWidget extends StatelessWidget {
     } catch (e) {
       print("Error: $e");
     }
-    final path1 = "/api_set_recommendations";
-    final uri1 = Uri.parse('$baseUrl$path1?email=$email');
-    try {
-      final response = await http.get(uri1);
-      if (response.statusCode == 200) {
-        print("Connection is Welldone");
-      } else {
-        throw Error();
-      }
-    } catch (e) {
-      // 네트워크 오류 등의 예외 처리
-      print("Error: $e");
-      return null;
-    }
+
+    // final path1 = "/api_set_recommendations";
+    // final uri1 = Uri.parse('$baseUrl$path1?email=$email');
+    // try {
+    //   final response = await http.get(uri1);
+    //   if (response.statusCode == 200) {
+    //     print("Connection is Welldone");
+    //   } else {
+    //     throw Error();
+    //   }
+    // } catch (e) {
+    //   // 네트워크 오류 등의 예외 처리
+    //   print("Error: $e");
+    //   return null;
+    // }
   }
 
   Color getPrimary(String platform) {
@@ -128,9 +129,9 @@ class CombinedWidget extends StatelessWidget {
     } else if (platform == 'kakao') {
       print("color test: 2");
       return Colors.yellow;
-    } else if (platform == 'kakaopage') {
+    } else if (platform == 'kakaoPage') {
       print("color test: 3");
-      return Colors.black;
+      return Colors.redAccent;
     }
     print("color test: 4");
     return Colors.blueAccent;
@@ -138,6 +139,7 @@ class CombinedWidget extends StatelessWidget {
 
   Widget build(BuildContext context) {
     String? email = Provider.of<Auth>(context).email;
+    String? url;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -194,7 +196,10 @@ class CombinedWidget extends StatelessWidget {
                           itemBuilder: (context, index) {
                             var category = result!.keys.toList()[index];
                             var items = result![category];
-
+                            // 길이가 2라면 1로 줄이기
+                            if (items.length > 1) {
+                              items.removeLast(); // 또는 다른 방법으로 원하는 조작 수행
+                            }
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -205,7 +210,7 @@ class CombinedWidget extends StatelessWidget {
                                     },
                                     child: Container(
                                       width: 300,
-                                      height: 280,
+                                      height: 250,
                                       decoration: BoxDecoration(
                                         color: getPrimary(item['service']),
                                         border: Border.all(
@@ -216,13 +221,16 @@ class CombinedWidget extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           Image.network(
-                                            item['img'],
+                                            url = item['img']
+                                                    .startsWith('https://')
+                                                ? item['img']
+                                                : 'https:${item['img']}',
                                             headers: {
                                               'User-Agent':
-                                                  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                                                  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
                                             },
                                             width: 200,
-                                            height: 200,
+                                            height: 150,
                                           ),
                                           SizedBox(height: 8),
                                           Text(

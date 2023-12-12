@@ -336,6 +336,7 @@ class MyAPI:
         email = request.args.get('email')
         result = self.content_setter.get_reco_content(email)
         return result
+
     def api_set_recommendations(self):
         try:
             # 사용자 ID 받기

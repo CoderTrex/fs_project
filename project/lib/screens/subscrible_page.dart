@@ -4,10 +4,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:project/providers/auth.dart';
 import 'package:project/screens/search_and_api_call.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart'; // Add this import for json decoding
 
 void main() {
@@ -28,7 +30,8 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-Future<Map<String, dynamic>?> _delContentApi(String email, String title) async {
+Future<Map<String, dynamic>?> _delContentApi(
+    String? email, String title) async {
   final baseUrl = "http://10.0.2.2:5000";
   final path = "/api_del_content";
   final uri = Uri.parse('$baseUrl$path?email=$email&title=$title');
@@ -62,7 +65,7 @@ class WebtoonTile extends StatelessWidget {
     required this.url,
   });
 
-  void _onTrashIconPressed(String email, String title) async {
+  void _onTrashIconPressed(String? email, String title) async {
     try {
       final result = await _delContentApi(email, title);
 
@@ -79,6 +82,9 @@ class WebtoonTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? email = Provider.of<Auth>(context).email;
+    String imageUrl2 =
+        imageUrl.startsWith('https://') ? imageUrl : 'https:$imageUrl';
     return Container(
       width: MediaQuery.of(context).size.width - 30,
       decoration: BoxDecoration(
@@ -87,24 +93,22 @@ class WebtoonTile extends StatelessWidget {
       ),
       child: ListTile(
         contentPadding: EdgeInsets.all(8.0),
-        // title: Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   mainAxisAlignment:
-        //       MainAxisAlignment.end, // Align to the end of the row
-        //   children: [
-        //     Text(
-        //       title,
-        //       style: TextStyle(
-        //         fontWeight: FontWeight.bold,
-        //         fontSize: 16.0,
-        //       ),
-        //     ),
-        //     SizedBox(height: 4.0),
-        //     Text(author),
-        //   ],
-        // ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16.0,
+              ),
+            ),
+            SizedBox(height: 4.0),
+            Text(author),
+          ],
+        ),
         leading: Image.network(
-          imageUrl,
+          imageUrl2,
           headers: {
             'User-Agent':
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -113,27 +117,26 @@ class WebtoonTile extends StatelessWidget {
             return Icon(Icons.error);
           },
         ),
-        // trailing: Row(
-        //   mainAxisSize: MainAxisSize.min,
-        //   children: [
-        //     GestureDetector(
-        //       onTap: () {
-        //         String email = "plain_romance@naver.com";
-        //         // _onTrashIconPressed(email, title);
-        //         print("Trash icon tapped for $title");
-        //       },
-        //       child: Container(
-        //         padding: EdgeInsets.all(4.0),
-        //         decoration: BoxDecoration(
-        //           shape: BoxShape.circle,
-        //         ),
-        //         child:
-        //             Icon(Icons.delete, size: 20.0), // Adjust the size as needed
-        //       ),
-        //     ),
-        //     SizedBox(width: 8),
-        //   ],
-        // ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: () {
+                _onTrashIconPressed(email, title);
+                // Handle trash icon tap (delete operation, for example)
+                print("Trash icon tapped for $title");
+              },
+              child: Icon(Icons.delete),
+            ),
+            SizedBox(width: 8),
+            GestureDetector(
+              onTap: () {
+                print("Star icon tapped for $title");
+              },
+              child: Icon(Icons.star),
+            ),
+          ],
+        ),
         onTap: () {
           try {
             // Perform the main action when the whole ListTile is tapped
@@ -149,7 +152,7 @@ class WebtoonTile extends StatelessWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future<Map<String, dynamic>?> getContentApi(String email) async {
+  Future<Map<String, dynamic>?> getContentApi(String? email) async {
     final baseUrl = "http://10.0.2.2:5000";
     final path = "/api_get_content";
     final uri = Uri.parse('$baseUrl$path?email=$email');
@@ -159,8 +162,6 @@ class _MyHomePageState extends State<MyHomePage> {
       if (response.statusCode == 200) {
         final Map<String, dynamic>? result = json.decode(response.body);
         // JSON 데이터로 파싱
-        print("Connection is Welldone");
-        print(result);
         return result;
       } else {
         // 서버로부터 오류 응답
@@ -176,6 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    String? email = Provider.of<Auth>(context).email;
     return Scaffold(
       appBar: AppBar(
         title: Text('Webtoon List'),
@@ -192,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: FutureBuilder<Map<String, dynamic>?>(
-        future: getContentApi("plain_romance@naver.com"),
+        future: getContentApi(email),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -204,24 +206,16 @@ class _MyHomePageState extends State<MyHomePage> {
             );
           } else {
             final result = snapshot.data!;
-            final webtoonList =
-                result.entries.expand((entry) => entry.value).toList();
-
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
-              ),
-              itemCount: webtoonList.length,
-              itemBuilder: (context, index) {
-                final webtoon = webtoonList[index];
+            final allWebtoonWidgets = result.entries.map<Widget>((entry) {
+              final webtoonList = entry.value;
+              final webtoonListWidgets = webtoonList.map<Widget>((webtoon) {
                 return Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(
+                        8.0), // Optional: Add rounded corners
                   ),
-                  margin: EdgeInsets.all(8.0),
+                  margin: EdgeInsets.all(8.0), // Add some margin for spacing
                   child: WebtoonTile(
                     title: webtoon["title"] ?? "",
                     author: webtoon["author"] ?? "",
@@ -229,7 +223,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     url: webtoon["url"] ?? "",
                   ),
                 );
-              },
+              }).toList();
+              // Combine the webtoonListWidgets with a header for each entry.
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                  ),
+                  ...webtoonListWidgets,
+                ],
+              );
+            }).toList();
+
+            return ListView(
+              children: allWebtoonWidgets,
             );
           }
         },

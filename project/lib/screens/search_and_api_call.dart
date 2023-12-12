@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:convert'; // Import the dart:convert library
 import 'package:http/http.dart' as http;
+import 'package:project/providers/auth.dart';
 import 'package:project/providers/image_dart.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(SearchApi());
@@ -23,8 +25,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _wordController = TextEditingController();
-  final String email = "plain_romance@naver.com"; // Your email
-  Future<Map<String, dynamic>?> _setContentApi(String title) async {
+  Future<Map<String, dynamic>?> _setContentApi(
+      String title, String? email) async {
     final baseUrl = "http://10.0.2.2:5000";
     final path = "/api_set_content";
     final url = Uri.parse('$baseUrl$path?email=$email&title=$title');
@@ -45,10 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _onSearchButtonPressed(BuildContext context) async {
+  void _onSearchButtonPressed(BuildContext context, String? email) async {
     final String word = _wordController.text.trim();
     if (word.isNotEmpty) {
-      final result = await _setContentApi(word);
+      final result = await _setContentApi(word, email);
       if (result != null) {
         // Check if the result is empty or not
         if (result.isNotEmpty) {
@@ -71,6 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    String? email = Provider.of<Auth>(context).email;
+    print("email test: $email");
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -114,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () => _onSearchButtonPressed(context),
+                onPressed: () => _onSearchButtonPressed(context, email),
                 child: Text('Webtoon Search'),
               ),
             ],
