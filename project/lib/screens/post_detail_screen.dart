@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_fancy_container/flutter_fancy_container.dart';
 import 'package:intl/intl.dart';
+import 'package:project/providers/image_dart.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/edit_post_screen.dart';
@@ -119,153 +121,167 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               ]
             : null,
       ),
-      body: Stack(children: [
-        GestureDetector(
-          onTap: () {
-            _commentFocusNode.unfocus();
-          },
-          child: RefreshIndicator(
-            onRefresh: () => _refreshPosts(context, post.boardId!, id),
-            child: SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              padding: EdgeInsets.all(8),
-              child: Column(
-                children: <Widget>[
-                  // 아이콘, 익명, datetime
-                  ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: CircleAvatar(
-                        backgroundColor: Color(0xffE6E6E6),
-                        child: Icon(
-                          Icons.person,
-                          color: Color(0xffCCCCCC),
-                        ),
-                      ),
-                    ),
-                    title: Text('익명'),
-                    subtitle: Text(DateFormat('yy/MM/dd - HH:mm:ss')
-                        .format(post.datetime!)),
-                  ),
-                  // 제목
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: double.infinity,
-                    child: Text(
-                      post.title!,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                      textScaleFactor: 1.4,
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  // 내용
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(post.contents!),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 1,
-                  ),
-                  Divider(
-                    thickness: 1,
-                  ),
-                  // 댓글 목록
-                  comments.isEmpty
-                      ? Center(
-                          child: Text('No comments'),
-                        )
-                      : Column(
-                          children: [
-                            Column(
-                                children: comments
-                                    .map((comment) => CommentItem(comment.id))
-                                    .toList()),
-                            SizedBox(
-                              height: 100,
-                            )
-                          ],
-                        )
-                ],
-              ),
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(IconsPath.loginPage),
+            fit: BoxFit.cover,
           ),
         ),
-        Align(
-          child: Container(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Container(
-                      child: Form(
-                        key: _formKey,
-                        child: TextFormField(
-                          focusNode: _commentFocusNode,
-                          controller: _commentTextEditController,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return '댓글을 입력하세요.';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                                color: Theme.of(context).primaryColor,
+        child: FlutterFancyContainer(
+          colorOne: Colors.yellowAccent,
+          colorTwo: Colors.purple,
+          child: Stack(children: [
+            GestureDetector(
+              onTap: () {
+                _commentFocusNode.unfocus();
+              },
+              child: RefreshIndicator(
+                onRefresh: () => _refreshPosts(context, post.boardId!, id),
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                    children: <Widget>[
+                      // 아이콘, 익명, datetime
+                      ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          child: CircleAvatar(
+                            backgroundColor: Color(0xffE6E6E6),
+                            child: Icon(
+                              Icons.person,
+                              color: Color(0xffCCCCCC),
+                            ),
+                          ),
+                        ),
+                        title: Text('익명'),
+                        subtitle: Text(DateFormat('yy/MM/dd - HH:mm:ss')
+                            .format(post.datetime!)),
+                      ),
+                      // 제목
+                      Container(
+                        padding: EdgeInsets.all(8),
+                        width: double.infinity,
+                        child: Text(
+                          post.title!,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          textScaleFactor: 1.4,
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      // 내용
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(post.contents!),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1,
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      // 댓글 목록
+                      comments.isEmpty
+                          ? Center(
+                              child: Text('No comments'),
+                            )
+                          : Column(
+                              children: [
+                                Column(
+                                    children: comments
+                                        .map((comment) =>
+                                            CommentItem(comment.id))
+                                        .toList()),
+                                SizedBox(
+                                  height: 100,
+                                )
+                              ],
+                            )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              child: Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Container(
+                          child: Form(
+                            key: _formKey,
+                            child: TextFormField(
+                              focusNode: _commentFocusNode,
+                              controller: _commentTextEditController,
+                              validator: (value) {
+                                if (value!.trim().isEmpty) {
+                                  return '댓글을 입력하세요.';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                                hintText: "댓글을 입력하세요.",
+                                hintStyle: new TextStyle(color: Colors.black26),
+                                suffixIcon: _isLoading
+                                    ? CircularProgressIndicator()
+                                    : IconButton(
+                                        icon: Icon(Icons.send),
+                                        onPressed: () {
+                                          String commentText =
+                                              _commentTextEditController.text;
+                                          print('input comment: ' +
+                                              _commentTextEditController.text);
+
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            _addComment(post.boardId!, post.id!,
+                                                commentText);
+
+                                            _commentTextEditController.clear();
+                                            _commentFocusNode.unfocus();
+
+                                            if (post.userId != authUserId) {
+                                              _addNotification(
+                                                  post.title!,
+                                                  commentText,
+                                                  post.id!,
+                                                  post.userId!);
+                                            }
+                                          } else {
+                                            null;
+                                          }
+                                        },
+                                      ),
+                                isDense: true,
                               ),
                             ),
-                            hintText: "댓글을 입력하세요.",
-                            hintStyle: new TextStyle(color: Colors.black26),
-                            suffixIcon: _isLoading
-                                ? CircularProgressIndicator()
-                                : IconButton(
-                                    icon: Icon(Icons.send),
-                                    onPressed: () {
-                                      String commentText =
-                                          _commentTextEditController.text;
-                                      print('input comment: ' +
-                                          _commentTextEditController.text);
-
-                                      if (_formKey.currentState!.validate()) {
-                                        _addComment(post.boardId!, post.id!,
-                                            commentText);
-
-                                        _commentTextEditController.clear();
-                                        _commentFocusNode.unfocus();
-
-                                        if (post.userId != authUserId) {
-                                          _addNotification(
-                                              post.title!,
-                                              commentText,
-                                              post.id!,
-                                              post.userId!);
-                                        }
-                                      } else {
-                                        null;
-                                      }
-                                    },
-                                  ),
-                            isDense: true,
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
+              alignment: Alignment.bottomCenter,
             ),
-          ),
-          alignment: Alignment.bottomCenter,
+          ]),
         ),
-      ]),
+      ),
     );
   }
 

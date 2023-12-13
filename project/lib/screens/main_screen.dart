@@ -5,6 +5,7 @@ import 'package:project/models/subscrible.dart';
 import 'package:project/screens/fluid_screen.dart';
 import 'package:project/screens/recommandation.dart';
 import 'package:project/screens/subscrible_page.dart';
+import 'package:project/wave/wave.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '/screens/board_screen.dart';
 import 'package:flutter/material.dart';
@@ -105,21 +106,6 @@ class CombinedWidget extends StatelessWidget {
     } catch (e) {
       print("Error: $e");
     }
-
-    // final path1 = "/api_set_recommendations";
-    // final uri1 = Uri.parse('$baseUrl$path1?email=$email');
-    // try {
-    //   final response = await http.get(uri1);
-    //   if (response.statusCode == 200) {
-    //     print("Connection is Welldone");
-    //   } else {
-    //     throw Error();
-    //   }
-    // } catch (e) {
-    //   // 네트워크 오류 등의 예외 처리
-    //   print("Error: $e");
-    //   return null;
-    // }
   }
 
   Color getPrimary(String platform) {
@@ -414,6 +400,7 @@ class _MainScreenState extends State<MainScreen> {
     CombinedWidget(double.infinity),
     MyApp_Sub(),
     MyApp_Reco(),
+    // WaveDemoApp(),
   ];
 
   void initState() {
@@ -446,11 +433,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    final userId = Provider.of<Auth>(context).userId;
-    final token = Provider.of<Auth>(context).token;
-    final email = Provider.of<Auth>(context).email;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,

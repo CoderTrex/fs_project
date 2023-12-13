@@ -6,7 +6,11 @@ import 'package:project/providers/auth.dart';
 import 'package:project/screens/search_and_api_call.dart';
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:project/wave/config.dart';
+import 'package:project/wave/wave.dart';
+
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart'; // Add this import for json decoding
 
@@ -62,10 +66,10 @@ class WebtoonTile extends StatelessWidget {
     required this.imageUrl,
     required this.url,
   });
+
   void _onTrashIconPressed(String? email, String title) async {
     try {
       final result = await _delContentApi(email, title);
-
       if (result != null) {
         print("API Response: $result");
         // Add any additional handling based on the API response, if needed
@@ -79,73 +83,65 @@ class WebtoonTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? email = Provider.of<Auth>(context).email;
     String imageUrl2 =
         imageUrl.startsWith('https://') ? imageUrl : 'https:$imageUrl';
-    return Container(
-      width: MediaQuery.of(context).size.width - 30,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: ListTile(
-        contentPadding: EdgeInsets.all(8.0),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0,
-              ),
-            ),
-            SizedBox(height: 4.0),
-            Text(author),
-          ],
-        ),
-        leading: Image.network(
+    return _buildCard(
+      title: title,
+      backgroundColor: Colors.purpleAccent,
+      backgroundImage: DecorationImage(
+        image: NetworkImage(
           imageUrl2,
           headers: {
             'User-Agent':
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
           },
-          errorBuilder: (context, error, stackTrace) {
-            return Icon(Icons.error);
-          },
         ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            GestureDetector(
-              onTap: () {
-                _onTrashIconPressed(email, title);
-                // Handle trash icon tap (delete operation, for example)
-                print("Trash icon tapped for $title");
-              },
-              child: Icon(Icons.delete),
-            ),
-            SizedBox(width: 8),
-            GestureDetector(
-              onTap: () {
-                print("Star icon tapped for $title");
-              },
-              child: Icon(Icons.star),
-            ),
-          ],
-        ),
-        onTap: () {
-          try {
-            // Perform the main action when the whole ListTile is tapped
-            launch(url);
-          } catch (e) {
-            print("URL launch error");
-          }
-          print("Open URL: $url");
-        },
+        fit: BoxFit.cover, // or any other BoxFit that suits your needs
+      ),
+      config: CustomConfig(
+        gradients: [
+          [Colors.red, Color(0xEEF44336)],
+          [Colors.red[800]!, Color(0x77E57373)],
+          [Colors.orange, Color(0x66FF9800)],
+          [Colors.yellow, Color(0x55FFEB3B)]
+        ],
+        durations: [35000, 19440, 10800, 6000],
+        heightPercentages: [0.9, 0.8, 0.92, 0.82],
+        gradientBegin: Alignment.bottomLeft,
+        gradientEnd: Alignment.topRight,
       ),
     );
   }
+}
+
+Widget _buildCard({
+  required Config config,
+  Color? backgroundColor = Colors.transparent,
+  DecorationImage? backgroundImage,
+  double height = 152.0,
+  String? title,
+}) {
+  double marginHorizontal = 16.0;
+  return Container(
+    height: height,
+    width: double.infinity,
+    child: Card(
+      elevation: 12.0,
+      margin: EdgeInsets.only(
+          right: marginHorizontal, left: marginHorizontal, bottom: 16.0),
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(16.0))),
+      child: WaveWidget(
+        text: title ?? "",
+        config: config,
+        backgroundColor: backgroundColor,
+        backgroundImage: backgroundImage,
+        size: Size(double.infinity, double.infinity),
+        waveAmplitude: 0,
+      ),
+    ),
+  );
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -219,11 +215,6 @@ class _MyHomePageState extends State<MyHomePage> {
               final webtoonList = entry.value;
               final webtoonListWidgets = webtoonList.map<Widget>((webtoon) {
                 return Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(
-                        8.0), // Optional: Add rounded corners
-                  ),
                   margin: EdgeInsets.all(8.0), // Add some margin for spacing
                   child: WebtoonTile(
                     title: webtoon["title"] ?? "",
