@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fancy_container/flutter_fancy_container.dart';
 import 'dart:convert'; // Import the dart:convert library
 import 'package:http/http.dart' as http;
 import 'package:project/providers/auth.dart';
@@ -85,43 +86,25 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Stack(children: [
         // 배경 이미지
-        Image.asset(
-          IconsPath.loginPage,
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: double.infinity,
-        ),
-        // 그라데이션을 씌울 위젯
-        Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromRGBO(89, 96, 236, 1).withOpacity(0.5),
-                Color.fromRGBO(237, 2, 217, 1).withOpacity(0.9),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              stops: [0, 1],
-            ),
-          ),
-        ),
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                controller: _wordController,
-                decoration: InputDecoration(labelText: 'Enter a word'),
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () => _onSearchButtonPressed(context, email),
-                child: Text('Webtoon Search'),
-              ),
-            ],
+          child: FlutterFancyContainer(
+            colorOne: Colors.red,
+            colorTwo: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  controller: _wordController,
+                  decoration: InputDecoration(labelText: 'Enter a word'),
+                ),
+                SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => _onSearchButtonPressed(context, email),
+                  child: Text('Webtoon Search'),
+                ),
+              ],
+            ),
           ),
         ),
       ]),
