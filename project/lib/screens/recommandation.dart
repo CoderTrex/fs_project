@@ -106,7 +106,7 @@ class WebtoonTile extends StatelessWidget {
           [Colors.yellow, Color(0x55FFEB3B)]
         ],
         durations: [35000, 19440, 10800, 6000],
-        heightPercentages: [0.9, 0.8, 0.92, 0.82],
+        heightPercentages: [0.8, 0.7, 0.78, 0.82],
         gradientBegin: Alignment.bottomLeft,
         gradientEnd: Alignment.topRight,
       ),
@@ -214,8 +214,8 @@ class _MyHomePageState extends State<MyHomePage> {
             final allWebtoonWidgets = result.entries.map<Widget>((entry) {
               final webtoonList = entry.value;
               final webtoonListWidgets = webtoonList.map<Widget>((webtoon) {
-                return Container(
-                  margin: EdgeInsets.all(8.0), // Add some margin for spacing
+                return GestureDetector(
+                  onTap: () => launch(webtoon["url"] ?? ""),
                   child: WebtoonTile(
                     title: webtoon["title"] ?? "",
                     author: webtoon["author"] ?? "",

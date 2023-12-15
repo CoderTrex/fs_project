@@ -88,23 +88,19 @@ class _MyHomePageState extends State<MyHomePage> {
         // 배경 이미지
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: FlutterFancyContainer(
-            colorOne: Colors.red,
-            colorTwo: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextField(
-                  controller: _wordController,
-                  decoration: InputDecoration(labelText: 'Enter a word'),
-                ),
-                SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () => _onSearchButtonPressed(context, email),
-                  child: Text('Webtoon Search'),
-                ),
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: _wordController,
+                decoration: InputDecoration(labelText: 'Enter a word'),
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => _onSearchButtonPressed(context, email),
+                child: Text('Webtoon Search'),
+              ),
+            ],
           ),
         ),
       ]),

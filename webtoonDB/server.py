@@ -9,7 +9,7 @@ import random
 import pymongo
 from bson import ObjectId
 from random import sample
-from datetime import datetime
+from datetime import datetime, timedelta
 from pymongo import MongoClient
 from flask import Flask, request, jsonify
 
@@ -21,7 +21,7 @@ def convert_to_json_serializable(obj):
         return str(obj)
     raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
 
-# healing and Daily     webtoon prefer
+# # healing and Daily     webtoon prefer
 # healing_daily_genre = ['DAILY', 'COMIC', 'SENSIBILITY', '육아물', '음식%26요리', '4차원', '레트로', '무해한', '공감성수치', '동물']
 # healing_daily_genre_len = 473
 
@@ -79,30 +79,15 @@ class Firebase_User_Base_INFO:
         self.collection_name = userid
         self.db = db.collection(self.collection_name)
 
-    # def create_user_base_recommendations(self):
-    
-    #     user_subscrible_list = []
-    #     documents = self.db.get()
-    #     for _title in documents:
-    #         title = _title
-            
-    #         if (title not in user_subscrible_list and title is not None):
-    #             user_subscrible_list.append(title) 
-    #             # print(title)
                 
     def create_user_base_recommendations(self):
         user_subscrible_list = []
-        
-        # Assuming self.db is a Firestore CollectionReference
-        documents = self.db.stream()  # Use stream() to get a generator of documents
-        
+        documents = self.db.stream()  
         for doc in documents:
-            title = doc.id  # Assuming title is the document ID
-            
+            title = doc.id  
             if title not in user_subscrible_list and title is not None:
                 user_subscrible_list.append(title)
                 print(title)
-        # print(user_subscrible_list)
         user_Recom_list = {genre: 0 for genre in Genre_list}
         # # MongoDB 연결
         client = MongoClient('localhost', 27017)
@@ -115,6 +100,7 @@ class Firebase_User_Base_INFO:
                 for collection in collections.find():
                     if (collection.get('title', '') == title):
                         user_Recom_list[collection.get('genre', '')] += 1
+        print("User Recommandation Weight: {0}".format(user_Recom_list))
         client.close()
         print(user_Recom_list)
         return user_Recom_list
@@ -138,6 +124,7 @@ class ModelPreferenceCalculator:
     def get_selected_model(self):
         # 가장 높은 선호도를 가진 모델 선택
         self.selected_model = max(self.model_scores, key=self.model_scores.get)
+        print("User Selected Model: {0}".format(self.selected_model))
         return self.selected_model
 
     def get_random_recommended_works(self, collection_name, num_works=100):
@@ -213,13 +200,17 @@ class ContentSetter:
     def get_today_content(self, email):
         fsdb = self.db.collection(email).get()
         result_today_dic = {}
-        date = datetime.today().weekday()
+        # date = datetime.today().weekday()
+        date = datetime.today() -  timedelta(days=4)
+        date_index = date.weekday()
+        
         
         for doc in fsdb:
             title = doc.id
             info = doc.to_dict()
             for platform in self.platform_list:
-                collection = platform[self.days[date]]
+                # collection = platform[self.days[date]]
+                collection = platform[self.days[date_index]]
                 documents = collection.find()
                 for document in documents:
                     if title == document["title"]:
@@ -253,6 +244,8 @@ class ContentSetter:
             document_ref.set(result)
             print(f"Document '{title}' created with data: {result}")
             return True
+        else:
+            print(f"\n\nDocument '{title}' ERROR\n\n")
         return False
     
     def get_info(self, title):

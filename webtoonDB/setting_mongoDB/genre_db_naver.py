@@ -87,7 +87,7 @@ for genre_index in range(0, len(Genre_list)):
         # MongoDB 연결
         client = MongoClient('localhost', 27017)
         db = client['fsdb_naver']  
-        collection = db['Genre_{0}'.format(Genre_list[genre_index])]  
+        collection = db['Video_{0}'.format(Genre_list[genre_index])]  
 
         # 위에서 사용한 코드를 그대로 가져와서 MongoDB에 데이터 넣기
         for index in range(1, 1000):
