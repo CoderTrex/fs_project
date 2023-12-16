@@ -172,12 +172,12 @@ if __name__ == '__main__':
     # else:
     #     print("Failed to get recommendations from API.")
 
-    # result_MP = get_recommendations_from_api(email_MA)
-    # if result_MP:
-    #     print("API Response: OKAY")
-    #     print(result_MP)
-    # else:
-    #     print("Failed to get recommendations from API.")
+    result_MP = get_recommendations_from_api(email_MA)
+    if result_MP:
+        print("API Response: OKAY")
+        print(result_MP)
+    else:
+        print("Failed to get recommendations from API.")
 
     # result3 = del_content_api(email_PR, title_to_del)
     # if result3:

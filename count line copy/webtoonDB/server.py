@@ -21,9 +21,9 @@ def convert_to_json_serializable(obj):
         return str(obj)
     raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
 
-# healing and Daily     webtoon prefer
-healing_daily_genre = ['DAILY', 'COMIC', 'SENSIBILITY', '육아물', '음식%26요리', '4차원', '레트로', '무해한', '공감성수치', '동물']
-healing_daily_genre_len = 473
+# # healing and Daily     webtoon prefer
+# healing_daily_genre = ['DAILY', 'COMIC', 'SENSIBILITY', '육아물', '음식%26요리', '4차원', '레트로', '무해한', '공감성수치', '동물']
+# healing_daily_genre_len = 473
 
 # provocative romance   webtoon prefer 
 provocative_romance_genre = ['PURE', 'DRAMA', '학원로맨스', '로판', '재회', '러블리', '계약연애', '퓨전사극', '전남친', '역하렘', '집착물', '궁중로맨스', 

@@ -1,0 +1,7 @@
+#CRONTAB FILE 
+# Classic crontab format:
+# Minutes Hours Days Months WeekDays Command
+
+*/1 11 * * * C:\Program Files\nodejs\node C:\Code\fs_project\webtoonDB\webtoon_api_serv\naver_api.js
+*/1 11 * * * C:\Program Files\nodejs\node C:\Code\fs_project\webtoonDB\webtoon_api_serv\kakao_page_api.js
+*/1 11 * * * C:\Program Files\nodejs\node C:\Code\fs_project\webtoonDB\webtoon_api_serv\kakao_api.js

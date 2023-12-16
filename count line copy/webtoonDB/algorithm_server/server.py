@@ -9,7 +9,6 @@ import random
 import pymongo
 from bson import ObjectId
 from random import sample
-from datetime import datetime, timedelta
 from pymongo import MongoClient
 from flask import Flask, request, jsonify
 
@@ -26,13 +25,11 @@ healing_daily_genre = ['DAILY', 'COMIC', 'SENSIBILITY', '육아물', '음식%26�
 healing_daily_genre_len = 473
 
 # provocative romance   webtoon prefer 
-provocative_romance_genre = ['PURE', 'DRAMA', '학원로맨스', '로판', '재회', '러블리', '계약연애', '퓨전사극', '전남친', '역하렘', '집착물', '궁중로맨스', 
-                                '선결혼후연애', '성별반전', '후회물', '고자극로맨스', '계략여주', '재벌', '폭스남', '연애계', '인플루언서']
+provocative_romance_genre = ['PURE', 'DRAMA', '학원로맨스', '로판', '재회', '러블리', '계약연애', '퓨전사극', '전남친', '역하렘', '집착물', '궁중로맨스', '선결혼후연애', '성별반전', '후회물', '고자극로맨스', '계략여주', '재벌', '폭스남', '연애계', '인플루언서']
 provocative_romance_genre_len = 1285
 
 # plain romance         webtoon prefer
-plain_romance_genre = ['PURE', 'DRAMA', '학원로맨스', '로판', '재회', '러블리', '직진남', '친구>연인', '하이틴', '까칠남', '동아리', '소꿉친구', '짝사랑', 
-                                '청춘로맨스', '다정남', '사내연애', '연상연하', '캠퍼스로맨스']
+plain_romance_genre = ['PURE', 'DRAMA', '학원로맨스', '로판', '재회', '러블리', '직진남', '친구>연인', '하이틴', '까칠남', '동아리', '소꿉친구', '짝사랑', '청춘로맨스', '다정남', '사내연애', '연상연하', '캠퍼스로맨스']
 plain_romance_genre_len = 1275
 
 # action                webtoon prefer
@@ -40,13 +37,12 @@ action_genre = ['HISTORICAL', '슈퍼스트링', '느와르', '격투기', '범�
 action_genre_len = 210
 
 # mass-produced         webtoon prefer
-mass_produced_genre = ['HISTORICAL', '먼치킨', '게임판타지', '아포칼립스', '소년왕도물', '다크히어로', '이세계', '차원이동', '블루스트링', '타임슬립', 
-                            '이능력배틀물', '회귀', '성장물', '헌터물']
+mass_produced_genre = ['HISTORICAL', '먼치킨', '게임판타지', '아포칼립스', '소년왕도물', '다크히어로', '이세계', '차원이동', '블루스트링', '타임슬립', '이능력배틀물', '회귀', '성장물', '헌터물']
 mass_produced_genre_len = 316
 
+
 # not mass-produced     webtoon prefer
-not_mass_produced_genre = ['THRILL', 'SPORTS', '역사물', '직업드라마', '괴담', '해외작품', '음악', '축구', '감염', '서스펜스', '스포츠성장', '농구', 
-                                '프리퀄', '하이퍼리얼리즘', '빙의', '오컬트',  '두뇌싸움']
+not_mass_produced_genre = ['THRILL', 'SPORTS', '역사물', '직업드라마', '괴담', '해외작품', '음악', '축구', '감염', '서스펜스', '스포츠성장', '농구', '프리퀄', '하이퍼리얼리즘', '빙의', '오컬트',  '두뇌싸움']
 not_mass_produced_genre_len = 466
 
 Genre_list = [
@@ -64,7 +60,7 @@ Genre_list = [
 
 # 모델 리스트
 models = {
-    # 'healing_daily_genre': healing_daily_genre,
+    'healing_daily_genre': healing_daily_genre,
     'provocative_romance_genre': provocative_romance_genre,
     'plain_romance_genre': plain_romance_genre,
     'action_genre': action_genre,
@@ -79,30 +75,24 @@ class Firebase_User_Base_INFO:
         self.collection_name = userid
         self.db = db.collection(self.collection_name)
 
-                
     def create_user_base_recommendations(self):
         user_subscrible_list = []
-        documents = self.db.stream()  
-        for doc in documents:
-            title = doc.id  
-            if title not in user_subscrible_list and title is not None:
-                user_subscrible_list.append(title)
-                print(title)
+        documents = self.db.get()
+        for _title in documents:
+            title = _title
+            if (title not in user_subscrible_list and title is not None):
+                user_subscrible_list.append(title)    
         user_Recom_list = {genre: 0 for genre in Genre_list}
         # # MongoDB 연결
         client = MongoClient('localhost', 27017)
         db = client['fsdb_naver']
         for title in user_subscrible_list:
-            # print(title)
             for genre_index in range(len(Genre_list)):
                 collections = db['Genre_{0}'.format(Genre_list[genre_index])]
-                # print(Genre_list[genre_index])
                 for collection in collections.find():
                     if (collection.get('title', '') == title):
                         user_Recom_list[collection.get('genre', '')] += 1
-        print("User Recommandation Weight: {0}".format(user_Recom_list))
         client.close()
-        print(user_Recom_list)
         return user_Recom_list
 
 class ModelPreferenceCalculator:
@@ -124,7 +114,6 @@ class ModelPreferenceCalculator:
     def get_selected_model(self):
         # 가장 높은 선호도를 가진 모델 선택
         self.selected_model = max(self.model_scores, key=self.model_scores.get)
-        print("User Selected Model: {0}".format(self.selected_model))
         return self.selected_model
 
     def get_random_recommended_works(self, collection_name, num_works=100):
@@ -137,14 +126,8 @@ class ModelPreferenceCalculator:
         
         random_indices = random.sample(range(total_document), min(num_works, total_document))
         random_documents = list(collection.find().limit(num_works).skip(random_indices[0]))
-        
-        fsdb = self.db.collection(self.email + "_recommendation")
-        docs = fsdb.stream()
-        for doc in docs:
-            doc.reference.delete()
         for random_document in random_documents:
             result = {
-                "title" : random_document["title"],
                 "url": random_document["url"],
                 "img": random_document["img"],
                 "author": random_document["author"],
@@ -156,13 +139,28 @@ class ModelPreferenceCalculator:
             document = document_ref.get()
 
             if document.exists:
-                continue
-                # print(f"Document '{document.get('title')}' already exists. Skipping update.")
+                print(f"Document '{document.get('title')}' already exists. Skipping update.")
             else:
                 document_ref.set(result)
-                # print(f"Document '{random_document['title']}' created with data: {result}")
+                print(f"Document '{random_document['title']}' created with data: {result}")
 
+            
         return random_documents
+
+    def save_results_to_json(self, filename):
+        def custom_encoder(obj):
+            if isinstance(obj, ObjectId):
+                return str(obj)
+            raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
+        
+        
+        results = {
+            "SelectedModel": self.get_selected_model(),
+            "RandomRecommendedWorks": self.get_random_recommended_works(f'model_{self.selected_model}', num_works=100)
+        }
+
+        with open(filename, 'w') as json_file:
+            json.dump(results, json_file, indent=2, default=custom_encoder)
 
 class ContentSetter:
     def __init__(self, db, client):
@@ -171,53 +169,8 @@ class ContentSetter:
         self.db_kakao = client["fsdb_kakao"]
         self.db_kakopage = client["fsdb_kakaopage"]
         self.platform_list = [self.db_naver, self.db_kakao, self.db_kakopage]
-        self.days = ['mons', 'tues', 'weds', 'thus', 'fris', 'sats', 'suns', 'finisheds']
-
-    def get_content(self, email):
-        fsdb = self.db.collection(email).get()
-        result_dic = {}
-        date = datetime.today().weekday()
-        for doc in fsdb:
-            title = doc.id
-            info = doc.to_dict()
-            if title not in result_dic:
-                result_dic[title] = []
-            result_dic[title].append(info)
-        return result_dic
-    
-    def get_reco_content(self, email):
-        email = email + "_recommendation"
-        fsdb = self.db.collection(email).get()
-        result_dic = {}
-        for doc in fsdb:
-            title = doc.id
-            info = doc.to_dict()
-            if title not in result_dic:
-                result_dic[title] = []
-            result_dic[title].append(info)
-        return result_dic
-
-    def get_today_content(self, email):
-        fsdb = self.db.collection(email).get()
-        result_today_dic = {}
-        # date = datetime.today().weekday()
-        date = datetime.today() -  timedelta(days=4)
-        date_index = date.weekday()
-        
-        
-        for doc in fsdb:
-            title = doc.id
-            info = doc.to_dict()
-            for platform in self.platform_list:
-                # collection = platform[self.days[date]]
-                collection = platform[self.days[date_index]]
-                documents = collection.find()
-                for document in documents:
-                    if title == document["title"]:
-                        if title not in result_today_dic:
-                            result_today_dic[title] = []
-                        result_today_dic[title].append(info)
-        return result_today_dic
+        self.days_naver = ['mons', 'tues', 'weds', 'thus', 'fris', 'sats', 'suns', 'finisheds']
+        self.days = ['mons', 'tues', 'weds', 'thus', 'fris', 'sats', 'suns']
 
     def set_content(self, email, title):
         fsdb = self.db.collection(email)
@@ -225,45 +178,41 @@ class ContentSetter:
         result = {}
 
         for platform in self.platform_list:
-            for day in self.days:
-                collection = platform[day]
-                documents = collection.find()
-                for document in documents:
-                    if title == document["title"]:
-                        result = {
-                            "title" : document["title"],
-                            "url": document["url"],
-                            "img": document["img"],
-                            "author": document["author"],
-                            "service": document["service"]
-                        }
-                        find = True
+            if platform == self.db_naver:
+                for day in self.days_naver:
+                    collection = platform[day]
+                    documents = collection.find()
+                    for document in documents:
+                        if title == document["title"]:
+                            result = {
+                                "url": document["url"],
+                                "img": document["img"],
+                                "author": document["author"],
+                                "service": document["service"]
+                            }
+                            find = True
+            else:
+                for day in self.days:
+                    collection = platform[day]
+                    documents = collection.find()
+                    for document in documents:
+                        if title == document["title"]:
+                            result = {
+                                "url": document["url"],
+                                "img": document["img"],
+                                "author": document["author"],
+                                "service": document["service"]
+                            }
+                            find = True
+
         if find:
             document_ref = fsdb.document(title)
             document = document_ref.get()
-            document_ref.set(result)
-            print(f"Document '{title}' created with data: {result}")
-            return True
-        else:
-            print(f"\n\nDocument '{title}' ERROR\n\n")
-        return False
-    
-    def get_info(self, title):
-        result = {}
-        for platform in self.platform_list:
-            for day in self.days:
-                collection = platform[self.days]
-                documents = collection.find()
-                for document in documents:
-                    if title == document["title"]:
-                        result = {
-                            "title" : document["title"],
-                            "url": document["url"],
-                            "img": document["img"],
-                            "author": document["author"],
-                            "service": document["service"]
-                        }
-                        return result
+            if document.exists:
+                print(f"Document '{title}' already exists. Skipping update.")
+            else:
+                document_ref.set(result)
+                print(f"Document '{title}' created with data: {result}")
 
     def del_content(self, email, title):
         fsdb = self.db.collection(email)
@@ -287,32 +236,16 @@ class MyAPI:
         self.db = firestore.client()
         self.content_setter = ContentSetter(self.db, self.client)
         
-        # api_get_today_content
         # Flask 라우트 등록
-        self.app.add_url_rule('/api_get_content', 'api_get_content', self.api_get_content, methods=['GET'])
-        self.app.add_url_rule('/api_get_today_content', 'api_get_today_content', self.api_get_today_content, methods=['GET'])
         self.app.add_url_rule('/api_set_content', 'api_set_content', self.api_set_content, methods=['GET'])
         self.app.add_url_rule('/api_del_content', 'api_del_content', self.api_del_content, methods=['GET'])
-        self.app.add_url_rule('/api_get_reco_content', 'api_get_reco_content', self.api_get_reco_content, methods=['GET'])
-        self.app.add_url_rule('/api_set_recommendations', 'api_set_recommendations', self.api_set_recommendations, methods=['GET'])
-
-    def api_get_content(self):
-        email = request.args.get('email')
-        result = self.content_setter.get_content(email)
-        return result
-    
-    def api_get_today_content(self):
-        email = request.args.get('email')
-        result = self.content_setter.get_today_content(email)
-        return result
+        self.app.add_url_rule('/get_recommendations', 'get_recommendations', self.get_recommendations, methods=['GET'])
 
     def api_set_content(self):
         email = request.args.get('email')
         title = request.args.get('title')
-        reply = self.content_setter.set_content(email, title)
-        if (reply):
-            return jsonify({"message": "Content setting complete."})
-        return jsonify({""})
+        self.content_setter.set_content(email, title)
+        return jsonify({"message": "Content setting complete."})
 
     def api_del_content(self):
         email = request.args.get('email')
@@ -321,16 +254,12 @@ class MyAPI:
         return jsonify({"message": "Content setting complete."})
 
     def api_get_info(self):
-        name_title = request.args.get('title')
-        result = self.get_info(name_title)
-        return jsonify(result)
-    
-    def api_get_reco_content(self):
         email = request.args.get('email')
-        result = self.content_setter.get_reco_content(email)
-        return result
+        name_title = request.args.get('title')
+        result = self.get_info(email, name_title)
+        return jsonify(result)
 
-    def api_set_recommendations(self):
+    def get_recommendations(self):
         try:
             # 사용자 ID 받기
             email = request.json.get('email')
@@ -353,13 +282,9 @@ class MyAPI:
                 json_result = json.dumps(result, default=convert_to_json_serializable, ensure_ascii=False)
             except Exception as e:
                 print(f"Error: {e}")
-            # return jsonify({"message": "Content setting complete."})
-            # return True
             return jsonify(json_result)
         except Exception as e:
-            print(f"Error: {e}")
-            
-            # return False
+            return jsonify({"error": str(e)})
 
     def run(self):
         self.app.run(debug=True)
