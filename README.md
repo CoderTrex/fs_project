@@ -23,19 +23,55 @@
     mongodb의 구조는 다음과 같습니다.
    
 
-    # MONGODB DATABASE 구조 #   
-   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/d2c1645e-edea-4b9e-b1e1-90391edf1dce)
-    # MONGODB kakao db collection 구조# 
-   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/7eef8df6-10d9-4935-b0e3-cd24f0b8afcf)
-    # MONGODB kakao page db collection 구조#
-   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/b15e38e2-74be-4f7e-a729-0d3eae99da8e)
-    # MONGODB kakao page db collection 구조#
-    장르 예시 
-   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/6a484c5c-1f35-4f83-a192-633ef5e3e6d9)
-    모델 예시
-   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/d7ceae30-22b4-43a2-aba5-d25a35f4f644)
-    요일 예시
-   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/49e39430-e51f-46e2-9d15-07985b7c3dae)
+<details>
+  <summary><b>MONGODB DATABASE 구조</b></summary>
+  <p align="center">
+    <img src="https://github.com/CoderTrex/fs_project/assets/80687043/d2c1645e-edea-4b9e-b1e1-90391edf1dce" alt="MongoDB Database Structure">
+  </p>
+</details>
+
+<details>
+  <summary><b>MONGODB kakao db collection 구조</b></summary>
+  <p align="center">
+    <img src="https://github.com/CoderTrex/fs_project/assets/80687043/7eef8df6-10d9-4935-b0e3-cd24f0b8afcf" alt="MongoDB Kakao Collection Structure">
+  </p>
+</details>
+
+<details>
+  <summary><b>MONGODB kakao page db collection 구조</b></summary>
+  <p align="center">
+    <img src="https://github.com/CoderTrex/fs_project/assets/80687043/b15e38e2-74be-4f7e-a729-0d3eae99da8e" alt="MongoDB Kakao Page Collection Structure">
+  </p>
+</details>
+
+<details>
+  <summary><b>MONGODB naver db collection 구조</b></summary>
+  <p align="center">
+    <img src="https://github.com/CoderTrex/fs_project/assets/80687043/6a484c5c-1f35-4f83-a192-633ef5e3e6d9" alt="MongoDB Naver Collection Structure">
+  </p>
+</details>
+
+<details>
+  <summary><b>장르 예시</b></summary>
+  <p align="center">
+    <img src="https://github.com/CoderTrex/fs_project/assets/80687043/49e39430-e51f-46e2-9d15-07985b7c3dae" alt="Genre Example">
+  </p>
+</details>
+
+<details>
+  <summary><b>모델 예시</b></summary>
+  <p align="center">
+    <img src="https://github.com/CoderTrex/fs_project/assets/80687043/d7ceae30-22b4-43a2-aba5-d25a35f4f644" alt="Model Example">
+  </p>
+</details>
+
+<details>
+  <summary><b>요일 예시</b></summary>
+  <p align="center">
+    <img src="https://github.com/CoderTrex/fs_project/assets/80687043/49e39430-e51f-46e2-9d15-07985b7c3dae" alt="Day Example">
+  </p>
+</details>
+
 
 3. `project` 폴더에서 클라이언트 실행을 위한 환경을 구축하세요.
 
