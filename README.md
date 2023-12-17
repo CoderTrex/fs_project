@@ -19,8 +19,25 @@
 프로젝트를 실행하기 위해서는 다음 단계를 따르세요:
 
 1. `node_modules` 폴더에서 필요한 설정을 진행하세요.
-2. `project` 폴더에서 클라이언트 실행을 위한 환경을 구축하세요.
-3. `webtoonDB` 폴더에서 데이터베이스와 관련된 설정을 확인하고 필요한 알고리즘을 실행하세요.
+2. `webtoonDB` 폴더에서 데이터베이스와 관련된 설정을 확인하고 필요한 알고리즘을 실행하세요. 요일별, 장르별, 모델별 DB가 클라이언트의 안에 구성이 되어야합니다.
+    mongodb의 구조는 다음과 같습니다.
+   
+
+    # MONGODB DATABASE 구조 #   
+   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/d2c1645e-edea-4b9e-b1e1-90391edf1dce)
+    # MONGODB kakao db collection 구조# 
+   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/7eef8df6-10d9-4935-b0e3-cd24f0b8afcf)
+    # MONGODB kakao page db collection 구조#
+   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/b15e38e2-74be-4f7e-a729-0d3eae99da8e)
+    # MONGODB kakao page db collection 구조#
+    장르 예시 
+   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/6a484c5c-1f35-4f83-a192-633ef5e3e6d9)
+    모델 예시
+   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/d7ceae30-22b4-43a2-aba5-d25a35f4f644)
+    요일 예시
+   ![image](https://github.com/CoderTrex/fs_project/assets/80687043/49e39430-e51f-46e2-9d15-07985b7c3dae)
+
+3. `project` 폴더에서 클라이언트 실행을 위한 환경을 구축하세요.
 
 ## 주의사항
 - 프로젝트는 Windows 환경에서 Visual Studio Code를 사용하여 개발되었으므로, 다른 환경에서 실행 시 주의가 필요합니다.
