@@ -45,11 +45,14 @@
         <details>
           <summary><b>MONGODB naver db collection 구조</b></summary>
           <p align="center">
-              <details>
+            <img src="https://github.com/CoderTrex/fs_project/assets/80687043/6a484c5c-1f35-4f83-a192-633ef5e3e6d9" alt="MongoDB Naver Collection Structure">
+          </p>
+        </details>
+        
+        <details>
           <summary><b>장르 예시</b></summary>
           <p align="center">
-            <img src=![image](https://github.com/CoderTrex/fs_project/assets/80687043/55387771-83e1-4ae0-afd3-d6fd30891036)
- alt="Genre Example">
+            <img src="https://github.com/CoderTrex/fs_project/assets/80687043/49e39430-e51f-46e2-9d15-07985b7c3dae" alt="Genre Example">
           </p>
         </details>
         
@@ -64,9 +67,6 @@
           <summary><b>요일 예시</b></summary>
           <p align="center">
             <img src="https://github.com/CoderTrex/fs_project/assets/80687043/49e39430-e51f-46e2-9d15-07985b7c3dae" alt="Day Example">
-          </p>
-        </details>
-            
           </p>
         </details>
 
