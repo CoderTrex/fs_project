@@ -48,7 +48,8 @@
               <details>
           <summary><b>장르 예시</b></summary>
           <p align="center">
-            <img src="https://github.com/CoderTrex/fs_project/assets/80687043/267b48ef-04f7-4b24-b6a8-94fefbf1a889" alt="Genre Example">
+            <img src=![image](https://github.com/CoderTrex/fs_project/assets/80687043/55387771-83e1-4ae0-afd3-d6fd30891036)
+ alt="Genre Example">
           </p>
         </details>
         
