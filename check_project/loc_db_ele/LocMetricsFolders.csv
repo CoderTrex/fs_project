@@ -1,0 +1,8 @@
+Folder,Files,LOC,SLOC-P,SLOC-L,MVG,BLOC,C&SLOC,CLOC,CWORD,HCLOC,HCWORD
+Total,31,7230,4298,2218,519,725,39,2207,12445,356,1854
+C:\Code\fs_project\count line copy\db element,31,7230,4298,2218,519,725,39,2207,12445,356,1854
+C:\Code\fs_project\count line copy\db element\algorithm_server,6,833,703,39,78,130,0,0,0,0,0
+C:\Code\fs_project\count line copy\db element\api_connection,5,334,267,180,8,46,36,21,201,0,0
+C:\Code\fs_project\count line copy\db element\serverLoc,1,369,321,20,52,48,0,0,0,0,0
+C:\Code\fs_project\count line copy\db element\setting_mongoDB,9,603,473,36,45,130,3,0,3,0,0
+C:\Code\fs_project\count line copy\db element\src,10,5091,2534,1943,336,371,0,2186,12241,356,1854
