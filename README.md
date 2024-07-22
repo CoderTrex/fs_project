@@ -27,6 +27,7 @@ The `project` folder contains the client-side code. The development environment 
 ### 4. `webtoonDB`
 The `webtoonDB` folder contains essential data required by the server to function. The server uses this data to communicate with the client. The project will not work without configuring the database in this folder correctly.
 
+
 ## Project Crawling
 
 PROJECT_NAME : fss_project
